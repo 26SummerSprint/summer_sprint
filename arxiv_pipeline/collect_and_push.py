@@ -13,6 +13,10 @@ collector.py / preprocess.py를 그대로 재사용하므로 무거운 임베딩
 사용 예:
     python collect_and_push.py --days 7
     python collect_and_push.py --days 14 --categories cs.RO cs.CV
+
+    # 특정 기간만 지정 (이미 수집한 구간을 다시 안 훑고 싶을 때 유용)
+    python collect_and_push.py --start-date 2026-04-01 --end-date 2026-04-30
+    python collect_and_push.py --start-date 2026-03-01   # end-date 생략 시 오늘까지
 """
 
 import argparse
@@ -71,22 +75,19 @@ def _push_batch(papers, total_changed, total_embedded, batch_label):
     return total_changed, total_embedded
 
 
-def collect_and_push(days: int, categories: list, chunk_days: int = 7):
+def collect_and_push_range(start: datetime, end: datetime, categories: list, chunk_days: int = 7):
     """
     arXiv API는 한 쿼리의 페이지네이션이 약 10,000건을 넘어가면 HTTP 500을 낸다
-    (arXiv 서버 쪽 제약). collector.fetch_by_date_range_chunked가 전체 기간을
+    (arXiv 서버 쪽 제약). collector.fetch_by_date_range_chunked가 [start, end) 구간을
     chunk_days 단위 창으로 쪼개서 순서대로 조회해주므로, 여기서는 창마다
     중복 제거 + 서버 전송만 하면 된다.
     """
-    end = datetime.now(timezone.utc)
-    overall_start = end - timedelta(days=days)
-
     total_changed = 0
     total_embedded = 0
     window_no = 0
 
     for window_start, window_end, raw_papers in fetch_by_date_range_chunked(
-        overall_start, end, categories, chunk_days=chunk_days
+        start, end, categories, chunk_days=chunk_days
     ):
         window_no += 1
         label = f"{window_start.date()}~{window_end.date()}"
@@ -101,11 +102,34 @@ def collect_and_push(days: int, categories: list, chunk_days: int = 7):
     print(f"완료: 총 신규/갱신 {total_changed}건, 임베딩 {total_embedded}건")
 
 
+def collect_and_push(days: int, categories: list, chunk_days: int = 7):
+    """최근 N일치 수집 (오늘부터 거꾸로). 편의용 래퍼."""
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=days)
+    collect_and_push_range(start, end, categories, chunk_days)
+
+
+def _parse_date(s: str) -> datetime:
+    return datetime.strptime(s, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="본인 노트북에서 arXiv 수집 후 공유 서버 DB에 반영"
     )
-    parser.add_argument("--days", type=int, default=7, help="최근 N일치 수집 (기본 7일)")
+    parser.add_argument(
+        "--days", type=int, default=None,
+        help="최근 N일치 수집 (기본값, --start-date를 안 쓸 때만 적용됨. 기본 7일)",
+    )
+    parser.add_argument(
+        "--start-date", type=str, default=None,
+        help="수집 시작일 YYYY-MM-DD. 지정하면 --days 대신 이 구간을 사용 "
+             "(이미 수집한 최근 구간을 다시 안 훑고 싶을 때 유용)",
+    )
+    parser.add_argument(
+        "--end-date", type=str, default=None,
+        help="수집 종료일 YYYY-MM-DD. --start-date와 함께 사용, 생략하면 오늘까지",
+    )
     parser.add_argument(
         "--categories", nargs="+", default=["cs.RO", "cs.CV", "cs.CL"],
         help="수집할 카테고리 목록 (기본: cs.RO cs.CV cs.CL)",
@@ -117,4 +141,17 @@ if __name__ == "__main__":
              "긴 기간을 수집할 땐 이 값을 줄이세요 (예: 3).",
     )
     args = parser.parse_args()
-    collect_and_push(args.days, args.categories, args.chunk_days)
+
+    if args.start_date:
+        range_start = _parse_date(args.start_date)
+        # end-date는 '그 날짜까지 포함'이 직관적이므로 다음날 0시를 경계로 사용
+        range_end = (
+            _parse_date(args.end_date) + timedelta(days=1)
+            if args.end_date
+            else datetime.now(timezone.utc)
+        )
+        print(f"지정 구간 수집: {range_start.date()} ~ {(range_end - timedelta(days=1)).date()}")
+        collect_and_push_range(range_start, range_end, args.categories, args.chunk_days)
+    else:
+        days = args.days if args.days is not None else 7
+        collect_and_push(days, args.categories, args.chunk_days)
