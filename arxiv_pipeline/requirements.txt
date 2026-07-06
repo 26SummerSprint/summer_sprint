@@ -1,5 +1,11 @@
 arxiv>=2.1.0
-sentence-transformers>=2.7.0
 chromadb>=0.5.0
 fastapi>=0.111.0
 uvicorn[standard]>=0.30.0
+
+# torch는 반드시 CPU 전용 빌드를 먼저 설치할 것 (GPU 없는 서버에서 기본 설치하면
+# CUDA 부속 패키지까지 딸려와서 500MB+ 커지고, 작은 디스크(EC2 프리티어 등)에서
+# "Disk quota exceeded" 에러가 남):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install sentence-transformers
+sentence-transformers>=2.7.0

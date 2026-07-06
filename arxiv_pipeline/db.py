@@ -57,7 +57,9 @@ class PaperRecord:
 
 @contextmanager
 def get_conn():
-    conn = sqlite3.connect(SQLITE_PATH)
+    # timeout을 넉넉히 잡음: 팀원 여러 명이 동시에 /papers/ingest로 쓰기 요청을 보낼 수 있어서
+    # (SQLite는 동시 쓰기가 1개씩 순차 처리되므로, 락 대기 중 바로 에러내지 않도록)
+    conn = sqlite3.connect(SQLITE_PATH, timeout=30)
     conn.execute("PRAGMA foreign_keys = ON;")
     try:
         yield conn

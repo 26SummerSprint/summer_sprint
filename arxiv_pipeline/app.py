@@ -18,8 +18,17 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel
 
 from config import API_KEY
-from db import count_papers, get_conn, get_paper_by_id, get_papers_by_ids, init_db
-from embedder import search_similar
+from db import (
+    PaperRecord,
+    count_papers,
+    get_conn,
+    get_paper_by_id,
+    get_papers_by_ids,
+    init_db,
+    upsert_paper,
+)
+from embedder import embed_pending_papers, search_similar
+from preprocess import clean_abstract
 
 app = FastAPI(title="arXiv Paper Search API", version="1.0")
 
@@ -49,6 +58,32 @@ class SearchResultItem(BaseModel):
     abs_url: Optional[str] = None
     pdf_url: Optional[str] = None
     abstract_clean: Optional[str] = None
+
+
+class RawPaperIn(BaseModel):
+    """팀원이 본인 노트북에서 arXiv로 수집한 원본 논문 1건 (abstract_clean은 서버가 계산)."""
+    arxiv_id: str
+    version: int = 1
+    title: str
+    authors: List[str]
+    abstract_raw: str
+    categories: List[str]
+    primary_category: str
+    comments: Optional[str] = None
+    submitted_date: str  # ISO 8601
+    updated_date: str  # ISO 8601
+    abs_url: str
+    pdf_url: str
+
+
+class IngestRequest(BaseModel):
+    papers: List[RawPaperIn]
+    auto_embed: bool = True  # 저장 직후 바로 임베딩까지 계산할지 여부
+
+
+class IngestResponse(BaseModel):
+    ingested_or_updated: int
+    newly_embedded: int
 
 
 class PaperDetail(BaseModel):
@@ -103,6 +138,38 @@ def search(req: SearchRequest):
             )
         )
     return items
+
+
+@app.post("/papers/ingest", response_model=IngestResponse, dependencies=[Depends(verify_api_key)])
+def ingest_papers(req: IngestRequest):
+    """
+    팀원이 본인 노트북에서 arXiv 수집(collect_and_push.py)한 결과를 공유 DB에 반영.
+    - 초록 클린업(clean_abstract)과 버전 비교 upsert는 서버가 일괄 처리 (규칙 일원화).
+    - auto_embed=True(기본값)면 저장 직후 이 서버에서 임베딩까지 계산해 바로 검색 가능해짐.
+    """
+    changed = 0
+    with get_conn() as conn:
+        for p in req.papers:
+            record = PaperRecord(
+                arxiv_id=p.arxiv_id,
+                version=p.version,
+                title=p.title,
+                authors=p.authors,
+                abstract_raw=p.abstract_raw,
+                abstract_clean=clean_abstract(p.abstract_raw),
+                categories=p.categories,
+                primary_category=p.primary_category,
+                comments=p.comments,
+                submitted_date=p.submitted_date,
+                updated_date=p.updated_date,
+                abs_url=p.abs_url,
+                pdf_url=p.pdf_url,
+            )
+            if upsert_paper(conn, record):
+                changed += 1
+
+    newly_embedded = embed_pending_papers() if req.auto_embed else 0
+    return IngestResponse(ingested_or_updated=changed, newly_embedded=newly_embedded)
 
 
 @app.get("/papers/{arxiv_id}", response_model=PaperDetail, dependencies=[Depends(verify_api_key)])
