@@ -130,6 +130,8 @@ def fetch_by_date_range_chunked(
     end: datetime,
     categories: List[str] = None,
     chunk_days: int = 7,
+    max_retries: int = 5,
+    retry_base_seconds: int = 30,
 ):
     """
     arXiv API는 한 쿼리의 페이지네이션 offset이 대략 10,000을 넘으면 HTTP 500을 낸다
@@ -139,11 +141,41 @@ def fetch_by_date_range_chunked(
     이 함수는 전체 기간을 chunk_days 단위 창으로 쪼개서 **start부터 시간순으로**
     조회하고, 각 창의 결과를 (window_start, window_end, papers) 튜플로 하나씩
     yield한다. 창 하나의 결과가 10,000건을 넘는 일은 거의 없다.
+
+    또한 몇 시간짜리 장시간 수집 중 arXiv가 rate limit(429)이나 일시 장애(503)를
+    걸 수 있는데, arxiv 라이브러리 자체 재시도(num_retries)가 다 소진되면 예외가
+    그대로 올라와서 전체 작업이 죽어버린다. 그래서 창 단위로 한 번 더 재시도를
+    감싸서(대기 시간을 점점 늘려가며), 일시적인 장애로 몇 시간의 진행 상황이
+    통째로 날아가지 않게 한다. max_retries를 다 소진한 창은 빈 결과로 건너뛰고
+    경고를 출력한다 (나중에 그 구간만 --start-date/--end-date로 재수집 가능).
     """
     window_start = start
     while window_start < end:
         window_end = min(end, window_start + timedelta(days=chunk_days))
-        papers = list(fetch_by_date_range(window_start, window_end, categories))
+        label = f"{window_start.date()}~{window_end.date()}"
+
+        papers = []
+        for attempt in range(1, max_retries + 1):
+            try:
+                papers = list(fetch_by_date_range(window_start, window_end, categories))
+                break
+            except Exception as e:
+                if attempt >= max_retries:
+                    print(
+                        f"[경고] {label} 구간 조회가 {max_retries}회 모두 실패했습니다 "
+                        f"({e}). 이 구간은 건너뜁니다 — 나중에 이 기간만 "
+                        f"--start-date {window_start.date()} --end-date {window_end.date()} "
+                        f"로 다시 수집하세요."
+                    )
+                    papers = []
+                    break
+                wait = retry_base_seconds * attempt
+                print(
+                    f"[경고] {label} 구간 조회 실패({e}), {wait}초 대기 후 재시도 "
+                    f"({attempt}/{max_retries})..."
+                )
+                time.sleep(wait)
+
         yield window_start, window_end, papers
         window_start = window_end
 

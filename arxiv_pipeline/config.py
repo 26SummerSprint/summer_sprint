@@ -15,7 +15,6 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 SQLITE_PATH = DATA_DIR / "papers.db"
 CHROMA_DIR = DATA_DIR / "chroma"
-COLLECTION_NAME = "arxiv_papers"
 
 # Chroma는 항상 이 서버(AWS 인스턴스) 안에서 PersistentClient로 로컬 실행됨.
 # 팀원과의 공유는 아래 FastAPI 계층이 담당하므로, 팀원 쪽 머신은 chromadb/임베딩
@@ -35,6 +34,19 @@ API_KEY = os.environ.get("ARXIV_API_KEY", "change-me-team-secret")
 # 더 높은 품질이 필요하면 "BAAI/bge-base-en-v1.5" 로 교체 가능(속도는 느려짐).
 EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 EMBEDDING_BATCH_SIZE = 64
+
+# 모델별로 컬렉션을 분리해서 저장. 임베딩 모델을 바꿔가며 실험해도
+# 기존 컬렉션(벡터)이 삭제/충돌되지 않고 그대로 남아있음 (모델명이 바뀌면
+# 자동으로 새 컬렉션이 생성되고, 이전 모델의 컬렉션은 그대로 보존됨).
+# 단, 기존 기본 모델("BAAI/bge-small-en-v1.5")은 이미 서버에 "arxiv_papers"라는
+# 이름으로 데이터가 쌓여있으므로 하위 호환을 위해 그대로 유지하고,
+# 그 외 모델로 바꿨을 때만 새 규칙(모델명을 붙인 이름)을 적용함.
+# 예: "BAAI/bge-base-en-v1.5" -> "arxiv_papers_BAAI_bge-base-en-v1.5"
+_DEFAULT_MODEL_NAME = "BAAI/bge-small-en-v1.5"
+if EMBEDDING_MODEL_NAME == _DEFAULT_MODEL_NAME:
+    COLLECTION_NAME = "arxiv_papers"
+else:
+    COLLECTION_NAME = "arxiv_papers_" + EMBEDDING_MODEL_NAME.replace("/", "_")
 
 # ── arXiv API 호출 관련 ───────────────────────────────────
 # 라이브러리 내부적으로 페이지당 결과 수. 너무 크게 잡으면 API가 종종 끊기므로 100 권장.
