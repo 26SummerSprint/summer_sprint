@@ -100,6 +100,7 @@ summer_sprint/                      # 저장소 루트 (GitHub 공유 대상)
 | `main.py` | 실행 계층(서버 전용) | 위 전부 | 수집 파이프라인 전체를 묶어 실행하는 CLI |
 | `app.py` | API 계층(서버 전용) | 위 전부 + `fastapi`, `uvicorn` | 팀 공유 REST API 서버 |
 | `client_example.py` | 클라이언트 계층 | `requests` (가벼움) | 팀원이 검색/조회할 때 쓰는 함수 모음 |
+| `colab_client.ipynb` | 클라이언트 계층 | `requests`, `pandas` (코랩 기본 제공) | `client_example.py`의 Google Colab 버전. 저장소 클론 없이 노트북 하나로 검색/조회/라벨링 후보 CSV 추출. API 키는 셀 실행 시 입력받아 파일에 저장되지 않음 |
 | `collect_and_push.py` | 클라이언트 계층 | `requests`, `arxiv` (가벼움) | 팀원이 본인 PC에서 수집→서버 반영 |
 | `local_config.example.py` / `local_config.py` | 설정 | 없음 | 클라이언트가 접속할 서버 주소/키 |
 
@@ -499,6 +500,7 @@ sequenceDiagram
 |---|---|
 | 논문 검색 | `search()` - from client_example import search
 search("내 관심 연구주제 설명", top_k=20, category="cs.RO") |
+| 로컬 환경 세팅 없이 코랩에서 검색 | `colab_client.ipynb`를 Colab에서 열고 셀 순서대로 실행 (API_BASE/API_KEY만 입력하면 됨) |
 | 논문 수집 | `python collect_and_push.py --start-date 2026-01-01 --end-date 2026-07-06` |
 | 새로운 필터/검색 조건 추가 | `app.py`의 `search()` + `SearchRequest` 모델, 필요시 `embedder.search_similar()` |
 | 수집 카테고리 변경 | `config.py`의 `CATEGORIES` |
