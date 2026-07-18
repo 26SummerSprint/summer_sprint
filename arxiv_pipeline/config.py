@@ -6,9 +6,9 @@
 from pathlib import Path
 
 # ── 수집 대상 카테고리 ──────────────────────────────────────
-# cs.IR = Information Retrieval (검색·추천시스템). 풀이 좁아(하루 ~10건) 고밀도 벤치마크에 적합.
-# (기존 cs.CL/cs.LG에서 변경 — 빠진 카테고리 데이터 정리는 reset_data.py 참고)
-CATEGORIES = ["cs.RO", "cs.CV", "cs.IR"]
+# 로봇(cs.RO)·비전(cs.CV)·자연어처리(cs.CL). 팀 논의 결과 초기 구성 유지로 확정.
+# (카테고리를 바꾸게 되면 빠진 카테고리의 데이터 정리는 reset_data.py 참고)
+CATEGORIES = ["cs.RO", "cs.CV", "cs.CL"]
 
 # ── 저장 경로 ────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent
