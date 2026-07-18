@@ -103,6 +103,19 @@ def embed_pending_papers(batch_size: int = EMBEDDING_BATCH_SIZE) -> int:
     return total
 
 
+def delete_vectors(arxiv_ids: List[str]) -> None:
+    """모든 Chroma 컬렉션에서 해당 id의 벡터 삭제 (SQLite 삭제와 함께 사용).
+    모델별로 컬렉션이 분리되어 있을 수 있으므로 전체 컬렉션을 순회한다."""
+    ids = list(arxiv_ids)
+    if not ids:
+        return
+    get_collection()  # _client 초기화 보장
+    for c in _client.list_collections():
+        col = _client.get_collection(c.name)
+        for i in range(0, len(ids), 500):
+            col.delete(ids=ids[i : i + 500])
+
+
 def search_similar(
     query_text: str,
     top_k: int = 20,
