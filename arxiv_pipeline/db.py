@@ -160,6 +160,29 @@ def mark_embedded(conn: sqlite3.Connection, arxiv_ids: Iterable[str]):
     )
 
 
+def delete_papers_by_ids(conn: sqlite3.Connection, arxiv_ids: Iterable[str]) -> int:
+    """arxiv_id 목록에 해당하는 논문을 삭제. 반환값: 실제 삭제된 행 수.
+    (Chroma 벡터 삭제는 별도 — embedder.delete_vectors()를 함께 호출할 것)"""
+    ids = list(arxiv_ids)
+    total = 0
+    for i in range(0, len(ids), 500):
+        chunk = ids[i : i + 500]
+        placeholders = ", ".join("?" for _ in chunk)
+        cur = conn.execute(
+            f"DELETE FROM papers WHERE arxiv_id IN ({placeholders})", chunk
+        )
+        total += cur.rowcount
+    return total
+
+
+def get_ids_by_primary_category(conn: sqlite3.Connection, category: str) -> list:
+    """primary_category가 일치하는 arxiv_id 목록 (삭제 대상 조회용)."""
+    cur = conn.execute(
+        "SELECT arxiv_id FROM papers WHERE primary_category = ?", (category,)
+    )
+    return [r[0] for r in cur.fetchall()]
+
+
 def count_papers(conn: sqlite3.Connection) -> int:
     return conn.execute("SELECT COUNT(*) FROM papers").fetchone()[0]
 

@@ -21,13 +21,15 @@ from config import API_KEY
 from db import (
     PaperRecord,
     count_papers,
+    delete_papers_by_ids,
     get_conn,
+    get_ids_by_primary_category,
     get_paper_by_id,
     get_papers_by_ids,
     init_db,
     upsert_paper,
 )
-from embedder import embed_pending_papers, search_similar
+from embedder import delete_vectors, embed_pending_papers, search_similar
 from preprocess import clean_abstract
 
 app = FastAPI(title="arXiv Paper Search API", version="1.0")
@@ -84,6 +86,19 @@ class IngestRequest(BaseModel):
 class IngestResponse(BaseModel):
     ingested_or_updated: int
     newly_embedded: int
+
+
+class DeleteRequest(BaseModel):
+    """arxiv_ids 또는 category 중 정확히 하나만 지정.
+    전체 삭제(--all)는 위험해서 API로 제공하지 않음 — 서버에서 reset_data.py 사용."""
+    arxiv_ids: Optional[List[str]] = None
+    category: Optional[str] = None  # primary_category 기준 (예: "cs.CL")
+    confirm: bool = False  # 실수 방지: True를 명시해야 실제 삭제
+
+
+class DeleteResponse(BaseModel):
+    deleted: int
+    remaining: int
 
 
 class PaperDetail(BaseModel):
@@ -170,6 +185,32 @@ def ingest_papers(req: IngestRequest):
 
     newly_embedded = embed_pending_papers() if req.auto_embed else 0
     return IngestResponse(ingested_or_updated=changed, newly_embedded=newly_embedded)
+
+
+@app.post("/papers/delete", response_model=DeleteResponse, dependencies=[Depends(verify_api_key)])
+def delete_papers(req: DeleteRequest):
+    """
+    논문 삭제 (SQLite + 모든 Chroma 컬렉션에서 함께 제거). 되돌릴 수 없음.
+    - arxiv_ids 지정: 해당 논문들만 삭제
+    - category 지정: primary_category가 일치하는 논문 일괄 삭제 (카테고리 개편용)
+    """
+    if not req.confirm:
+        raise HTTPException(status_code=400, detail="confirm=true가 필요합니다 (실수 방지)")
+    if bool(req.arxiv_ids) == bool(req.category):
+        raise HTTPException(
+            status_code=400, detail="arxiv_ids 또는 category 중 정확히 하나만 지정하세요"
+        )
+
+    with get_conn() as conn:
+        if req.category:
+            ids = get_ids_by_primary_category(conn, req.category)
+        else:
+            ids = req.arxiv_ids
+        deleted = delete_papers_by_ids(conn, ids)
+        remaining = count_papers(conn)
+
+    delete_vectors(ids)
+    return DeleteResponse(deleted=deleted, remaining=remaining)
 
 
 @app.get("/papers/{arxiv_id}", response_model=PaperDetail, dependencies=[Depends(verify_api_key)])

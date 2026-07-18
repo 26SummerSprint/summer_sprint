@@ -98,9 +98,10 @@ summer_sprint/                      # 저장소 루트 (GitHub 공유 대상)
 | `preprocess.py` | 전처리 계층 | 없음(가벼움) | 중복 제거, 초록 텍스트 클린업 |
 | `embedder.py` | ML 계층 | `sentence-transformers`, `chromadb`, `torch` (무거움) | 임베딩 계산 + 벡터 저장/검색. **서버에만 설치** |
 | `main.py` | 실행 계층(서버 전용) | 위 전부 | 수집 파이프라인 전체를 묶어 실행하는 CLI |
+| `reset_data.py` | 실행 계층(서버 전용) | `chromadb` (모델 로드 없음) | SQLite+Chroma 데이터 삭제 CLI. `--category cs.CL`(특정 카테고리만) / `--all`(전체). 카테고리 개편·재수집 시 사용, 실행 전 'delete' 타이핑 확인 필요 |
 | `app.py` | API 계층(서버 전용) | 위 전부 + `fastapi`, `uvicorn` | 팀 공유 REST API 서버 |
 | `client_example.py` | 클라이언트 계층 | `requests` (가벼움) | 팀원이 검색/조회할 때 쓰는 함수 모음 |
-| `colab_client.ipynb` | 클라이언트 계층 | `requests`, `pandas` (코랩 기본 제공) | `client_example.py`의 Google Colab 버전. 저장소 클론 없이 노트북 하나로 검색/조회/라벨링 후보 CSV 추출. API 키는 셀 실행 시 입력받아 파일에 저장되지 않음 |
+| `colab_client.ipynb` | 클라이언트 계층 | `requests`, `pandas`, `arxiv` (수집 셀만) | `client_example.py`+`collect_and_push.py`의 Google Colab 버전. 저장소 클론 없이 노트북 하나로 검색/조회/라벨링 후보 CSV 추출/기간 지정 수집/삭제(`POST /papers/delete`). API 키는 셀 실행 시 입력받아 파일에 저장되지 않음 |
 | `collect_and_push.py` | 클라이언트 계층 | `requests`, `arxiv` (가벼움) | 팀원이 본인 PC에서 수집→서버 반영 |
 | `local_config.example.py` / `local_config.py` | 설정 | 없음 | 클라이언트가 접속할 서버 주소/키 |
 

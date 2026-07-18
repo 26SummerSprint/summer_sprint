@@ -131,8 +131,8 @@ if __name__ == "__main__":
         help="수집 종료일 YYYY-MM-DD. --start-date와 함께 사용, 생략하면 오늘까지",
     )
     parser.add_argument(
-        "--categories", nargs="+", default=["cs.RO", "cs.CV", "cs.CL"],
-        help="수집할 카테고리 목록 (기본: cs.RO cs.CV cs.CL)",
+        "--categories", nargs="+", default=["cs.LG", "cs.CV", "cs.RO"],
+        help="수집할 카테고리 목록 (기본: cs.LG cs.CV cs.RO)",
     )
     parser.add_argument(
         "--chunk-days", type=int, default=7,
