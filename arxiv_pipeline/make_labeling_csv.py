@@ -67,7 +67,7 @@ if __name__ == "__main__":
     ap.add_argument("--profiles", default="profiles.json")
     ap.add_argument("--outdir", default="labeling")
     ap.add_argument("--total", type=int, default=60, help="프로필당 후보 편수 (회의 확정 60)")
-    ap.add_argument("--n-random", type=int, default=10, help="그중 랜덤 샘플 편수")
+    ap.add_argument("--n-random", type=int, default=0, help="그중 랜덤 샘플 편수 (기본 0=하이브리드만)")
     ap.add_argument("--n-keyword", type=int, default=30)
     ap.add_argument("--m-embedding", type=int, default=70)
     args = ap.parse_args()

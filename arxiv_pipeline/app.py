@@ -146,7 +146,7 @@ class LabelingPoolRequest(BaseModel):
     keywords: List[str] = []
     category: Optional[str] = None
     total: int = 60           # 프로필당 후보 편수 (회의 확정 60)
-    n_random: int = 10        # 그중 랜덤 샘플
+    n_random: int = 0         # 그중 랜덤 샘플 (기본 0=하이브리드만)
     n_keyword: int = 30
     m_embedding: int = 70
 

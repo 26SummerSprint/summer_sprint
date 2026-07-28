@@ -56,16 +56,17 @@ def build_labeling_pool(
     keywords: List[str],
     category: Optional[str] = None,
     total: int = 60,
-    n_random: int = 10,
+    n_random: int = 0,
     n_keyword: int = 30,
     m_embedding: int = 70,
 ) -> List[dict]:
     """
-    골드셋 라벨링 후보 = 하이브리드(키워드+임베딩) 상위 + 랜덤 샘플, 합쳐서 total편.
-    랜덤 샘플은 pool bias를 완화하고 0(무관) 라벨을 확보하기 위한 것.
+    골드셋 라벨링 후보 = 하이브리드(키워드+임베딩) 상위 total편.
+    (프로필당 라벨링 워크로드를 total로 고정 — 회의 확정 60편)
 
     구성: 하이브리드 상위 (total - n_random)편 + 랜덤 n_random편.
-    (프로필당 라벨링 워크로드를 total로 고정 — 회의 확정 60편)
+    기본 n_random=0 → 하이브리드(키워드+임베딩)만 total편. pool bias 완화용 랜덤이
+    필요하면 n_random>0으로 그만큼 랜덤 샘플로 대체.
     반환: [{"arxiv_id": ..., "source": ...}]
     """
     hybrid = hybrid_retrieve(profile_text, keywords, category, n_keyword, m_embedding)
@@ -87,7 +88,7 @@ if __name__ == "__main__":
         "vision-language-action models that interpret ambiguous instructions."
     )
     kws = ["language-conditioned manipulation", "vision-language-action model", "instruction following"]
-    pool = build_labeling_pool(demo, kws, category="cs.RO", total=60, n_random=10)
+    pool = build_labeling_pool(demo, kws, category="cs.RO", total=60, n_random=0)
     from collections import Counter
 
     print(f"후보 {len(pool)}편, 출처 분포:", Counter(c["source"] for c in pool))
