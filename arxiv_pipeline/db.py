@@ -35,6 +35,30 @@ CREATE TABLE IF NOT EXISTS papers (
 CREATE INDEX IF NOT EXISTS idx_papers_submitted ON papers(submitted_date);
 CREATE INDEX IF NOT EXISTS idx_papers_category ON papers(primary_category);
 CREATE INDEX IF NOT EXISTS idx_papers_embedded ON papers(embedded);
+
+-- 키워드 검색용 FTS5 전문 인덱스 (Stage1 하이브리드의 키워드 축).
+-- papers와 별도 테이블로 두고 upsert/delete 시 동기화한다. bm25()로 랭킹.
+CREATE VIRTUAL TABLE IF NOT EXISTS papers_fts USING fts5(
+    arxiv_id UNINDEXED,
+    title,
+    abstract_clean,
+    tokenize = 'porter unicode61'
+);
+
+-- 골드셋(정답지) 라벨. (profile_id, arxiv_id, labeler)가 PK라
+-- judge 라벨(labeler='judge')과 사람 검증 라벨(labeler=이름)을 한 논문에 함께 저장 가능.
+CREATE TABLE IF NOT EXISTS labels (
+    profile_id       TEXT NOT NULL,
+    profile_version  TEXT NOT NULL DEFAULT 'v1',
+    arxiv_id         TEXT NOT NULL,
+    source           TEXT,               -- keyword | embedding | both | random | seed
+    labeler          TEXT NOT NULL,      -- 'judge' 또는 사람 이름
+    label            INTEGER NOT NULL,   -- 0/1 (또는 0~3)
+    tag              TEXT,               -- kw_only | excl_violation | excl_borderline
+    labeled_at       TEXT NOT NULL,
+    PRIMARY KEY (profile_id, arxiv_id, labeler)
+);
+CREATE INDEX IF NOT EXISTS idx_labels_profile ON labels(profile_id);
 """
 
 
@@ -110,6 +134,7 @@ def upsert_paper(conn: sqlite3.Connection, rec: PaperRecord) -> bool:
                 datetime.utcnow().isoformat(),
             ),
         )
+        _fts_upsert(conn, rec.arxiv_id, rec.title, rec.abstract_clean)
         return True
 
     existing_version = row[0]
@@ -138,6 +163,7 @@ def upsert_paper(conn: sqlite3.Connection, rec: PaperRecord) -> bool:
                 rec.arxiv_id,
             ),
         )
+        _fts_upsert(conn, rec.arxiv_id, rec.title, rec.abstract_clean)
         return True
 
     return False  # 이미 최신 버전 보유 중, 아무 것도 안 함
@@ -171,8 +197,178 @@ def delete_papers_by_ids(conn: sqlite3.Connection, arxiv_ids: Iterable[str]) -> 
         cur = conn.execute(
             f"DELETE FROM papers WHERE arxiv_id IN ({placeholders})", chunk
         )
+        conn.execute(
+            f"DELETE FROM papers_fts WHERE arxiv_id IN ({placeholders})", chunk
+        )
         total += cur.rowcount
     return total
+
+
+# ── 키워드 검색 (FTS5) ────────────────────────────────────
+def _fts_upsert(conn: sqlite3.Connection, arxiv_id: str, title: str, abstract_clean: str):
+    """papers_fts를 papers와 동기화 (upsert_paper 내부에서 호출)."""
+    conn.execute("DELETE FROM papers_fts WHERE arxiv_id = ?", (arxiv_id,))
+    conn.execute(
+        "INSERT INTO papers_fts (arxiv_id, title, abstract_clean) VALUES (?, ?, ?)",
+        (arxiv_id, title, abstract_clean),
+    )
+
+
+def rebuild_fts(conn: sqlite3.Connection) -> int:
+    """기존 papers 전체를 papers_fts로 일괄 재적재 (최초 1회 마이그레이션용). 반환: 적재 건수."""
+    conn.execute("DELETE FROM papers_fts")
+    conn.execute(
+        "INSERT INTO papers_fts (arxiv_id, title, abstract_clean) "
+        "SELECT arxiv_id, title, abstract_clean FROM papers"
+    )
+    return conn.execute("SELECT COUNT(*) FROM papers_fts").fetchone()[0]
+
+
+def _build_match_query(terms: Iterable[str]) -> str:
+    """키워드 리스트를 FTS5 MATCH 쿼리로 변환. 각 구(phrase)를 큰따옴표로 감싸 OR로 연결.
+    (하이픈/특수문자가 FTS5 연산자로 오인되지 않게 phrase로 처리)"""
+    parts = []
+    for t in terms:
+        t = (t or "").replace('"', " ").strip()
+        if t:
+            parts.append(f'"{t}"')
+    return " OR ".join(parts)
+
+
+def search_keyword(
+    conn: sqlite3.Connection,
+    terms: Iterable[str],
+    top_k: int = 30,
+    category: Optional[str] = None,
+):
+    """키워드(구) 리스트로 BM25 검색. 반환: [(arxiv_id, bm25_score)] — score는 작을수록 매칭 강함."""
+    match = _build_match_query(terms)
+    if not match:
+        return []
+    if category:
+        rows = conn.execute(
+            """
+            SELECT f.arxiv_id, bm25(papers_fts) AS score
+            FROM papers_fts f
+            JOIN papers p ON p.arxiv_id = f.arxiv_id
+            WHERE papers_fts MATCH ? AND p.primary_category = ?
+            ORDER BY score
+            LIMIT ?
+            """,
+            (match, category, top_k),
+        ).fetchall()
+    else:
+        rows = conn.execute(
+            """
+            SELECT arxiv_id, bm25(papers_fts) AS score
+            FROM papers_fts
+            WHERE papers_fts MATCH ?
+            ORDER BY score
+            LIMIT ?
+            """,
+            (match, top_k),
+        ).fetchall()
+    return [(r[0], r[1]) for r in rows]
+
+
+def keyword_df(conn: sqlite3.Connection, term: str, category: Optional[str] = None) -> int:
+    """키워드(구)가 등장하는 문서 수(DF). 프로필 키워드의 50~500 검증에 사용.
+    (키워드 검색과 동일한 FTS 매칭 기준으로 세므로 실제 후보 편수를 정확히 예측)"""
+    match = _build_match_query([term])
+    if not match:
+        return 0
+    if category:
+        row = conn.execute(
+            """
+            SELECT COUNT(*) FROM papers_fts f
+            JOIN papers p ON p.arxiv_id = f.arxiv_id
+            WHERE papers_fts MATCH ? AND p.primary_category = ?
+            """,
+            (match, category),
+        ).fetchone()
+    else:
+        row = conn.execute(
+            "SELECT COUNT(*) FROM papers_fts WHERE papers_fts MATCH ?", (match,)
+        ).fetchone()
+    return row[0]
+
+
+def sample_random(
+    conn: sqlite3.Connection,
+    category: Optional[str],
+    n: int,
+    exclude_ids: Optional[Iterable[str]] = None,
+) -> list:
+    """카테고리 내 무작위 논문 n편 (골드셋 후보의 negative/pool-bias 완화용)."""
+    exclude = set(exclude_ids or [])
+    limit = n + len(exclude)
+    if category:
+        rows = conn.execute(
+            "SELECT arxiv_id FROM papers WHERE primary_category = ? ORDER BY RANDOM() LIMIT ?",
+            (category, limit),
+        ).fetchall()
+    else:
+        rows = conn.execute(
+            "SELECT arxiv_id FROM papers ORDER BY RANDOM() LIMIT ?", (limit,)
+        ).fetchall()
+    out = [r[0] for r in rows if r[0] not in exclude]
+    return out[:n]
+
+
+# ── 골드셋 라벨 ───────────────────────────────────────────
+def upsert_label(
+    conn: sqlite3.Connection,
+    profile_id: str,
+    arxiv_id: str,
+    labeler: str,
+    label: int,
+    source: Optional[str] = None,
+    tag: Optional[str] = None,
+    profile_version: str = "v1",
+):
+    """라벨 1건 저장/갱신 (같은 profile_id+arxiv_id+labeler면 덮어씀)."""
+    conn.execute(
+        """
+        INSERT INTO labels (profile_id, profile_version, arxiv_id, source, labeler, label, tag, labeled_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(profile_id, arxiv_id, labeler) DO UPDATE SET
+            label = excluded.label,
+            tag = excluded.tag,
+            source = COALESCE(excluded.source, labels.source),
+            labeled_at = excluded.labeled_at
+        """,
+        (
+            profile_id,
+            profile_version,
+            arxiv_id,
+            source,
+            labeler,
+            int(label),
+            tag,
+            datetime.utcnow().isoformat(),
+        ),
+    )
+
+
+_LABEL_COLUMNS = ["profile_id", "profile_version", "arxiv_id", "source", "labeler", "label", "tag", "labeled_at"]
+
+
+def get_labels(conn: sqlite3.Connection, profile_id: Optional[str] = None) -> list:
+    """라벨 조회 (profile_id 지정 시 해당 프로필만)."""
+    if profile_id:
+        rows = conn.execute(
+            f"SELECT {', '.join(_LABEL_COLUMNS)} FROM labels WHERE profile_id = ?",
+            (profile_id,),
+        ).fetchall()
+    else:
+        rows = conn.execute(
+            f"SELECT {', '.join(_LABEL_COLUMNS)} FROM labels"
+        ).fetchall()
+    return [dict(zip(_LABEL_COLUMNS, r)) for r in rows]
+
+
+def count_labels(conn: sqlite3.Connection) -> int:
+    return conn.execute("SELECT COUNT(*) FROM labels").fetchone()[0]
 
 
 def get_ids_by_primary_category(conn: sqlite3.Connection, category: str) -> list:
