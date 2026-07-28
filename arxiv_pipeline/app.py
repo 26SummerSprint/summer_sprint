@@ -145,9 +145,10 @@ class LabelingPoolRequest(BaseModel):
     profile_text: str
     keywords: List[str] = []
     category: Optional[str] = None
+    total: int = 60           # 프로필당 후보 편수 (회의 확정 60)
+    n_random: int = 10        # 그중 랜덤 샘플
     n_keyword: int = 30
     m_embedding: int = 70
-    n_random: int = 40
 
 
 class LabelIn(BaseModel):
@@ -248,8 +249,9 @@ def labeling_pool(req: LabelingPoolRequest):
     랜덤 샘플로 pool bias를 완화하고 0(무관) 라벨을 확보한다.
     """
     candidates = build_labeling_pool(
-        req.profile_text, req.keywords, req.category,
-        req.n_keyword, req.m_embedding, req.n_random,
+        req.profile_text, req.keywords, category=req.category,
+        total=req.total, n_random=req.n_random,
+        n_keyword=req.n_keyword, m_embedding=req.m_embedding,
     )
     return _attach_meta(candidates)
 

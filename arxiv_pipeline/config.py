@@ -30,6 +30,12 @@ API_PORT = 8000
 # 인증키. 실제 운영 시 환경변수로 주입 권장: export ARXIV_API_KEY="..."
 API_KEY = os.environ.get("ARXIV_API_KEY", "change-me-team-secret")
 
+# ── Gemini (프로필 번역·키워드 추출, 논문 선정·이유 생성) ──────────
+# 회의 확정: 논문 선정/키워드 추출/이유 생성 = Gemini 2.5 Flash, judge = Qwen(별도)
+# export GEMINI_API_KEY="..." 로 주입
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+
 # ── 임베딩 모델 ──────────────────────────────────────────
 # 로컬에서 무료로 돌아가는 sentence-transformers 모델.
 # 영어 초록 검색 품질 대비 속도가 좋아 기본값으로 추천.

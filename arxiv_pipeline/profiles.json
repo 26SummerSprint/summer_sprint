@@ -2,78 +2,121 @@
   {
     "profile_id": "P1",
     "category": "cs.RO",
-    "profile_text": "I am interested in language-conditioned robot manipulation, especially how vision-language-action models interpret ambiguous or underspecified natural language instructions and ground them into executable actions. I am NOT interested in pure reinforcement learning theory papers that have no robotic manipulation application.",
-    "keywords": ["language-conditioned manipulation", "vision-language-action model", "instruction following", "robotic grasping"],
-    "exclusion": "로봇 응용이 없는 순수 RL 이론"
+    "title": "Grasping",
+    "profile_text": "I am interested in grasping within robot manipulation. I especially care about stable grasping using tactile sensors and force control, and about implementing human-hand grasping mechanisms on robots. I prefer optimization-based methods (contact mechanics, force closure, optimization approaches to grasp planning) over learning-based approaches.",
+    "profile_text_ko": "로봇 매니퓰레이션 중에서도 grasping(파지)에 관심이 있다. 특히 tactile sensor와 force control을 이용해 로봇이 물체를 안정적으로 잡는 방법과, 사람 손의 grasping 메커니즘을 로봇에 구현하는 방식에 흥미가 있다. Learning-based 접근보다는 optimization 기반 방법론(contact mechanics, force closure, grasp planning의 최적화적 접근)을 선호한다.",
+    "keywords": ["tactile sensing", "force control", "grasp planning", "dexterous manipulation"],
+    "keywords_confirmed": true,
+    "exclusion": "learning-based/RL 기반 grasping, navigation/SLAM 등 grasping과 무관한 로봇 주제, grasping 외 매니퓰레이션 하위분야"
   },
   {
     "profile_id": "P2",
     "category": "cs.RO",
-    "profile_text": "I follow sim-to-real transfer for legged robot locomotion: domain randomization, dynamics adaptation, and policies validated on real quadruped or humanoid hardware. Simulation-only results without any real-robot experiments are outside my interest.",
-    "keywords": ["sim-to-real transfer", "legged locomotion", "domain randomization", "quadruped robot"],
-    "exclusion": "실기기 검증이 전혀 없는 시뮬레이션 전용 연구"
+    "title": "VLA",
+    "profile_text": "I am interested in Vision-Language-Action (VLA) models, especially how VLA connects to manipulation tasks and how actions are represented and processed. Rather than the VLA architecture or training method itself, I care more about which real manipulation tasks VLA can be applied to.",
+    "profile_text_ko": "Vision-Language-Action(VLA) 모델에 관심이 있다. 특히 VLA가 manipulation task에 어떻게 연결되는지, action을 어떤 방식으로 표현·처리하는지가 궁금하다. VLA 자체의 아키텍처·학습 방법보다는, VLA를 실제 어떤 manipulation task에 적용할 수 있는지에 더 관심이 있다.",
+    "keywords": ["vision-language-action model", "language-conditioned manipulation", "action representation", "robot manipulation policy"],
+    "keywords_confirmed": false,
+    "exclusion": "VLA 아키텍처·학습 방법 자체만 다루고 매니퓰레이션 응용이 없는 연구"
   },
   {
     "profile_id": "P3",
     "category": "cs.RO",
-    "profile_text": "My focus is robot learning from human demonstrations: imitation learning, teleoperation data collection, and scaling demonstration datasets for manipulation policies. I want to exclude classical motion planning and control papers that involve no learning component.",
-    "keywords": ["imitation learning", "learning from demonstration", "teleoperation", "behavior cloning"],
-    "exclusion": "학습 요소가 없는 고전 모션 플래닝/제어"
+    "title": "Off-road Navigation",
+    "profile_text": "I am interested in off-road navigation. Compared to indoor navigation, I am curious how robots perceive and reason about unstructured outdoor environments, and whether the perception-processing pipeline itself differs between indoor and outdoor settings.",
+    "profile_text_ko": "Off-road navigation에 관심이 있다. 실내 navigation과 비교해서, 로봇이 비정형 외부 환경을 어떻게 인지하고 판단하는지 그 메커니즘의 차이가 궁금하다. 환경 자체의 물리적 특성 차이뿐 아니라, 인식한 데이터가 처리되는 파이프라인 자체에서도 실내/실외 간 차이가 있는지에 관심이 있다.",
+    "keywords": ["off-road navigation", "terrain perception", "unstructured environment", "outdoor navigation"],
+    "keywords_confirmed": false,
+    "exclusion": "실내(indoor) 전용 navigation 연구"
   },
   {
     "profile_id": "P4",
-    "category": "cs.CV",
-    "profile_text": "I am interested in diffusion-based image editing and personalization: instruction-guided editing, subject-driven generation, and inversion techniques for real images. Text-to-video generation and GAN-only methods are not my interest.",
-    "keywords": ["image editing", "diffusion model inversion", "subject-driven generation", "instruction-guided editing"],
-    "exclusion": "텍스트-비디오 생성, GAN 전용 기법"
+    "category": "cs.RO",
+    "title": "3D 인식 → 매니퓰레이션 액션 플래닝",
+    "profile_text": "I am interested in how robots perceive 3D objects and how that perception is converted into representations for manipulation. In particular, how perception data such as point clouds and 6D pose is passed to downstream action planning, and the representation and processing pipeline involved.",
+    "profile_text_ko": "로봇이 3D 물체를 인식하는 과정과, 그 인식 결과가 매니퓰레이션을 위한 데이터로 어떻게 변환·표현되는지에 관심이 있다. 특히 포인트클라우드, 6D pose 같은 인식 데이터가 이후 action planning에 어떤 형태로 전달되는지, 그 표현 방식과 처리 파이프라인에 흥미가 있다.",
+    "keywords": ["6D pose estimation", "point cloud", "manipulation action planning", "3D object perception"],
+    "keywords_confirmed": false,
+    "exclusion": "인식 결과가 매니퓰레이션으로 이어지지 않는 순수 3D 인식 연구"
   },
   {
     "profile_id": "P5",
     "category": "cs.CV",
-    "profile_text": "I follow 3D perception for autonomous driving, particularly bird's-eye-view representation, occupancy prediction, and LiDAR-camera fusion. I am not interested in 2D-only detection benchmarks or downstream trajectory forecasting without a perception contribution.",
-    "keywords": ["bird's-eye-view perception", "occupancy prediction", "LiDAR-camera fusion", "autonomous driving"],
-    "exclusion": "2D 전용 검출, 인지 기여 없는 궤적 예측"
+    "title": "자율주행 3D 인지",
+    "profile_text": "I research computer vision for autonomous driving. I am interested in 3D object detection, BEV (Bird's Eye View), and multi-camera perception. I want to exclude LiDAR-only research and path/trajectory planning research.",
+    "profile_text_ko": "자율주행을 위한 컴퓨터 비전 기술을 연구하고 있다. 3D Object Detection, BEV(Bird's Eye View), Multi-Camera Perception 관련 연구에 관심이 있다. LiDAR만을 사용하는 연구나 경로 계획(Path Planning) 연구는 제외하고 싶다.",
+    "keywords": ["3D object detection", "bird's eye view", "multi-camera perception", "camera-based 3D detection", "autonomous driving perception"],
+    "keywords_confirmed": true,
+    "exclusion": "LiDAR-only 연구, Path Planning 및 Trajectory Planning 연구"
   },
   {
     "profile_id": "P6",
     "category": "cs.CV",
-    "profile_text": "My interest is long-form video understanding with multimodal LLMs: video question answering, temporal grounding, and efficient frame selection for hour-long videos. Video generation or synthesis papers should be excluded even if they use similar architectures.",
-    "keywords": ["video question answering", "temporal grounding", "long video understanding", "video-language model"],
-    "exclusion": "비디오 생성/합성 (유사 아키텍처라도)"
+    "title": "Medical Foundation Models",
+    "profile_text": "I research medical image analysis, focused on applying foundation models (SAM, MedSAM, DINO, MAE) to medical image segmentation and detection. I prefer research using prompt learning, adapters, parameter-efficient fine-tuning (PEFT), and vision-language models for medical imaging. I want general natural-image foundation model research ranked lower.",
+    "profile_text_ko": "의료 영상 분석을 연구하고 있으며 Foundation Model(SAM, MedSAM, DINO, MAE 등)을 의료 영상 분할 및 검출에 적용하는 연구에 관심이 있다. Prompt Learning, Adapter, Parameter-Efficient Fine-tuning(PEFT), Vision-Language Model을 활용한 의료 영상 연구를 선호한다. 일반 자연영상 Foundation Model 연구는 우선순위를 낮게 추천받고 싶다.",
+    "keywords": ["medical image segmentation", "foundation model", "parameter-efficient fine-tuning", "SAM medical imaging"],
+    "keywords_confirmed": false,
+    "exclusion": "일반 자연영상 Foundation Model 연구 (우선순위 낮게)"
   },
   {
     "profile_id": "P7",
     "category": "cs.CV",
-    "profile_text": "I am interested in 3D human motion generation from text or audio: text-to-motion diffusion, motion priors, and SMPL-based body representations. Facial animation and talking-head generation are outside my scope.",
-    "keywords": ["text-to-motion", "human motion generation", "motion diffusion", "SMPL"],
-    "exclusion": "얼굴 애니메이션, talking-head 생성"
+    "title": "Diffusion 이미지 생성·편집",
+    "profile_text": "I research image generation. I am more interested in diffusion models than GANs, and want image editing and inpainting papers prioritized. I exclude research that deals only with text generation.",
+    "profile_text_ko": "이미지 생성 분야를 연구하고 있다. GAN보다 Diffusion Model을 이용한 이미지 생성 연구에 더 관심이 있으며, 이미지 편집과 Inpainting 관련 최신 논문를 우선적으로 추천받고 싶다. 텍스트 생성만을 다루는 연구는 제외한다.",
+    "keywords": ["diffusion model", "image editing", "image inpainting", "image generation"],
+    "keywords_confirmed": false,
+    "exclusion": "텍스트 생성만 다루는 연구, GAN 전용 기법"
   },
   {
     "profile_id": "P8",
-    "category": "cs.CL",
-    "profile_text": "I am an ML engineer working on LLM serving infrastructure. I am interested in inference cost reduction: speculative decoding, KV cache compression, and post-training quantization. I am NOT interested in pretraining scaling laws or training-time efficiency, only inference-time methods.",
-    "keywords": ["speculative decoding", "KV cache", "post-training quantization", "LLM inference"],
-    "exclusion": "사전학습 스케일링/학습 단계 효율화 (추론 단계만 관심)"
+    "category": "cs.CV",
+    "title": "Test-Time Adaptation",
+    "profile_text": "I research computer vision, especially test-time adaptation (TTA) and domain generalization. I want methods that adapt a model at test time without additional training data, and online adaptation research, prioritized.",
+    "profile_text_ko": "Computer Vision 분야를 연구하고 있다. 특히 Test-Time Adaptation(TTA)과 Domain Generalization 연구에 관심이 많다. 추가 학습 데이터 없이 테스트 환경에서 모델을 적응시키는 방법과 Online Adaptation 연구를 우선적으로 추천받고 싶다.",
+    "keywords": ["test-time adaptation", "domain generalization", "online adaptation", "distribution shift"],
+    "keywords_confirmed": false,
+    "exclusion": "테스트 시점 적응/일반화와 무관한 일반 학습 연구"
   },
   {
     "profile_id": "P9",
     "category": "cs.CL",
-    "profile_text": "I build retrieval-augmented generation systems. I am interested in citation grounding, hallucination detection and mitigation, and how retrieval quality affects generation factuality. Pure information-retrieval ranking papers without any generation component are excluded.",
-    "keywords": ["retrieval-augmented generation", "hallucination detection", "citation grounding", "factuality"],
-    "exclusion": "생성 요소가 없는 순수 IR 랭킹 연구"
+    "title": "LLM 추론 최적화",
+    "profile_text": "I am interested in LLM inference efficiency, especially techniques that serve an already-trained model cheaper and faster, such as speculative decoding, KV cache compression, and post-training quantization. Rather than pretraining scaling laws or training-time efficiency, I focus on inference-time optimization of deployed models.",
+    "profile_text_ko": "LLM 추론(inference) 효율화에 관심이 있다. 특히 speculative decoding, KV cache 압축, post-training quantization처럼 이미 학습이 끝난 모델을 더 싸고 빠르게 서빙하는 기법에 흥미가 있다. 사전학습 스케일링 법칙이나 학습(training) 단계의 효율화보다는, 배포된 모델의 추론 시점 최적화에 집중하고 싶다.",
+    "keywords": ["speculative decoding", "KV cache", "post-training quantization", "LLM serving"],
+    "keywords_confirmed": true,
+    "exclusion": "사전학습 스케일링/학습 단계 효율화, 추론 가속용 하드웨어(가속기) 설계 자체, 효율화와 무관한 LLM 능력 평가"
   },
   {
     "profile_id": "P10",
     "category": "cs.CL",
-    "profile_text": "I am a developer building LLM agents that use external tools: function calling, multi-agent collaboration, and planning for multi-step tasks. Game-playing RL agents and embodied robotic agents are not my interest; I focus on software/API environments.",
-    "keywords": ["tool use", "function calling", "LLM agent", "multi-agent collaboration"],
-    "exclusion": "게임 RL 에이전트, embodied 로봇 에이전트 (소프트웨어/API 환경만)"
+    "title": "RAG",
+    "profile_text": "I am interested in retrieval-augmented generation, especially how retrieval quality affects the factuality of generated answers, and citation grounding (identifying which source documents an answer came from). For hallucination detection and mitigation I do not mind whether the approach uses internal model signals or external verification. Pure IR ranking research without any generation component is outside my interest.",
+    "profile_text_ko": "Retrieval-augmented generation에 관심이 있다. 특히 검색 품질이 생성 결과의 사실성(factuality)에 어떻게 영향을 주는지, 그리고 생성된 답이 어떤 근거 문서에서 왔는지를 밝히는 citation grounding이 궁금하다. 환각(hallucination)을 탐지하고 줄이는 방법이라면 모델 내부 신호를 쓰든 외부 검증을 쓰든 접근 방식을 가리지 않는다. 다만 생성 요소 없이 검색 랭킹만 다루는 순수 IR 연구는 관심 밖이다.",
+    "keywords": ["retrieval-augmented generation", "citation grounding", "hallucination detection", "factuality"],
+    "keywords_confirmed": false,
+    "exclusion": "생성 요소가 없는 순수 IR 랭킹 연구"
   },
   {
     "profile_id": "P11",
     "category": "cs.CL",
-    "profile_text": "I design evaluation for LLM systems. I am interested in LLM-as-a-judge reliability and biases, benchmark design and contamination detection, and human preference evaluation protocols. Papers that only report leaderboard scores without a methodological contribution to evaluation itself are excluded.",
+    "title": "LLM 에이전트",
+    "profile_text": "I am interested in LLM agents that use external tools: how reliably function calling and tool use work in real environments, and how role division and multi-step planning happen when multiple agents collaborate. I focus on agents in software/API environments rather than game-playing RL agents or embodied robotic agents.",
+    "profile_text_ko": "외부 도구를 사용하는 LLM 에이전트에 관심이 있다. function calling과 tool use가 실제 환경에서 얼마나 신뢰할 수 있게 동작하는지, 그리고 여러 에이전트가 협업할 때 역할 분담과 다단계 계획(planning)이 어떻게 이루어지는지가 궁금하다. 게임을 플레이하는 RL 에이전트나 로봇에 탑재되는 embodied 에이전트보다는, 소프트웨어/API 환경에서 동작하는 에이전트에 집중하고 싶다.",
+    "keywords": ["tool use", "function calling", "LLM agent", "multi-agent collaboration"],
+    "keywords_confirmed": false,
+    "exclusion": "게임 RL 에이전트, embodied 로봇 에이전트 (소프트웨어/API 환경만)"
+  },
+  {
+    "profile_id": "P12",
+    "category": "cs.CL",
+    "title": "LLM 평가",
+    "profile_text": "I am interested in how to evaluate LLM systems: how far LLM-as-a-judge can replace human evaluation, judge biases (position bias, self-preference) and reliability, and benchmark design and contamination detection. I prefer research that tackles the evaluation problem itself over papers that only report benchmark scores without a new evaluation methodology.",
+    "profile_text_ko": "LLM 시스템을 어떻게 평가할 것인가 자체에 관심이 있다. 특히 LLM-as-a-judge가 사람 평가를 어디까지 대체할 수 있는지, judge가 갖는 편향(위치 편향, 자기 선호 등)과 신뢰성 문제가 궁금하다. 벤치마크 설계와 오염(contamination) 탐지에도 흥미가 있다. 새로운 평가 방법론 제안 없이 기존 벤치마크 점수만 보고하는 논문보다는, 평가라는 문제 그 자체를 다루는 연구를 보고 싶다.",
     "keywords": ["LLM-as-a-judge", "benchmark contamination", "evaluation methodology", "human preference evaluation"],
-    "exclusion": "평가 방법론 기여 없이 리더보드 점수만 보고하는 논문"
+    "keywords_confirmed": false,
+    "exclusion": "새로운 평가 방법론 없이 기존 벤치마크 점수만 보고하는 논문"
   }
 ]

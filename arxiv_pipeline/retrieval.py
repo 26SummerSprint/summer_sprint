@@ -55,20 +55,27 @@ def build_labeling_pool(
     profile_text: str,
     keywords: List[str],
     category: Optional[str] = None,
+    total: int = 60,
+    n_random: int = 10,
     n_keyword: int = 30,
     m_embedding: int = 70,
-    n_random: int = 40,
 ) -> List[dict]:
     """
-    골드셋 라벨링 후보 = 하이브리드(키워드+임베딩) ∪ 랜덤 샘플.
-    랜덤 샘플은 pool bias를 완화하고 0(무관) 라벨을 충분히 확보하기 위한 것.
+    골드셋 라벨링 후보 = 하이브리드(키워드+임베딩) 상위 + 랜덤 샘플, 합쳐서 total편.
+    랜덤 샘플은 pool bias를 완화하고 0(무관) 라벨을 확보하기 위한 것.
+
+    구성: 하이브리드 상위 (total - n_random)편 + 랜덤 n_random편.
+    (프로필당 라벨링 워크로드를 total로 고정 — 회의 확정 60편)
     반환: [{"arxiv_id": ..., "source": ...}]
     """
     hybrid = hybrid_retrieve(profile_text, keywords, category, n_keyword, m_embedding)
+    n_hybrid = max(0, total - n_random)
+    hybrid = hybrid[:n_hybrid]
     hybrid_ids = [c["arxiv_id"] for c in hybrid]
 
+    need = total - len(hybrid)  # 하이브리드가 부족하면 랜덤으로 total까지 채움
     with get_conn() as conn:
-        rnd_ids = sample_random(conn, category, n_random, exclude_ids=hybrid_ids)
+        rnd_ids = sample_random(conn, category, need, exclude_ids=hybrid_ids) if need > 0 else []
 
     return hybrid + [{"arxiv_id": aid, "source": "random"} for aid in rnd_ids]
 
@@ -80,7 +87,7 @@ if __name__ == "__main__":
         "vision-language-action models that interpret ambiguous instructions."
     )
     kws = ["language-conditioned manipulation", "vision-language-action model", "instruction following"]
-    pool = build_labeling_pool(demo, kws, category="cs.RO", n_random=10)
+    pool = build_labeling_pool(demo, kws, category="cs.RO", total=60, n_random=10)
     from collections import Counter
 
     print(f"후보 {len(pool)}편, 출처 분포:", Counter(c["source"] for c in pool))

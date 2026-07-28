@@ -31,7 +31,7 @@ CSV_COLUMNS = [
 ]
 
 
-def main(profiles_path: str, outdir: str, n_keyword: int, m_embedding: int, n_random: int):
+def main(profiles_path: str, outdir: str, total: int, n_random: int, n_keyword: int, m_embedding: int):
     os.makedirs(outdir, exist_ok=True)
     with open(profiles_path, encoding="utf-8") as f:
         profiles = json.load(f)
@@ -39,7 +39,7 @@ def main(profiles_path: str, outdir: str, n_keyword: int, m_embedding: int, n_ra
     for p in profiles:
         pool = build_labeling_pool(
             p["profile_text"], p["keywords"], category=p["category"],
-            n_keyword=n_keyword, m_embedding=m_embedding, n_random=n_random,
+            total=total, n_random=n_random, n_keyword=n_keyword, m_embedding=m_embedding,
         )
         ids = [c["arxiv_id"] for c in pool]
         with get_conn() as conn:
@@ -66,8 +66,9 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="프로필별 골드셋 라벨링 후보 CSV 생성")
     ap.add_argument("--profiles", default="profiles.json")
     ap.add_argument("--outdir", default="labeling")
+    ap.add_argument("--total", type=int, default=60, help="프로필당 후보 편수 (회의 확정 60)")
+    ap.add_argument("--n-random", type=int, default=10, help="그중 랜덤 샘플 편수")
     ap.add_argument("--n-keyword", type=int, default=30)
     ap.add_argument("--m-embedding", type=int, default=70)
-    ap.add_argument("--n-random", type=int, default=40)
     args = ap.parse_args()
-    main(args.profiles, args.outdir, args.n_keyword, args.m_embedding, args.n_random)
+    main(args.profiles, args.outdir, args.total, args.n_random, args.n_keyword, args.m_embedding)
