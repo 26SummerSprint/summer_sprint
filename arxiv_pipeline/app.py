@@ -21,16 +21,21 @@ from config import API_KEY
 from db import (
     PaperRecord,
     count_papers,
+    count_labels,
     delete_papers_by_ids,
     get_conn,
     get_ids_by_primary_category,
+    get_labels,
     get_paper_by_id,
     get_papers_by_ids,
     init_db,
+    keyword_df,
+    upsert_label,
     upsert_paper,
 )
 from embedder import delete_vectors, embed_pending_papers, search_similar
 from preprocess import clean_abstract
+from retrieval import build_labeling_pool, hybrid_retrieve
 
 app = FastAPI(title="arXiv Paper Search API", version="1.0")
 
@@ -117,6 +122,75 @@ class PaperDetail(BaseModel):
     pdf_url: str
 
 
+# ── Stage1 하이브리드 검색 / 골드셋 후보 / 라벨 ──────────────
+class RetrieveRequest(BaseModel):
+    profile_text: str
+    keywords: List[str] = []
+    category: Optional[str] = None
+    n_keyword: int = 30
+    m_embedding: int = 70
+
+
+class CandidateItem(BaseModel):
+    arxiv_id: str
+    source: str  # keyword | embedding | both | random
+    title: str = ""
+    primary_category: str = ""
+    submitted_date: str = ""
+    abs_url: Optional[str] = None
+    abstract_clean: Optional[str] = None
+
+
+class LabelingPoolRequest(BaseModel):
+    profile_text: str
+    keywords: List[str] = []
+    category: Optional[str] = None
+    n_keyword: int = 30
+    m_embedding: int = 70
+    n_random: int = 40
+
+
+class LabelIn(BaseModel):
+    profile_id: str
+    arxiv_id: str
+    labeler: str            # 'judge' 또는 사람 이름
+    label: int              # 0/1 (또는 0~3)
+    source: Optional[str] = None
+    tag: Optional[str] = None
+    profile_version: str = "v1"
+
+
+class LabelsUploadRequest(BaseModel):
+    labels: List[LabelIn]
+
+
+class LabelsUploadResponse(BaseModel):
+    saved: int
+    total: int
+
+
+def _attach_meta(candidates: List[dict]) -> List[CandidateItem]:
+    """후보 id 리스트에 SQLite 메타데이터를 붙여 CandidateItem으로 변환 (라벨링용)."""
+    ids = [c["arxiv_id"] for c in candidates]
+    with get_conn() as conn:
+        meta = get_papers_by_ids(conn, ids)
+    items = []
+    for c in candidates:
+        m = meta.get(c["arxiv_id"], {})
+        items.append(
+            CandidateItem(
+                arxiv_id=c["arxiv_id"],
+                source=c["source"],
+                title=m.get("title", ""),
+                primary_category=m.get("primary_category", ""),
+                submitted_date=m.get("submitted_date", ""),
+                abs_url=m.get("abs_url"),
+                abstract_clean=m.get("abstract_clean"),
+            )
+        )
+    return items
+
+
 # ── 엔드포인트 ───────────────────────────────────────────
 @app.get("/health")
 def health():
@@ -153,6 +227,60 @@ def search(req: SearchRequest):
             )
         )
     return items
+
+
+@app.post("/retrieve", response_model=List[CandidateItem], dependencies=[Depends(verify_api_key)])
+def retrieve(req: RetrieveRequest):
+    """
+    Stage1 하이브리드 검색 (쿼터 union): 키워드 top N + 임베딩 top M, 중복 제거.
+    데일리 추천의 후보 추출 단계. 최종 순위는 재랭커(Stage2)가 다시 매긴다.
+    """
+    candidates = hybrid_retrieve(
+        req.profile_text, req.keywords, req.category, req.n_keyword, req.m_embedding
+    )
+    return _attach_meta(candidates)
+
+
+@app.post("/labeling_pool", response_model=List[CandidateItem], dependencies=[Depends(verify_api_key)])
+def labeling_pool(req: LabelingPoolRequest):
+    """
+    골드셋 라벨링 후보 풀 = 하이브리드 ∪ 랜덤 샘플.
+    랜덤 샘플로 pool bias를 완화하고 0(무관) 라벨을 확보한다.
+    """
+    candidates = build_labeling_pool(
+        req.profile_text, req.keywords, req.category,
+        req.n_keyword, req.m_embedding, req.n_random,
+    )
+    return _attach_meta(candidates)
+
+
+@app.get("/keyword_df", dependencies=[Depends(verify_api_key)])
+def get_keyword_df(term: str = Query(...), category: Optional[str] = None):
+    """키워드 DF(문서빈도) 조회 — 프로필 키워드의 50~500 검증용."""
+    with get_conn() as conn:
+        df_all = keyword_df(conn, term, category=None)
+        df_cat = keyword_df(conn, term, category=category) if category else None
+    return {"term": term, "df": df_all, "df_in_category": df_cat}
+
+
+@app.post("/labels", response_model=LabelsUploadResponse, dependencies=[Depends(verify_api_key)])
+def upload_labels(req: LabelsUploadRequest):
+    """골드셋 라벨 업로드 (judge 채점 결과 또는 사람 검증 라벨)."""
+    with get_conn() as conn:
+        for lab in req.labels:
+            upsert_label(
+                conn, lab.profile_id, lab.arxiv_id, lab.labeler, lab.label,
+                source=lab.source, tag=lab.tag, profile_version=lab.profile_version,
+            )
+        total = count_labels(conn)
+    return LabelsUploadResponse(saved=len(req.labels), total=total)
+
+
+@app.get("/labels", dependencies=[Depends(verify_api_key)])
+def list_labels(profile_id: Optional[str] = None):
+    """저장된 라벨 조회 (profile_id 지정 시 해당 프로필만)."""
+    with get_conn() as conn:
+        return get_labels(conn, profile_id)
 
 
 @app.post("/papers/ingest", response_model=IngestResponse, dependencies=[Depends(verify_api_key)])

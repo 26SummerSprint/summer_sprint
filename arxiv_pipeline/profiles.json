@@ -1,0 +1,79 @@
+[
+  {
+    "profile_id": "P1",
+    "category": "cs.RO",
+    "profile_text": "I am interested in language-conditioned robot manipulation, especially how vision-language-action models interpret ambiguous or underspecified natural language instructions and ground them into executable actions. I am NOT interested in pure reinforcement learning theory papers that have no robotic manipulation application.",
+    "keywords": ["language-conditioned manipulation", "vision-language-action model", "instruction following", "robotic grasping"],
+    "exclusion": "로봇 응용이 없는 순수 RL 이론"
+  },
+  {
+    "profile_id": "P2",
+    "category": "cs.RO",
+    "profile_text": "I follow sim-to-real transfer for legged robot locomotion: domain randomization, dynamics adaptation, and policies validated on real quadruped or humanoid hardware. Simulation-only results without any real-robot experiments are outside my interest.",
+    "keywords": ["sim-to-real transfer", "legged locomotion", "domain randomization", "quadruped robot"],
+    "exclusion": "실기기 검증이 전혀 없는 시뮬레이션 전용 연구"
+  },
+  {
+    "profile_id": "P3",
+    "category": "cs.RO",
+    "profile_text": "My focus is robot learning from human demonstrations: imitation learning, teleoperation data collection, and scaling demonstration datasets for manipulation policies. I want to exclude classical motion planning and control papers that involve no learning component.",
+    "keywords": ["imitation learning", "learning from demonstration", "teleoperation", "behavior cloning"],
+    "exclusion": "학습 요소가 없는 고전 모션 플래닝/제어"
+  },
+  {
+    "profile_id": "P4",
+    "category": "cs.CV",
+    "profile_text": "I am interested in diffusion-based image editing and personalization: instruction-guided editing, subject-driven generation, and inversion techniques for real images. Text-to-video generation and GAN-only methods are not my interest.",
+    "keywords": ["image editing", "diffusion model inversion", "subject-driven generation", "instruction-guided editing"],
+    "exclusion": "텍스트-비디오 생성, GAN 전용 기법"
+  },
+  {
+    "profile_id": "P5",
+    "category": "cs.CV",
+    "profile_text": "I follow 3D perception for autonomous driving, particularly bird's-eye-view representation, occupancy prediction, and LiDAR-camera fusion. I am not interested in 2D-only detection benchmarks or downstream trajectory forecasting without a perception contribution.",
+    "keywords": ["bird's-eye-view perception", "occupancy prediction", "LiDAR-camera fusion", "autonomous driving"],
+    "exclusion": "2D 전용 검출, 인지 기여 없는 궤적 예측"
+  },
+  {
+    "profile_id": "P6",
+    "category": "cs.CV",
+    "profile_text": "My interest is long-form video understanding with multimodal LLMs: video question answering, temporal grounding, and efficient frame selection for hour-long videos. Video generation or synthesis papers should be excluded even if they use similar architectures.",
+    "keywords": ["video question answering", "temporal grounding", "long video understanding", "video-language model"],
+    "exclusion": "비디오 생성/합성 (유사 아키텍처라도)"
+  },
+  {
+    "profile_id": "P7",
+    "category": "cs.CV",
+    "profile_text": "I am interested in 3D human motion generation from text or audio: text-to-motion diffusion, motion priors, and SMPL-based body representations. Facial animation and talking-head generation are outside my scope.",
+    "keywords": ["text-to-motion", "human motion generation", "motion diffusion", "SMPL"],
+    "exclusion": "얼굴 애니메이션, talking-head 생성"
+  },
+  {
+    "profile_id": "P8",
+    "category": "cs.CL",
+    "profile_text": "I am an ML engineer working on LLM serving infrastructure. I am interested in inference cost reduction: speculative decoding, KV cache compression, and post-training quantization. I am NOT interested in pretraining scaling laws or training-time efficiency, only inference-time methods.",
+    "keywords": ["speculative decoding", "KV cache", "post-training quantization", "LLM inference"],
+    "exclusion": "사전학습 스케일링/학습 단계 효율화 (추론 단계만 관심)"
+  },
+  {
+    "profile_id": "P9",
+    "category": "cs.CL",
+    "profile_text": "I build retrieval-augmented generation systems. I am interested in citation grounding, hallucination detection and mitigation, and how retrieval quality affects generation factuality. Pure information-retrieval ranking papers without any generation component are excluded.",
+    "keywords": ["retrieval-augmented generation", "hallucination detection", "citation grounding", "factuality"],
+    "exclusion": "생성 요소가 없는 순수 IR 랭킹 연구"
+  },
+  {
+    "profile_id": "P10",
+    "category": "cs.CL",
+    "profile_text": "I am a developer building LLM agents that use external tools: function calling, multi-agent collaboration, and planning for multi-step tasks. Game-playing RL agents and embodied robotic agents are not my interest; I focus on software/API environments.",
+    "keywords": ["tool use", "function calling", "LLM agent", "multi-agent collaboration"],
+    "exclusion": "게임 RL 에이전트, embodied 로봇 에이전트 (소프트웨어/API 환경만)"
+  },
+  {
+    "profile_id": "P11",
+    "category": "cs.CL",
+    "profile_text": "I design evaluation for LLM systems. I am interested in LLM-as-a-judge reliability and biases, benchmark design and contamination detection, and human preference evaluation protocols. Papers that only report leaderboard scores without a methodological contribution to evaluation itself are excluded.",
+    "keywords": ["LLM-as-a-judge", "benchmark contamination", "evaluation methodology", "human preference evaluation"],
+    "exclusion": "평가 방법론 기여 없이 리더보드 점수만 보고하는 논문"
+  }
+]
