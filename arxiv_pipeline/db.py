@@ -240,34 +240,40 @@ def search_keyword(
     terms: Iterable[str],
     top_k: int = 30,
     category: Optional[str] = None,
+    since: Optional[str] = None,
 ):
-    """키워드(구) 리스트로 BM25 검색. 반환: [(arxiv_id, bm25_score)] — score는 작을수록 매칭 강함."""
+    """키워드(구) 리스트로 BM25 검색. 반환: [(arxiv_id, bm25_score)] — score는 작을수록 매칭 강함.
+
+    since(ISO 날짜, 예: '2025-07-31')를 주면 submitted_date >= since 인 논문만 검색.
+    골드셋 후보는 최근 1년만 대상으로 하므로 since를 넘긴다. (DF 계산은 keyword_df가 별도로,
+    전체 코퍼스 기준으로 센다 — 옛 논문은 DF에만 사용.)
+    """
     match = _build_match_query(terms)
     if not match:
         return []
-    if category:
-        rows = conn.execute(
-            """
-            SELECT f.arxiv_id, bm25(papers_fts) AS score
-            FROM papers_fts f
-            JOIN papers p ON p.arxiv_id = f.arxiv_id
-            WHERE papers_fts MATCH ? AND p.primary_category = ?
-            ORDER BY score
-            LIMIT ?
-            """,
-            (match, category, top_k),
-        ).fetchall()
-    else:
-        rows = conn.execute(
-            """
-            SELECT arxiv_id, bm25(papers_fts) AS score
-            FROM papers_fts
-            WHERE papers_fts MATCH ?
-            ORDER BY score
-            LIMIT ?
-            """,
-            (match, top_k),
-        ).fetchall()
+    conds = ["papers_fts MATCH ?"]
+    params: list = [match]
+    join = ""
+    if category or since:
+        join = "JOIN papers p ON p.arxiv_id = f.arxiv_id"
+        if category:
+            conds.append("p.primary_category = ?")
+            params.append(category)
+        if since:
+            conds.append("p.submitted_date >= ?")
+            params.append(since)
+    params.append(top_k)
+    rows = conn.execute(
+        f"""
+        SELECT f.arxiv_id, bm25(papers_fts) AS score
+        FROM papers_fts f
+        {join}
+        WHERE {' AND '.join(conds)}
+        ORDER BY score
+        LIMIT ?
+        """,
+        params,
+    ).fetchall()
     return [(r[0], r[1]) for r in rows]
 
 
@@ -298,19 +304,25 @@ def sample_random(
     category: Optional[str],
     n: int,
     exclude_ids: Optional[Iterable[str]] = None,
+    since: Optional[str] = None,
 ) -> list:
-    """카테고리 내 무작위 논문 n편 (골드셋 후보의 negative/pool-bias 완화용)."""
+    """카테고리 내 무작위 논문 n편 (골드셋 후보의 negative/pool-bias 완화용).
+    since를 주면 submitted_date >= since 인 논문만 대상 (골드셋은 최근 1년만)."""
     exclude = set(exclude_ids or [])
     limit = n + len(exclude)
+    conds = []
+    params: list = []
     if category:
-        rows = conn.execute(
-            "SELECT arxiv_id FROM papers WHERE primary_category = ? ORDER BY RANDOM() LIMIT ?",
-            (category, limit),
-        ).fetchall()
-    else:
-        rows = conn.execute(
-            "SELECT arxiv_id FROM papers ORDER BY RANDOM() LIMIT ?", (limit,)
-        ).fetchall()
+        conds.append("primary_category = ?")
+        params.append(category)
+    if since:
+        conds.append("submitted_date >= ?")
+        params.append(since)
+    where = f"WHERE {' AND '.join(conds)}" if conds else ""
+    params.append(limit)
+    rows = conn.execute(
+        f"SELECT arxiv_id FROM papers {where} ORDER BY RANDOM() LIMIT ?", params
+    ).fetchall()
     out = [r[0] for r in rows if r[0] not in exclude]
     return out[:n]
 

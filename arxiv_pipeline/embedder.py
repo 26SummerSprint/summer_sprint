@@ -120,27 +120,40 @@ def search_similar(
     query_text: str,
     top_k: int = 20,
     category: Optional[str] = None,
+    since: Optional[str] = None,
+    overfetch: int = 8,
 ):
     """
     벤치마크 후보 풀 구성용: 관심사 프로필 텍스트로 유사 논문 top_k 검색.
     category를 지정하면 해당 카테고리로 필터링.
+
+    since(ISO 날짜)를 주면 submitted_date >= since 인 논문만 반환한다(골드셋은 최근 1년만).
+    Chroma는 문자열 메타데이터에 대한 범위($gte) 필터를 지원하지 않으므로,
+    top_k*overfetch편을 가져와 날짜로 후필터한 뒤 상위 top_k편만 남긴다(거리 오름차순 유지).
     """
     collection = get_collection()
     query_vec = embed_texts([query_text])[0]
 
     where = {"primary_category": category} if category else None
+    n_fetch = top_k * overfetch if since else top_k
     results = collection.query(
         query_embeddings=[query_vec],
-        n_results=top_k,
+        n_results=n_fetch,
         where=where,
     )
-    return list(
+    triples = list(
         zip(
             results["ids"][0],
             results["distances"][0],
             results["metadatas"][0],
         )
     )
+    if since:
+        triples = [
+            t for t in triples if (t[2] or {}).get("submitted_date", "") >= since
+        ]
+        triples = triples[:top_k]
+    return triples
 
 
 if __name__ == "__main__":

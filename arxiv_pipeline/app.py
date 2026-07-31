@@ -149,6 +149,7 @@ class LabelingPoolRequest(BaseModel):
     n_random: int = 0         # 그중 랜덤 샘플 (기본 0=하이브리드만)
     n_keyword: int = 30
     m_embedding: int = 70
+    recent_days: int = 365    # 후보는 최근 recent_days일 이내 논문만 (옛 논문은 DF 계산에만)
 
 
 class LabelIn(BaseModel):
@@ -245,13 +246,14 @@ def retrieve(req: RetrieveRequest):
 @app.post("/labeling_pool", response_model=List[CandidateItem], dependencies=[Depends(verify_api_key)])
 def labeling_pool(req: LabelingPoolRequest):
     """
-    골드셋 라벨링 후보 풀 = 하이브리드 ∪ 랜덤 샘플.
-    랜덤 샘플로 pool bias를 완화하고 0(무관) 라벨을 확보한다.
+    골드셋 라벨링 후보 풀 = 하이브리드(키워드+임베딩) 상위 total편 (기본 n_random=0).
+    최근 recent_days일(기본 365) 이내 논문만 대상 — 옛 논문은 keyword_df 계산에만 쓰인다.
     """
     candidates = build_labeling_pool(
         req.profile_text, req.keywords, category=req.category,
         total=req.total, n_random=req.n_random,
         n_keyword=req.n_keyword, m_embedding=req.m_embedding,
+        recent_days=req.recent_days,
     )
     return _attach_meta(candidates)
 
