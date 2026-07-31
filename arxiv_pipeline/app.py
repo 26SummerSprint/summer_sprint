@@ -145,9 +145,9 @@ class LabelingPoolRequest(BaseModel):
     profile_text: str
     keywords: List[str] = []
     category: Optional[str] = None
-    total: int = 60           # 프로필당 후보 편수 (회의 확정 60)
+    total: int = 30           # 프로필당 후보 편수 (30편)
     n_random: int = 0         # 그중 랜덤 샘플 (기본 0=하이브리드만)
-    n_keyword: int = 30
+    n_keyword: int = 15       # 키워드 15 + 임베딩 15 균형
     m_embedding: int = 70
     recent_days: int = 365    # 후보는 최근 recent_days일 이내 논문만 (옛 논문은 DF 계산에만)
 
