@@ -31,10 +31,12 @@ API_PORT = 8000
 API_KEY = os.environ.get("ARXIV_API_KEY", "change-me-team-secret")
 
 # ── Gemini (프로필 번역·키워드 추출, 논문 선정·이유 생성) ──────────
-# 회의 확정: 논문 선정/키워드 추출/이유 생성 = Gemini 2.5 Flash, judge = Qwen(별도)
+# 회의 확정: 논문 선정/키워드 추출/이유 생성 = Gemini(flash 계열), judge = Qwen(별도)
 # export GEMINI_API_KEY="..." 로 주입
+# GEMINI_MODEL은 fallback 기본값 — 코드가 models.list()로 사용 가능한 flash 모델을
+# 자동 선택하고, 실패 시에만 이 값을 쓴다. (gemini-2.5-flash는 신규 계정에서 404가 남)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
 
 # ── 임베딩 모델 ──────────────────────────────────────────
 # 로컬에서 무료로 돌아가는 sentence-transformers 모델.
