@@ -62,7 +62,7 @@ def build_examples(labels, meta_by_id, profile_text_by_id, prefer_human=True) ->
         if not d:
             continue
         try:
-            label = int(lab["label"])
+            label = int(float(lab["label"]))  # "1"/"1.0"/1 모두 허용
         except (TypeError, ValueError):
             continue  # 빈 칸 / uncertain 등은 제외
         out.append({
