@@ -139,6 +139,20 @@ def mrr(labels_ranked: List[int]) -> float:
     return 0.0
 
 
+def _dcg(labels_ranked: List[int], k: int) -> float:
+    import math
+    return sum(l / math.log2(i + 2) for i, l in enumerate(labels_ranked[:k]))
+
+
+def ndcg_at_k(labels_ranked: List[int], k: int) -> Optional[float]:
+    """이진 관련도 기준 nDCG@k. positive가 없으면 None(평균에서 제외).
+    positive가 아주 많은 프로필에서도 '얼마나 위로 몰았나'를 구분해준다."""
+    idcg = _dcg(sorted(labels_ranked, reverse=True), k)
+    if idcg == 0:
+        return None
+    return _dcg(labels_ranked, k) / idcg
+
+
 def _macro(values) -> float:
     vals = [v for v in values if v is not None]
     return sum(vals) / len(vals) if vals else 0.0
@@ -192,6 +206,69 @@ def evaluate(model, test_examples: List[dict], embed_model=None, k: int = 10) ->
     if embed_model is not None:
         result["baseline"] = {f"recall@{k}": _macro(bl_recall), "mrr": _macro(bl_mrr)}
     return result
+
+
+def evaluate_lopo(
+    examples: List[dict],
+    base_model: str = DEFAULT_BASE_MODEL,
+    embed_model=None,
+    k: int = 10,
+    epochs: int = 3,
+    batch_size: int = 16,
+) -> dict:
+    """Leave-One-Profile-Out 평가 (소규모 골드셋용 권장).
+
+    각 프로필을 하나씩 빼고 나머지 프로필로 재랭커를 학습한 뒤, 뺀 프로필의
+    '전체 후보 풀'을 재랭킹해 Recall@k / MRR / nDCG@k를 잰다.
+    - 학습에 안 쓴 프로필로 평가 → 누수 없음
+    - 풀 크기(≈30) > k 라서 Recall@k가 degenerate(항상 1.0) 해지지 않음
+    - embed_model을 주면 임베딩(cosine) 베이스라인과 비교
+    반환: {reranker, baseline|None, per_profile, k}. (프로필 수만큼 학습하므로 느림)
+    """
+    by_p = defaultdict(list)
+    for e in examples:
+        by_p[e["profile_id"]].append(e)
+
+    agg = {"reranker": defaultdict(list), "baseline": defaultdict(list)}
+    per = {}
+    for held in by_p:
+        train_ex = [e for pid, lst in by_p.items() if pid != held for e in lst]
+        test_ex = by_p[held]
+        if not train_ex or not test_ex:
+            continue
+        model = train_reranker(train_ex, base_model, epochs, batch_size)
+        labels = [e["label"] for e in test_ex]
+        docs = [e["doc"] for e in test_ex]
+        query = test_ex[0]["query"]
+
+        scores = _predict(model, query, docs)
+        order = sorted(range(len(test_ex)), key=lambda i: scores[i], reverse=True)
+        rr = [labels[i] for i in order]
+        entry = {"n": len(test_ex), "pos": sum(labels),
+                 f"rr_recall@{k}": recall_at_k(rr, k), "rr_mrr": mrr(rr), f"rr_ndcg@{k}": ndcg_at_k(rr, k)}
+        agg["reranker"][f"recall@{k}"].append(entry[f"rr_recall@{k}"])
+        agg["reranker"]["mrr"].append(entry["rr_mrr"])
+        agg["reranker"][f"ndcg@{k}"].append(entry[f"rr_ndcg@{k}"])
+
+        if embed_model is not None:
+            b_order = _embed_order(embed_model, query, docs)
+            bl = [labels[i] for i in b_order]
+            entry[f"bl_recall@{k}"] = recall_at_k(bl, k)
+            entry["bl_mrr"] = mrr(bl)
+            entry[f"bl_ndcg@{k}"] = ndcg_at_k(bl, k)
+            agg["baseline"][f"recall@{k}"].append(entry[f"bl_recall@{k}"])
+            agg["baseline"]["mrr"].append(entry["bl_mrr"])
+            agg["baseline"][f"ndcg@{k}"].append(entry[f"bl_ndcg@{k}"])
+        per[held] = entry
+
+    def _macro_dict(d):
+        return {m: _macro(v) for m, v in d.items()}
+
+    return {
+        "reranker": _macro_dict(agg["reranker"]),
+        "baseline": _macro_dict(agg["baseline"]) if embed_model is not None else None,
+        "per_profile": per, "k": k,
+    }
 
 
 def save_reranker(model, path: str) -> None:
