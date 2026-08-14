@@ -45,6 +45,12 @@ GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
 EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 EMBEDDING_BATCH_SIZE = 64
 
+# ── Stage 2 재랭커 ────────────────────────────────────────
+# 학습된 cross-encoder 재랭커 경로. train_reranker_cli.py로 생성, app.py의 /recommend가 로드.
+# 확정 모델 = MiniLM 파인튜닝(BCE). 파일 없으면 /recommend는 Stage1 순서로 폴백.
+RERANKER_PATH = os.environ.get("RERANKER_PATH", str(BASE_DIR / "models" / "stage2_reranker"))
+RERANK_TOP_K = int(os.environ.get("RERANK_TOP_K", "10"))
+
 # 모델별로 컬렉션을 분리해서 저장. 임베딩 모델을 바꿔가며 실험해도
 # 기존 컬렉션(벡터)이 삭제/충돌되지 않고 그대로 남아있음 (모델명이 바뀌면
 # 자동으로 새 컬렉션이 생성되고, 이전 모델의 컬렉션은 그대로 보존됨).

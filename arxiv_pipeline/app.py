@@ -12,12 +12,13 @@ FastAPI 서버.
 pip install fastapi "uvicorn[standard]"
 """
 
+import os
 from typing import List, Optional
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel
 
-from config import API_KEY
+from config import API_KEY, RERANKER_PATH, RERANK_TOP_K
 from db import (
     PaperRecord,
     count_papers,
@@ -36,6 +37,7 @@ from db import (
 from embedder import delete_vectors, embed_pending_papers, search_similar
 from preprocess import clean_abstract
 from retrieval import build_labeling_pool, hybrid_retrieve
+from reranker import doc_text, load_reranker, rerank
 
 app = FastAPI(title="arXiv Paper Search API", version="1.0")
 
@@ -241,6 +243,81 @@ def retrieve(req: RetrieveRequest):
         req.profile_text, req.keywords, req.category, req.n_keyword, req.m_embedding
     )
     return _attach_meta(candidates)
+
+
+# ── Stage2 재랭커 (lazy 로드) ─────────────────────────────
+_reranker_cache = {"model": None, "loaded": False}
+
+
+def get_reranker():
+    """학습된 재랭커를 최초 호출 시 1회 로드해 캐싱. 모델 파일 없으면 None(Stage1 폴백)."""
+    if not _reranker_cache["loaded"]:
+        _reranker_cache["loaded"] = True
+        if os.path.isdir(RERANKER_PATH):
+            _reranker_cache["model"] = load_reranker(RERANKER_PATH)
+    return _reranker_cache["model"]
+
+
+class RecommendRequest(BaseModel):
+    profile_text: str
+    keywords: List[str] = []
+    category: Optional[str] = None
+    n_keyword: int = 30
+    m_embedding: int = 70
+    top_k: int = RERANK_TOP_K
+
+
+class RecommendItem(BaseModel):
+    arxiv_id: str
+    rerank_score: Optional[float] = None
+    source: str = ""
+    title: str = ""
+    primary_category: str = ""
+    submitted_date: str = ""
+    abs_url: Optional[str] = None
+
+
+class RecommendResponse(BaseModel):
+    reranked: bool           # 재랭커 적용 여부 (모델 없으면 False = Stage1 순서 그대로)
+    count: int
+    items: List[RecommendItem]
+
+
+@app.post("/recommend", response_model=RecommendResponse, dependencies=[Depends(verify_api_key)])
+def recommend(req: RecommendRequest):
+    """
+    데일리 추천 end-to-end: Stage1(하이브리드 후보 100편) → Stage2(재랭커 재정렬) → 상위 top_k.
+    재랭커 모델(RERANKER_PATH)이 없으면 Stage1 순서를 그대로 반환(reranked=False).
+    """
+    candidates = hybrid_retrieve(
+        req.profile_text, req.keywords, req.category, req.n_keyword, req.m_embedding
+    )
+    ids = [c["arxiv_id"] for c in candidates]
+    with get_conn() as conn:
+        meta = get_papers_by_ids(conn, ids)
+
+    model = get_reranker()
+    if model is not None and candidates:
+        scored = [{**c, "doc": doc_text(meta.get(c["arxiv_id"], {}))} for c in candidates]
+        ranked = rerank(model, req.profile_text, scored)
+        reranked = True
+    else:
+        ranked = candidates
+        reranked = False
+
+    items = []
+    for c in ranked[: req.top_k]:
+        m = meta.get(c["arxiv_id"], {})
+        items.append(RecommendItem(
+            arxiv_id=c["arxiv_id"],
+            rerank_score=c.get("rerank_score"),
+            source=c.get("source", ""),
+            title=m.get("title", ""),
+            primary_category=m.get("primary_category", ""),
+            submitted_date=m.get("submitted_date", ""),
+            abs_url=m.get("abs_url"),
+        ))
+    return RecommendResponse(reranked=reranked, count=len(items), items=items)
 
 
 @app.post("/labeling_pool", response_model=List[CandidateItem], dependencies=[Depends(verify_api_key)])
