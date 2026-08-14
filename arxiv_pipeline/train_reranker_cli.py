@@ -8,8 +8,9 @@ app.py의 /recommend가 이 모델(config.RERANKER_PATH)을 로드해 Stage1 후
 zero-shot LLM·임베딩 baseline 압도, BGE(0.787)와 근접하면서 12배 가벼움)
 
 준비:
-    pip install "sentence-transformers" datasets    # datasets는 CrossEncoder.fit에 필요
-    라벨 CSV들을 --labeling-dir 폴더에 둔다 (컬럼: arxiv_id,label,title,abstract_clean,...)
+    pip install "sentence-transformers" datasets openpyxl   # datasets=fit, openpyxl=엑셀형 CSV 대응
+    라벨 파일들을 --labeling-dir 폴더에 둔다 (컬럼: arxiv_id,label,title,abstract_clean,...)
+    (진짜 CSV든, 이름만 .csv인 엑셀이든, 인코딩이 뭐든 자동 인식한다)
 
 실행:
     python train_reranker_cli.py                              # labeling_csv/ → models/stage2_reranker
@@ -27,30 +28,70 @@ from config import RERANKER_PATH
 from reranker import doc_text, save_reranker, train_reranker
 
 
+def _read_records(path: str):
+    """CSV(인코딩 무관) 또는 '이름만 .csv인 엑셀'을 모두 읽어 dict 레코드 리스트로."""
+    import io
+    with open(path, "rb") as f:
+        raw = f.read()
+    if raw[:4] == b"PK\x03\x04":                      # 실제 내용이 xlsx(zip)
+        import pandas as pd  # read_excel엔 openpyxl 필요: pip install openpyxl
+        return pd.read_excel(io.BytesIO(raw), engine="openpyxl").to_dict("records")
+    text = None
+    for enc in ("utf-8-sig", "cp949", "euc-kr", "latin-1"):
+        try:
+            text = raw.decode(enc); break
+        except UnicodeDecodeError:
+            continue
+    return list(csv.DictReader(io.StringIO(text if text is not None else raw.decode("latin-1"))))
+
+
+def _parse_label(v):
+    try:
+        return int(float(str(v).strip()))      # "1"/"1.0"/1/1.0 → 1
+    except (ValueError, TypeError):
+        return None
+
+
+def _s(x):
+    """None/NaN → '' (pandas가 빈칸을 NaN(float)으로 주는 경우 대응)."""
+    if x is None or (isinstance(x, float) and x != x):
+        return ""
+    return str(x)
+
+
 def load_examples_from_csv(labeling_dir: str, profiles_path: str):
-    """라벨 CSV들 → [{query, doc, label}]. profile_id는 파일명(P1.csv → P1)에서.
-    label은 '1'/'1.0'/1 모두 허용, 빈칸·uncertain은 제외."""
+    """라벨 파일들 → [{query, doc, label}]. profile_id는 파일명(P1.csv → P1)에서.
+    label은 '1'/'1.0'/1 모두 허용, 빈칸·uncertain은 제외. 파일별 진단을 출력한다."""
     with open(profiles_path, encoding="utf-8") as f:
         prof = {p["profile_id"]: p["profile_text"] for p in json.load(f)}
 
+    paths = sorted(glob.glob(os.path.join(labeling_dir, "*.csv")) +
+                   glob.glob(os.path.join(labeling_dir, "*.xlsx")))
+    print(f"labeling_dir = {os.path.abspath(labeling_dir)} | 파일 {len(paths)}개")
+    if not paths:
+        contents = os.listdir(labeling_dir) if os.path.isdir(labeling_dir) else "(폴더 없음)"
+        print("  폴더 내용:", contents)
+        return []
+
     exs = []
-    for path in sorted(glob.glob(os.path.join(labeling_dir, "*.csv"))):
+    for path in paths:
         pid = os.path.basename(path).split(".")[0]
         query = prof.get(pid)
-        if not query:
-            print(f"[skip] {os.path.basename(path)} — 프로필 텍스트 없음(pid={pid})")
+        try:
+            recs = _read_records(path)
+        except Exception as e:
+            print(f"  {os.path.basename(path)}: 읽기 실패 — {e}")
             continue
-        with open(path, encoding="utf-8-sig") as f:
-            for r in csv.DictReader(f):
-                try:
-                    label = int(float(str(r.get("label", "")).strip()))
-                except (ValueError, TypeError):
-                    continue
-                if label not in (0, 1):
-                    continue
-                d = doc_text({"title": r.get("title", ""), "abstract_clean": r.get("abstract_clean", "")})
-                if d:
-                    exs.append({"query": query, "doc": d, "label": label})
+        fmt = "xlsx" if open(path, "rb").read(4) == b"PK\x03\x04" else "csv"
+        v = 0
+        for r in recs:
+            lb = _parse_label(r.get("label"))
+            if lb not in (0, 1):
+                continue
+            d = doc_text({"title": _s(r.get("title")), "abstract_clean": _s(r.get("abstract_clean"))})
+            if query and d:
+                exs.append({"query": query, "doc": d, "label": lb}); v += 1
+        print(f"  {os.path.basename(path):16s} fmt={fmt} query={'O' if query else 'X'} 유효 {v}")
     return exs
 
 
