@@ -1,0 +1,11 @@
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+httpx>=0.27.0
+streamlit>=1.35.0
+requests>=2.31.0
+
+# arxiv_pipeline / keyword_pipeline / rerank_pipeline은 전부 별도 프로세스로
+# 떠 있는 서비스이며, 이 프로젝트는 그 REST API를 HTTP로만 호출한다.
+# 따라서 chromadb, sentence-transformers 등 그쪽 의존성은 여기서 설치할
+# 필요가 없다.
