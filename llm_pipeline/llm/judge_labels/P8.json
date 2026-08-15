@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2607.24611",
+    "title": "Test-Time Adaptation via Dual Distillation for Videos Under Severe Distribution Shifts",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "컴퓨터 비전 비디오 과제에서 추가 학습 데이터 없이 수행되는 온라인 테스트 타임 어댑테이션(Online TTA)을 직접적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.1442",
+    "title": "Class-Invariant Test-Time Augmentation for Domain Generalization",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "도메인 일반화(DG)를 다루지만 모델 파라미터를 적응(Adaptation)시키는 것이 아닌 테스트 타임 데이터 증강(Augmentation)에 초점을 맞춘다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18851",
+    "title": "Robust Long-term Test-Time Adaptation for 3D Human Pose Estimation through Motion Discretization",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 인간 자세 추정 비전 과제에서 스트리밍 데이터를 활용한 온라인 테스트 타임 어댑테이션 기법을 핵심 기여로 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.17862",
+    "title": "Domain Generalization with Quantum Enhancement for Medical Image Classification: A Lightweight Approach for Cross-Center Deployment",
+    "result": {
+      "score": 55,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "도메인 일반화를 다루고 TTA를 보조적으로 사용하지만, 양자 회로 기반 특징 강화와 의료 영상 학습 프레임워크가 주요 기여이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.03294",
+    "title": "FACTOR: Counterfactual Training-Free Test-Time Adaptation for Open-Vocabulary Object Detection",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전 객체 탐지에서 파라미터 업데이트 없이 분포 변화를 극복하는 테스트 타임 어댑테이션(TTA) 방법론을 제안하여 프로필과 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.08436",
+    "title": "HyperTTA: Test-Time Adaptation for Hyperspectral Image Classification under Distribution Shifts",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추가 학습 데이터나 소스 데이터 없이 테스트 시점에 비지도 방식으로 모델을 적응시키는 컴퓨터 비전 TTA 방법론을 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.15568",
+    "title": "Backpropagation-Free Test-Time Adaptation via Probabilistic Gaussian Alignment",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소스 데이터 없이 온라인 및 테스트 시점에 역전파 없이 동작하는 모델 적응 기법을 제안하여 프로필 요구사항에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.08139",
+    "title": "Subspace Alignment for Vision-Language Model Test-time Adaptation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "테스트 시점의 분포 변화에 대응하여 비전-언어 모델을 실시간으로 적응시키는 TTA 핵심 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.03403",
+    "title": "GRPO-TTA: Test-Time Visual Tuning for Vision-Language Models via GRPO-Driven Reinforcement Learning",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "테스트 시점에 추가 레이블 없이 비전 모델을 튜닝하는 강화학습 기반 TTA 방법론을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18925",
+    "title": "LookSharp: Attention Entropy Minimization for Test-Time Adaptation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "컴퓨터 비전 트랜스포머의 추론 중 분포 변화를 해결하기 위한 테스트 시점 적응(TTA) 목적 함수를 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.18608",
+    "title": "Dance Across Shifts: Forward-Facilitation Continual Test-Time Adaptation through Dynamic Style Bridging",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추가 학습 데이터 없이 배포 후 동적 분포 변화에 대응하는 온라인 지속적 테스트 타임 적응(CTTA)을 다루어 프로필의 핵심 주제와 완전히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.01589",
+    "title": "Mitigating the ID-OOD Tradeoff in Open-Set Test-Time Adaptation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "분포 변화 환경에서 테스트 타임 적응(TTA)을 수행하며 ID 분류와 OOD 탐지를 동시에 해결하는 방법론을 제안하여 프로필과 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.14634",
+    "title": "SteeringTTA: Guiding Diffusion Trajectories for Robust Test-Time-Adaptation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소스 데이터나 모델 가중치 업데이트 없이 테스트 타임에 디퓨전 가이던스를 통해 입력을 적응시키는 TTA 프레임워크를 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.19093",
+    "title": "Multi-modal Test-time Adaptation via Adaptive Probabilistic Gaussian Calibration",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "테스트 시점의 비라벨링 타깃 데이터를 활용하여 분포 변화에 대응하는 멀티모달 테스트 타임 적응(TTA)을 연구하여 핵심 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.00458",
+    "title": "VLOD-TTA: Test-Time Adaptation of Vision-Language Object Detectors",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전-언어 객체 검출 모델이 분포 변화에 직면했을 때 비라벨링 테스트 데이터만을 사용해 추론 시 적응하는 TTA 기법을 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.2136",
+    "title": "Prototype-Based Test-Time Adaptation of Vision-Language Models",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추가 훈련 데이터 없이 테스트 샘플을 통해 지식을 축적하는 Vision-Language 모델 대상 온라인 Test-Time Adaptation 연구로 프로필과 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.03388",
+    "title": "Neutralizing Token Aggregation via Information Augmentation for Efficient Test-Time Adaptation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추가 학습 데이터 없이 분포 변화에 적응하는 효율적인 Vision Transformer용 Test-Time Adaptation 방법을 제안하여 핵심 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.07646",
+    "title": "DOME: Learning Transferable Domain Variables from Sparse Supervision for Test-Time Adaptation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "레이블이 없는 스트리밍 테스트 데이터를 활용해 도메인 변화에 모델을 적응시키는 Test-Time Adaptation 연구로 프로필 관심사와 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.0218",
+    "title": "Test-Time Model Adaptation for Quantized Neural Networks",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "도메인 변화 상황에서 양자화된 신경망을 테스트 시점에 지속적으로 적응시키는 Test-Time Adaptation 기법을 다루고 있어 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.05898",
+    "title": "ETTA: Efficient Test-Time Adaptation for Vision-Language Models through Dynamic Embedding Updates",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "유입되는 테스트 데이터를 활용하여 모델을 실시간으로 적응시키는 효율적인 Vision-Language 모델용 온라인 Test-Time Adaptation 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.20196",
+    "title": "Distill Once, Adapt Life-Long: Exploring Dataset Distillation for Continual Test-Time Adaptation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "지속적 테스트 타임 적응(CTTA) 환경에서 온라인으로 모델을 적응시키는 핵심 기법을 제안하여 프로필과 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.17598",
+    "title": "COLA: Context-aware Language-driven Test-time Adaptation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전-언어 모델을 활용하여 테스트 타임 적응(TTA) 및 도메인 일반화를 수행하는 기법을 다루어 프로필의 연구 관심사와 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.1269",
+    "title": "TTA-DAME: Test-Time Adaptation with Domain Augmentation and Model Ensemble for Dynamic Driving Conditions",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "동적 주행 환경에서 변화하는 타깃 도메인에 대응하기 위한 테스트 타임 적응(TTA) 기법을 제안하여 프로필 요구조건을 충족한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.11743",
+    "title": "Adaptive Debiasing Tsallis Entropy for Test-Time Adaptation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "연속적으로 들어오는 테스트 인스턴스에 대해 모델을 온라인 적응시키는 테스트 타임 적응(TTA) 기법을 연구하여 프로필과 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.1812",
+    "title": "MVS-TTA: Test-Time Adaptation for Multi-View Stereo via Meta-Auxiliary Learning",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "컴퓨터 비전의 다중 뷰 스테레오 분야에서 추론 시점 테스트 타임 적응(TTA)을 수행하는 프레임워크를 제안하여 프로필과 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.09101",
+    "title": "Ultra-Light Test-Time Adaptation for Vision--Language Models",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추가 학습 데이터 없이 스트리밍 환경에서 온라인으로 수행되는 시각-언어 모델의 테스트 시간 적응(TTA)을 직접적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.02988",
+    "title": "Cross-device Collaborative Test-time Adaptation with Zeroth-order Optimization and Model Merging",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "도메인 변화 상황에서 들어오는 테스트 데이터를 활용해 모델을 즉시 업데이트하는 온라인 협력형 TTA 연구로 프로필과 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.20029",
+    "title": "Segmentation Assisted Incremental Test Time Adaptation in an Open World",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "테스트 시간 적응(TTA)을 다루고 있으나, 오라클 질의를 통한 액티브 라벨링을 사용하여 추가 데이터 없는 적응 조건과 일부 차이가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.25175",
+    "title": "Test-Time Adaptive Object Detection with Foundation Model",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소스 데이터 없이 온라인 테스트 스트림에서 도메인 적응을 수행하는 객체 탐지 TTA 기법을 다루어 연구 관심사와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.01643",
+    "title": "ViT$^3$: Unlocking Test-Time Training in Vision",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "Test-Time Training 키워드를 사용하지만 도메인 일반화나 적응이 아닌 어텐션을 대체하는 시퀀스 모델링 아키텍처 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

@@ -1,0 +1,9 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P3,2604.03096,An Open-Source LiDAR and Monocular Off-Road Autonomous Navigation Stack,0,1,,[]
+P3,2508.0058,"OmniUnet: A Multimodal Network for Unstructured Terrain Segmentation on Planetary Rovers Using RGB, Depth, and Thermal Imagery",0,1,,[]
+P3,2602.07363,UEREBot: Learning Safe Quadrupedal Locomotion under Unstructured Environments and High-Speed Dynamic Obstacles,1,0,,[]
+P3,2509.07321,Performance Characterization of a Point-Cloud-Based Path Planner in Off-Road Terrain,0,1,,[]
+P3,2605.25646,G-DRAGON: Geospatial Reasoning and Dynamic Planning for Retrieval-Augmented Outdoor Navigation,0,1,,[]
+P3,2509.23563,RAVEN: Resilient Aerial Navigation via Open-Set Semantic Memory and Behavior Adaptation,0,1,,[]
+P3,2510.23057,Seq-DeepIPC: Sequential Sensing for End-to-End Control in Legged Robot Navigation,1,0,,[]
+P3,2607.00673,Path Planning in Physically Viable World Models,1,0,,[]

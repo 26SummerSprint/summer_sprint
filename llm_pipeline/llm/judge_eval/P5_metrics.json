@@ -1,0 +1,16 @@
+{
+  "total": 30,
+  "evaluated": 30,
+  "failed": 0,
+  "positive": 16,
+  "judge_positive": 17,
+  "disagreement": 5,
+  "accuracy": 0.8333333333333334,
+  "precision": 0.8235294117647058,
+  "recall": 0.875,
+  "f1": 0.8484848484848485,
+  "TP": 14,
+  "TN": 11,
+  "FP": 3,
+  "FN": 2
+}

@@ -1,0 +1,4 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P1,2512.06517,Vision-Guided Grasp Planning for Prosthetic Hands in Unstructured Environments,0,1,,[]
+P1,2511.1371,From Power to Precision: Learning Fine-grained Dexterity for Multi-fingered Robotic Hands,1,0,,[]
+P1,2602.20466,Grasp to Act: Dexterous Grasping for Tool Use in Dynamic Settings,1,0,,[]

@@ -1,0 +1,7 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P4,2601.01675,VisuoTactile 6D Pose Estimation of an In-Hand Object using Vision and Tactile Sensor Data,1,0,,[]
+P4,2508.15972,UnPose: Uncertainty-Guided Diffusion Priors for Zero-Shot Pose Estimation,1,0,,[]
+P4,2601.03782,PointWorld: Scaling 3D World Models for In-The-Wild Robotic Manipulation,0,1,,[]
+P4,2509.04645,Planning from Point Clouds over Continuous Actions for Multi-object Rearrangement,0,1,,[]
+P4,2509.20297,mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies,0,1,,[]
+P4,2509.18676,3D Flow Diffusion Policy: Visuomotor Policy Learning via Generating Flow in 3D Space,0,1,,[]

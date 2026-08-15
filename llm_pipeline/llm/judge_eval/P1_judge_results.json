@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2604.25126",
+    "title": "HANDFUL: Sequential Grasp-Conditioned Dexterous Manipulation with Resource Awareness",
+    "result": {
+      "score": 38,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "다지 로봇 핸드의 순차 조작을 다루지만 프로필이 선호하는 최적화/접촉역학 기반 파지보다는 강화학습 기반 정책 학습에 초점이 맞춰져 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.14487",
+    "title": "MIDAS Hand: Modular low-Impedance Direct-drive Anthropomorphic Sensing Hand",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "촉각 센서가 통합된 인간형 다지 로봇 핸드 하드웨어를 다루어 관련성이 높으나, 파지 계획 및 역학 최적화 알고리즘에 대한 기여는 제한적이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.10013",
+    "title": "Learning Force-Regulated Manipulation with a Low-Cost Tactile-Force-Controlled Gripper",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "촉각 및 힘 제어를 다루나 병진 그리퍼 대상의 모방/정책 학습 기반 프레임워크이며 다지 핸드 및 최적화 기반 역학 제어 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.21043",
+    "title": "Tracing Energy Flow: Learning Tactile-based Grasping Force Control to Prevent Slippage in Dynamic Object Interaction",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "촉각 센서 피드백을 기반으로 슬립을 방지하는 실시간 파지력 제어 및 물리 기반 파지 안정성 최적화를 핵심으로 다루어 프로필에 매우 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.06517",
+    "title": "Vision-Guided Grasp Planning for Prosthetic Hands in Unstructured Environments",
+    "result": {
+      "score": 84,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "인간형 의수 핸드를 대상으로 비학습/최적화 기법(RRT*, 역기구학)을 활용한 손가락별 파지 계획 및 제어를 제안하여 프로필 요구사항과 잘 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.25348",
+    "title": "Self Capacitive Tactile Sensor System designed for Companion Robots",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "반려 로봇 전신용 촉각 센서 하드웨어 및 터치 분류 연구로, 로봇 파지 제어 및 파지 계획 연구와 무관하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.1637",
+    "title": "ART-Glove: Articulated Tactile Glove for Contact-Grounded Dexterous Interaction Capture",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "인간 손의 접촉 데이터를 캡처하기 위한 데이터 글러브 장치 개발 논문으로 로봇의 파지 제어 알고리즘을 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.05513",
+    "title": "DECO: Decoupled Multimodal Diffusion Transformer for Bimanual Dexterous Manipulation with a Plugin Tactile Adapter",
+    "result": {
+      "score": 32,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "촉각을 활용한 양손 조작 연구이나 확산 트랜스포머 기반의 엔드투엔드 학습 방식에 집중되어 있어 프로필의 최적화 기반 파지 관심사와 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.20392",
+    "title": "VBT-MPC: Vision-Based Tactile MPC for Contour Following",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "촉각 기반 모델 예측 제어를 다루지만 파지(grasping)가 아닌 표면 윤곽선 추적(contour following)에 관한 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.05382",
+    "title": "A multi-modal tactile fingertip design for robotic hands to enhance dexterous manipulation",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "로봇 핸드를 위한 다중 모달 촉각 핑거팁 센서 설계 연구로 파지 안정화에 유용하지만 파지 최적화 알고리즘 연구보다는 센서 하드웨어 제안에 치중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.07445",
+    "title": "Text2Touch: Tactile In-Hand Manipulation with LLM-Designed Reward Functions",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "LLM 기반 보상 함수 설계와 강화학습 중심의 인핸드 조작 연구로, 최적화 및 접촉역학 기반 파지 제어와는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.07287",
+    "title": "TouchWorld: A Predictive and Reactive Tactile Foundation Model for Dexterous Manipulation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "촉각 파운데이션 모델 및 학습 기반 정책을 다루며 사용자가 선호하는 최적화/접촉역학 기반의 파지 계획 및 제어가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.02011",
+    "title": "Learning Dexterous Manipulation Skills from Imperfect Simulations",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "모방학습 및 강화학습을 활용한 조작 스킬 학습 연구로 파지 역학 최적화 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.04138",
+    "title": "Learning Dexterous Grasping from Sparse Taxonomy Guidance",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "파지 분류 체계를 활용하지만 강화학습 기반 제어 방식을 사용하여 최적화 기반 방법론 선호 조건에 부합하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.16127",
+    "title": "Reactive Slip Control in Multifingered Grasping: Hybrid Tactile Sensing and Internal-Force Optimization",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다지 로봇 핸드의 촉각 센서 피드백과 내부 힘 최적화 및 접촉역학 모델을 결합한 안정적 파지 제어로 프로필과 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.0152",
+    "title": "Phy-Tac: Toward Human-Like Grasping via Physics-Conditioned Tactile Goals",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "인간 모사 파지, 물리 기반 힘 최적화 및 촉각 피드백 제어를 결합하여 최소 힘으로 안정적 파지를 달성하는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.1371",
+    "title": "From Power to Precision: Learning Fine-grained Dexterity for Multi-fingered Robotic Hands",
+    "result": {
+      "score": 50,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "다지 로봇의 파워/정밀 파지 최적화와 접촉면 형상 최적화를 다루나, 힘 제어 및 촉각 센싱 기반 안정화보다는 하드웨어-제어 동시 학습에 초점을 맞춘다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.20466",
+    "title": "Grasp to Act: Dexterous Grasping for Tool Use in Dynamic Settings",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "물리 기반 파지 최적화를 포함하지만 강화학습 기반 적응 제어를 결합한 하이브리드 도구 조작 프레임워크이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.05415",
+    "title": "Do Robots Really Need Anthropomorphic Hands? A Comparison of Human and Robotic Hands",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "인간 손과 로봇 핸드의 메커니즘을 비교하는 서베이 논문으로, 실제 파지 최적화 및 힘 제어 기법을 제안하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.10268",
+    "title": "The impact of tactile sensor configurations on grasp learning efficiency -- a comparative evaluation in simulation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "촉각 센서 배치가 강화학습 효율에 미치는 영향을 시뮬레이션으로 비교 분석한 연구로 최적화 기반 제어와 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.04554",
+    "title": "HUGS: Guiding Unified Dexterous Grasp Synthesis Across Modes and Scales via Learned Human Priors",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "인간 파지 사전 지식을 활용하여 다지 로봇의 force-closure 기반 최적화 파지 합성을 수행하므로 프로필 관심사와 잘 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.14984",
+    "title": "The Role of Touch: Towards Optimal Tactile Sensing Distribution in Anthropomorphic Hands for Dexterous In-Hand Manipulation",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "인간형 로봇 핸드와 촉각 센서 배치를 다루지만, 파지 계획보다는 심층 강화학습 기반의 인핸드 조작에 초점이 맞추어져 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.30474",
+    "title": "Grasp-Oriented Non-Prehensile Manipulation via Learning a Graspability Field",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "비파지 조작을 통한 파지 준비를 강화학습으로 학습하는 연구로, 접촉 역학이나 촉각/힘 제어 기반 파지와 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.05697",
+    "title": "GraspSense: Physically Grounded Grasp and Grip Planning for a Dexterous Robotic Hand via Language-Guided Perception and Force Maps",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "5지 로봇 핸드를 대상으로 접촉 역학 분석 및 힘 맵 기반 파지 최적화와 임피던스 힘 제어를 수행하여 프로필 요구조건을 만족한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.21976",
+    "title": "TacO: Benchmarking Tactile Sensors for Object Manipulation",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "다양한 촉각 센서의 조작 벤치마크 연구이나, 최적화/접촉 역학 기반 파지보다는 학습 기반 정책 성능 평가에 집중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.20646",
+    "title": "Suction Leap-Hand: Suction Cups on a Multi-fingered Hand Enable Embodied Dexterity and In-Hand Teleoperation",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "인간 손 모방 및 전통적 force-closure 파지를 대체하기 위해 흡착 컵을 사용하는 연구로 사용자의 핵심 관심 방향과 정반대이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.23075",
+    "title": "In-Hand Manipulation of Articulated Tools with Dexterous Robot Hands with Sim-to-Real Transfer",
+    "result": {
+      "score": 55,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "다지 로봇 핸드의 촉각/힘 피드백을 다루지만, 접촉 역학 최적화보다는 강화학습 기반의 관절형 도구 인핸드 조작에 치중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.20915",
+    "title": "Task-oriented grasping for dexterous robots using postural synergies and reinforcement learning",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "인간 파지 시너지를 모방한 다지 로봇 파지를 다루나, 최적화 기법 대신 VAE 및 강화학습 기반으로 접근한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.03557",
+    "title": "CoorGrasp: Coordinated Contact Control for Adaptive Dexterous Grasping Under Uncertainty",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "해석적 접촉 역학 모델과 촉각 기반 모델 예측 제어(MPC)를 통해 다지 로봇의 적응형 힘 제어 및 안정 파지를 구현하여 핵심 관심사와 완전히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.22421",
+    "title": "Learning-Based Collaborative Control for Bi-Manual Tactile-Reactive Grasping",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "촉각 센서 기반 힘 반응 파지와 MPC를 다루지만, 다지 로봇 손 메커니즘보다는 양팔 협업 및 학습 기반 MPC에 초점을 둔다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

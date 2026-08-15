@@ -1,0 +1,6 @@
+httpx>=0.27.0
+
+# 독립 API 서비스로 실행할 때만 필요 (CLI만 쓸 거면 아래는 생략 가능)
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0

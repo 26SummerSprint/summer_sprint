@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2605.15077",
+    "title": "Concurrency without Model Changes: Future-based Asynchronous Function Calling for LLMs",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 도구 환경에서 LLM의 비동기 함수 호출 및 도구 상호작용 효율성을 개선하는 핵심 기여를 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.25819",
+    "title": "Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 환경의 불안정성(오류, 드리프트 등) 속에서 LLM 도구 사용 에이전트의 신뢰성과 다단계 복구 능력을 평가한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.26553",
+    "title": "Towards Reliable Benchmarking: A Contamination Free, Controllable Evaluation Framework for Multi-step LLM Function Calling",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다단계 함수 호출 및 도구 간 의존성 추적의 신뢰성을 엄밀하게 평가하고 상태 추적 문제를 해결한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.04518",
+    "title": "Advancing SLM Tool-Use Capability using Reinforcement Learning",
+    "result": {
+      "score": 82,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "API 및 도구 사용 환경에서 소형 언어 모델의 함수 호출 정확도와 신뢰성을 높이기 위한 강화학습 방안을 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.22985",
+    "title": "Uncertainty Quantification for LLM Function-Calling",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 작업 환경에서 LLM의 잘못된 함수 호출을 방지하기 위한 불확실성 정량화 기법을 체계적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18413",
+    "title": "Multi-Agent Collaborative Filtering: Orchestrating Users and Items for Agentic Recommendations",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "오케스트레이터를 통한 다중 에이전트 협업 및 도구 사용을 다루지만, 추천 시스템 도메인 응용에 특화된 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.14323",
+    "title": "Beyond Semantic Similarity: Reducing Unnecessary API Calls via Behavior-Aligned Retriever",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "API 환경에서 LLM의 불필요하고 부정확한 함수 호출을 줄여 도구 사용의 신뢰성을 높이는 핵심 기여를 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.02871",
+    "title": "Adaptive Latent Agentic Reasoning",
+    "result": {
+      "score": 83,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "도구 사용 에이전트의 다단계 계획 및 의사결정 효율성을 개선하기 위한 적응형 추론 프레임워크를 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.00268",
+    "title": "Beyond Perfect APIs: A Comprehensive Evaluation of LLM Agents Under Real-World API Complexity",
+    "result": {
+      "score": 96,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 복잡한 API 환경에서 LLM 에이전트의 함수 호출 신뢰성과 실행 오류를 체계적으로 평가하는 벤치마크를 제시한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.14477",
+    "title": "Ticket-Bench: A Kickoff for Multilingual and Regionalized Agent Evaluation",
+    "result": {
+      "score": 80,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 환경의 작업 지향 에이전트가 수행하는 함수 호출의 정확도와 일관성을 평가하는 벤치마크 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.06334",
+    "title": "MANTRA: Synthesizing SMT-Validated Compliance Benchmarks for Tool-Using LLM Agents",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 도구 사용 LLM 에이전트의 규칙 준수 및 신뢰성 평가를 위한 벤치마크 프레임워크를 다루어 프로필의 관심사와 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.04686",
+    "title": "ToolFailBench: Diagnosing Tool-Use Failures in LLM Agents",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 환경에서 LLM 에이전트의 함수 호출 신뢰성 및 도구 사용 오류 유형을 진단하고 평가하여 프로필 핵심 주제와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.02155",
+    "title": "Brief Is Better: Non-Monotonic Chain-of-Thought Budget Effects in Function-Calling Language Agents",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "함수 호출 LLM 에이전트의 추론 예산과 도구 사용 정확도/신뢰성 간의 관계를 분석하고 개선 방안을 제시한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.20833",
+    "title": "MemGym: a Long-Horizon Memory Environment for LLM Agents",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "에이전트 환경을 다루지만 핵심 초점이 도구 사용/함수 호출 메커니즘보다는 장기 기억(Memory) 벤치마크 및 격리 평가에 맞추어져 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.15197",
+    "title": "OpaqueToolsBench: Learning Nuances of Tool Behavior Through Interaction",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 API 및 도구 환경의 불완전한 명세 하에서 LLM 에이전트의 상호작용 기반 도구 호출 신뢰성을 분석하고 개선한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.22511",
+    "title": "Mock Worlds, Real Skills: Building Small Agentic Language Models with Synthetic Tasks, Simulated Environments, and Rubric-Based Rewards",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 및 API 환경에서 LLM의 도구 사용 능력 향상을 위한 시뮬레이션 환경 구축 및 보상 설계를 다루어 프로필에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.0156",
+    "title": "In-N-Out: A Parameter-Level API Graph Dataset for Tool Agents",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "복잡한 다단계 API 호출 및 도구 의존성 해결을 위한 API 그래프 기반 에이전트 연구로 프로필의 핵심 주제와 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.18703",
+    "title": "EnvFactory: Scaling Tool-Use Agents via Executable Environments Synthesis and Robust RL",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실행 가능한 API 환경 합성 및 다중 턴 도구 사용 강화학습을 다루어 프로필의 도구 사용 에이전트 연구와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.12521",
+    "title": "ToolWeave: Structured Synthesis of Complex Multi-Turn Tool-Calling Dialogues",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 환경에서 복잡한 다중 턴 함수 호출 및 다단계 파라미터 계획을 안정화하는 연구로 프로필에 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.09252",
+    "title": "LLM Agents Already Know When to Call Tools -- Even Without Reasoning",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 에이전트의 불필요한 API 호출을 방지하고 도구 사용 시점을 판별하는 메커니즘을 다루어 프로필의 신뢰성 높은 도구 활용 연구와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.24002",
+    "title": "MCPMark: A Benchmark for Stress-Testing Realistic and Comprehensive MCP Use",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "현실적인 환경에서 LLM의 MCP 도구 사용 및 함수 호출 신뢰성을 스트레스 테스트하는 벤치마크로 프로필의 핵심 관심사와 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.08878",
+    "title": "PerspectiveGap: A Benchmark for Multi-Agent Orchestration Prompting",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "소프트웨어 환경의 다중 에이전트 시스템에서 역할 분담 및 오케스트레이션 프롬프팅 능력을 평가하므로 프로필 주제에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.17281",
+    "title": "From Language to Action: A Review of Large Language Models as Autonomous Agents and Tool Users",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "LLM 에이전트의 도구 사용 및 다중 에이전트 구조를 포괄적으로 다루는 서베이 논문이나, 구체적인 도구 실행 신뢰성 분석보다는 광범위한 개괄에 가깝다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.04323",
+    "title": "How Well Do Agentic Skills Work in the Wild: Benchmarking LLM Skill Usage in Realistic Settings",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 환경에서 LLM 에이전트의 도구 및 스킬 검색과 활용 신뢰성을 현실적인 세팅에서 체계적으로 벤치마킹하여 프로필과 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.14108",
+    "title": "Eta Given Delta: Defining LLM Tool Efficiency With Marginal Tool Utility",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 에이전트 궤적에서 외부 도구 호출의 유용성과 효율성을 정량 평가하는 메트릭을 제안하여 도구 사용 신뢰성 연구에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.13311",
+    "title": "Towards General Agentic Intelligence via Environment Scaling",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다양한 실세계 API 환경에서 LLM 에이전트의 function-calling 신뢰성 및 역량을 향상시키는 연구로 프로필의 핵심 주제와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.03465",
+    "title": "The Tool Illusion: Rethinking Tool Use in Web Agents",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "웹 및 소프트웨어 환경에서 LLM 에이전트의 도구 사용 실효성과 신뢰성, 부작용을 체계적으로 분석하여 프로필의 관심사에 직접적으로 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.16206",
+    "title": "Computer Environments Elicit General Agentic Intelligence in LLMs",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "코드 샌드박스 환경에서 파일 관리, 코드 실행 등 외부 도구와의 상호작용을 다루어 프로필의 소프트웨어 도구 활용 에이전트 주제와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.16576",
+    "title": "Can LLM Agents Infer World Models? Evidence from Agentic Automata Learning",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "도구 호출 에이전트의 쿼리 계획을 다루지만, 실세계 소프트웨어/API 환경보다는 오토마타 학습이라는 이론적·합성 환경에 집중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.02304",
+    "title": "Unified Context Evolution for LLM Agents",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "다단계 상호작용 및 워크플로우 경험 축적을 다루나, 도구 호출/API 자체보다는 프롬프트 컨텍스트 진화 메커니즘과 ALFWorld 등 텍스트 게임 환경 위주로 평가되었다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

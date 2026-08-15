@@ -1,0 +1,12 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P10,2509.21999,Black-Box Hallucination Detection via Consistency Under the Uncertain Expression,1,0,,[]
+P10,2509.13702,DSCC-HS: A Dynamic Self-Reinforcing Framework for Hallucination Suppression in Large Language Models,1,0,,[]
+P10,2602.11166,"Small Updates, Big Doubts: Does Parameter-Efficient Fine-tuning Enhance Hallucination Detection ?",1,0,,[]
+P10,2509.10004,Unsupervised Hallucination Detection by Inspecting Reasoning Processes,1,0,,[]
+P10,2601.01552,HalluZig: Hallucination Detection using Zigzag Persistence,1,0,,[]
+P10,2601.19918,Lowest Span Confidence: A Zero-Shot Metric for Efficient and Black-Box Hallucination Detection in LLMs,1,0,,[]
+P10,2510.04933,The Geometry of Truth: Layer-wise Semantic Dynamics for Hallucination Detection in Large Language Models,1,0,,[]
+P10,2512.02772,Towards Unification of Hallucination Detection and Fact Verification for Large Language Models,1,0,,[]
+P10,2607.20219,"HalluTruthQA: A Fine-Grained Benchmark for Hallucination Detection, Localization, and Explanation in Arabic Question Answering",1,0,,[]
+P10,2606.08158,Constrained Paraphrase Consistency for LLM Hallucination Detection,1,0,,[]
+P10,2511.07445,A Preliminary Study of RAG for Taiwanese Historical Archives,1,0,,[]

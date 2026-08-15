@@ -1,0 +1,5 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P9,2508.0037,EdgeInfinite-Instruct: Bridging SFT-Based Optimization and NPU-Level Efficiency for Edge Devices,0,1,,[]
+P9,2603.11053,Speculative Decoding Scaling Laws (SDSL): Throughput Optimization Made Simple,1,0,,[]
+P9,2601.20326,Beyond Speedup -- Utilizing KV Cache for Sampling and Reasoning,1,0,,[]
+P9,2511.16682,Bench360: Benchmarking Local LLM Inference from 360 Degrees,0,1,,[]

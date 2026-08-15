@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2604.03096",
+    "title": "An Open-Source LiDAR and Monocular Off-Road Autonomous Navigation Stack",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 오프로드 환경에서의 자율주행을 위한 LiDAR 및 단안 카메라 기반 3D 인지 파이프라인과 고도 지도 생성을 핵심으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.12516",
+    "title": "Zero to Autonomy in Real-Time: Online Adaptation of Dynamics in Unstructured Environments",
+    "result": {
+      "score": 55,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "비정형 환경 자율주행을 다루지만, 인지 파이프라인보다는 온라인 동역학 적응 및 제어에 초점이 맞춰져 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.0134",
+    "title": "Terrain Perception for Agricultural UAVs in Complex Farmland via Rotating mmWave Radar",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "농업용 UAV의 지형 추종 비행을 위한 레이더 인지를 다루고 있어 지상 오프로드 내비게이션 인지와는 연구 맥락이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.0058",
+    "title": "OmniUnet: A Multimodal Network for Unstructured Terrain Segmentation on Planetary Rovers Using RGB, Depth, and Thermal Imagery",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 야외 지형(화성 탐사 로버)에서 다중 모달리티 센서를 활용한 지형 분할 및 인지 시스템을 직접 연구한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18183",
+    "title": "Off-Road Navigation via Implicit Neural Representation of Terrain Traversability",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "오프로드 환경에서 센서 데이터를 바탕으로 지형 주행 가능성(traversability)을 암시적 신경 표현으로 모델링하고 경로를 추론하는 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.00877",
+    "title": "Learning When to Jump for Off-road Navigation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 오프로드 환경에서의 주행을 위해 인식 파이프라인과 주행 동역학을 연계한 주행성 판단 및 경로 계획을 직접적으로 연구한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.11638",
+    "title": "DA-Nav: Direction-Aware City-Scale Vision-Language Navigation",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "도심 환경의 Vision-Language 내비게이션을 다루며, 비정형 오프로드 환경의 지형 인식 및 추론과는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.05855",
+    "title": "A Hybrid Autoencoder for Robust Heightmap Generation from Fused Lidar and Depth Data for Humanoid Robot Locomotion",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "비정형 환경을 위한 멀티모달 센서 융합 기반 지형 인식 파이프라인을 다루지만, 오프로드 주행보다는 휴머노이드 보행 로코모션에 집중한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.0389",
+    "title": "Uncertainty-aware Accurate Elevation Modeling for Off-road Navigation via Neural Processes",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "오프로드 주행을 위한 카메라 및 라이다 센서 기반 고도 모델링 및 불확실성 추론 등 비정형 지형 인식 파이프라인을 핵심으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.00939",
+    "title": "BarlowWalk: Self-supervised Representation Learning for Legged Robot Terrain-adaptive Locomotion",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "외장 지형 인식 센서 의존도를 낮추고 고유수용성 감각 중심의 강화학습 보행 제어를 다루어 지형 인식 파이프라인 연구와 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.11504",
+    "title": "FR-Net: Learning Robust Quadrupedal Fall Recovery on Challenging Terrains through Mass-Contact Prediction",
+    "result": {
+      "score": 15,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "사족보행 로봇의 낙상 회복 제어에 초점을 맞춘 연구로, 오프로드 내비게이션 및 인지 파이프라인과 관련이 없다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.07363",
+    "title": "UEREBot: Learning Safe Quadrupedal Locomotion under Unstructured Environments and High-Speed Dynamic Obstacles",
+    "result": {
+      "score": 38,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "비정형 환경을 언급하지만 동적 장애물 회피를 위한 보행 제어 및 반사 동작에 중점을 둔 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.08226",
+    "title": "Verti-Arena: A Controllable and Standardized Indoor Testbed for Multi-Terrain Off-Road Autonomy",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "오프로드 자율주행 연구를 위한 실내 테스트베드 및 벤치마크 구축 연구로, 인지 파이프라인 분석보다는 인프라에 가깝다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.07321",
+    "title": "Performance Characterization of a Point-Cloud-Based Path Planner in Off-Road Terrain",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "오프로드 지형에서 포인트클라우드 기반 인지 및 경로 계획 스택의 성능을 실외와 시뮬레이션에서 분석한 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.25646",
+    "title": "G-DRAGON: Geospatial Reasoning and Dynamic Planning for Retrieval-Augmented Outdoor Navigation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "야외 대규모 환경에서의 공간 추론과 의미론적 인지-계획 파이프라인을 다루어 프로필의 연구 관심사와 밀접하게 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.05014",
+    "title": "The RoboSense Challenge: Sense Anything, Navigate Anywhere, Adapt Across Platforms",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "로봇 센싱 및 내비게이션 챌린지 벤치마크를 다루지만, 비정형 오프로드 환경의 인지 및 내비게이션에 특화된 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.04327",
+    "title": "From Language to Logic: A Theoretical Architecture for VLM-Grounded Safe Navigation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 실외 환경에서의 안전한 내비게이션을 위해 VLM을 활용한 시각-의미 인지 및 비용 맵 추론 파이프라인을 핵심으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.17984",
+    "title": "Distilling Global Traversability Priors for Image-based Affordance Prediction in Off-road Environments",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "오프로드 비정형 지형에서의 장거리 주행 가능 영역(traversability) 인지 파이프라인과 글로벌 사전 정보를 활용하는 방법을 직접적으로 연구한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.06974",
+    "title": "FeudalNav: A Simple Framework for Visual Navigation",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "실내 시뮬레이터(Habitat) 기반의 일반적 비주얼 내비게이션을 다루며 오프로드 및 비정형 실외 환경을 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.12965",
+    "title": "MAMMOTH: A Multi-Modal End-to-End Policy for Off-Road Mobility Robust to Missing Modality",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 오프로드 환경에서의 강건한 멀티모달 센서 인지 및 주행 정책 파이프라인을 핵심 기여로 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.23563",
+    "title": "RAVEN: Resilient Aerial Navigation via Open-Set Semantic Memory and Behavior Adaptation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실내 내비게이션의 한계를 극복하고 비정형 실외 환경에서의 인지 및 장거리 탐색을 위한 3D 시맨틱 메모리 및 행동 제어 파이프라인을 직접적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.06652",
+    "title": "Follow the Signs: Using Textual Cues and LLMs to Guide Efficient Robot Navigation",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "실내 건물의 방 번호나 표지판 등 정형화된 실내 구조 패턴을 활용한 내비게이션 연구로 비정형 야외 환경 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.09792",
+    "title": "A Comprehensive Survey and Systematic Real-World Evaluation of Embodied Vision-and-Language Navigation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "비전-언어 내비게이션(VLN)에 대한 일반적인 서베이 및 실세계 평가 연구로 오프로드/비정형 실외 인지 파이프라인 분석이 핵심이 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.15354",
+    "title": "Sensing, Social, and Motion Intelligence in Embodied Navigation: A Comprehensive Survey",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "Embodied Navigation 전반에 대한 일반적 서베이 논문으로 비정형 오프로드 환경과 실내 환경의 인지 파이프라인 차이에 초점을 맞추지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.03609",
+    "title": "A 3D Isovist World Model -- Revealing a City's Unseen Geometry and Its Emergent Cross-City Signature",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "도시 환경(Urban)의 3D 공간 기하 구조 예측을 다루는 월드 모델 연구로, 비정형 오프로드 환경에서의 인지 및 추론 연구와 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.12686",
+    "title": "SignScene: Visual Sign Grounding for Mapless Navigation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "표지판 기반의 맵리스 내비게이션을 다루며 오프로드 및 비정형 야외 환경의 인식 및 추론과는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.17384",
+    "title": "IndustryNav: Exploring Spatial Reasoning of Embodied Agents in Dynamic Industrial Navigation",
+    "result": {
+      "score": 15,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "실내 창고 및 산업 환경에서의 동적 내비게이션 벤치마크를 다루어 야외 비정형 환경 연구에 부합하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.23057",
+    "title": "Seq-DeepIPC: Sequential Sensing for End-to-End Control in Legged Robot Navigation",
+    "result": {
+      "score": 58,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "야외 보행 로봇의 시계열 센싱 및 제어 파이프라인을 다루지만 비정형 오프로드 환경에서의 복합적인 의미론적 추론 기여는 다소 제한적이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.19308",
+    "title": "WildOS: Open-Vocabulary Object Search in the Wild",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비정형 야외 및 오프로드 환경에서 주행 가능성과 의미론적 추론을 결합한 내비게이션 파이프라인을 직접적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.00673",
+    "title": "Path Planning in Physically Viable World Models",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "비정형 야외 지형 변화에 대한 물리 월드 모델 기반 경로 계획을 다루나 온보드 인지 파이프라인보다는 시뮬레이션 기반 경로 검증에 집중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

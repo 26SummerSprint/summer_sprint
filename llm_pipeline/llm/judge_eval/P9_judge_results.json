@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2607.27735",
+    "title": "A Sparse Glimpse of the Whole: Train-Free Self-Speculative Decoding",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "학습 없이 KV 캐시를 활용하여 긴 문맥 추론을 가속하는 자체 추측 디코딩 기술을 제안하여 프로필의 관심사와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.13519",
+    "title": "ToolSpec: Accelerating Tool Calling via Schema-Aware and Retrieval-Augmented Speculative Decoding",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "도구 호출 시 지연 시간을 줄이기 위해 스키마 기반 및 검색 증강 추측 디코딩을 적용하여 서빙 가속을 달성하는 연구로 프로필에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.01815",
+    "title": "KV Cache Transform Coding for Compact Storage in LLM Inference",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 서빙 중 KV 캐시 압축 및 양자화를 통해 메모리 사용량을 줄이고 추론 효율을 높이는 연구로 프로필 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.01237",
+    "title": "KARA: Efficient Reasoning LLM Serving via Sliding-Window KV Cache Compression",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추론 모델의 긴 CoT 생성 시 KV 캐시를 압축하여 서빙 처리량을 개선하는 디코딩 최적화 기법을 제안하여 프로필과 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.17715",
+    "title": "C$^2$KV: Compressed and Composable KV Cache Reuse for Efficient LLM Inference",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "사전 학습된 모델을 유지하면서 KV 캐시 압축 및 재사용을 통해 긴 문맥 추론 비용을 절감하는 연구로 프로필에 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.24957",
+    "title": "Dustin: Draft-Augmented Sparse Verification for Efficient Long-Context Generation with Speculative Decoding",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "이미 배포된 LLM의 긴 문맥 추론 가속을 위해 투기적 디코딩 및 KV 캐시 희소화 검증 기법을 제안하여 프로필의 핵심 관심사와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.26412",
+    "title": "When Hidden States Drift: Can KV Caches Rescue Long-Range Speculative Decoding?",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 추론 효율성을 위한 투기적 디코딩에서 타깃 모델의 KV 캐시 재사용 기법과 효율성 병목을 분석 및 개선하는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.02544",
+    "title": "SimSD: Simple Speculative Decoding in Diffusion Language Models",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "학습 없이 추론 시점에 적용 가능한 플러그앤플레이 투기적 디코딩 기법을 통해 디코딩 처리량을 가속화하는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.02133",
+    "title": "AMBEDKAR-A Multi-level Bias Elimination through a Decoding Approach with Knowledge Augmentation for Robust Constitutional Alignment of Language Models",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "투기적 디코딩 구조를 차용했으나 추론 가속이 아닌 모델의 편향 제거 및 정렬을 목표로 하여 프로필의 효율성 최적화 목적과 불일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.08923",
+    "title": "TiDAR: Think in Diffusion, Talk in Autoregression",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "기존 학습된 모델의 추론 최적화가 아닌 새로운 하이브리드 모델 아키텍처를 제안하고 학습하는 연구로 프로필 조건과 부합하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.12635",
+    "title": "Unleashing Low-Bit Inference on Ascend NPUs: A Comprehensive Evaluation of HiFloat Formats",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "NPU 상에서 LLM 추론 가속을 위한 저비트 부동소수점 포맷 및 포스트 트레이닝 양자화(PTQ), KV 캐시 양자화를 핵심으로 다루어 프로필에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.09613",
+    "title": "AGENTSERVESIM: A Hardware-aware Simulator for Multi-Turn LLM Agent Serving",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "LLM 서빙 및 KV 캐시 관리 시뮬레이션을 다루고 있으나, 직접적인 추론 가속 기법 제안보다는 평가용 하드웨어 시뮬레이터 개발이 핵심 기여이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.07023",
+    "title": "MARS: Enabling Autoregressive Models Multi-Token Generation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추론 속도 향상을 위한 멀티 토큰 생성 및 블록 레벨 KV 캐싱 기법을 제안하여 추론 효율화라는 프로필의 핵심 관심사와 잘 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.0037",
+    "title": "EdgeInfinite-Instruct: Bridging SFT-Based Optimization and NPU-Level Efficiency for Edge Devices",
+    "result": {
+      "score": 86,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "엣지 디바이스 배포를 위한 KV 캐시 최적화 및 세밀한 포스트 트레이닝 양자화(PTQ) 기법을 다루어 프로필의 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.18344",
+    "title": "Speculate Deep and Accurate: Lossless and Training-Free Acceleration for Offloaded LLMs via Substitute Speculative Decoding",
+    "result": {
+      "score": 98,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "학습 없이 저비트 양자화와 KV 캐시 공유를 활용하는 투기적 디코딩(Speculative Decoding) 기법을 제안하여 프로필의 핵심 요구조건과 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.2034",
+    "title": "Scaling LLM Speculative Decoding: Non-Autoregressive Forecasting in Large-Batch Scenarios",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "대규모 배치 환경에서 비자기회귀 방식을 결합하여 서빙 효율을 높이는 추론 단계 Speculative Decoding 기법을 제안하므로 프로필과 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2603.11053",
+    "title": "Speculative Decoding Scaling Laws (SDSL): Throughput Optimization Made Simple",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "배치된 모델의 추론 최적화보다는 사전 학습 단계 전 하이퍼파라미터 최적화를 위한 스케일링 법칙에 초점을 맞추고 있어 관심사와 부합하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.01336",
+    "title": "HiSpec: Hierarchical Speculative Decoding for LLMs",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "Early-Exit 및 KV 캐시 재사용을 통해 검증 병목을 줄이고 LLM 추론 처리량을 개선하는 Speculative Decoding 연구로 프로필에 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.09329",
+    "title": "Test-Time Speculation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "긴 생성 시퀀스에서 추론 효율 저하를 막기 위해 테스트 타임에 초안 모델을 적응시키는 Speculative Decoding 기법을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.20326",
+    "title": "Beyond Speedup -- Utilizing KV Cache for Sampling and Reasoning",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "KV 캐시를 경량 임베딩/표현으로 재활용하는 다운스트림 태스크 및 샘플링 연구로, 프로필이 요구하는 서빙 가속 및 KV 캐시 압축 최적화와는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.1158",
+    "title": "Speculative Decoding: Performance or Illusion?",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "실제 vLLM 서빙 환경에서 Speculative Decoding의 추론 효율성과 병목 현상을 체계적으로 분석하여 프로필의 핵심 관심사와 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.18902",
+    "title": "Flatter Tokens are More Valuable for Speculative Draft Model Training",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "Speculative Decoding을 다루지만 추론 최적화가 아닌 드래프트 모델의 학습 효율성(데이터 선별)에 초점을 맞추고 있어 제외 조건에 해당한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.08005",
+    "title": "DeltaKV: Residual-Based KV Cache Compression via Long-Range Similarity",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "배포 환경에서 긴 문맥 추론 가속을 위한 KV 캐시 압축 및 전용 추론 엔진 구현을 제안하여 프로필의 핵심 주제와 완전히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.16682",
+    "title": "Bench360: Benchmarking Local LLM Inference from 360 Degrees",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다양한 양자화 및 서빙 엔진 환경에서 로컬 LLM 추론 효율성(지연 시간, 처리량 등)을 다각도로 벤치마크하는 연구로 프로필에 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.07409",
+    "title": "DeLS-Spec: Decoupled Long-Short Contexts for Parallel Speculative Drafting",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 추론 속도를 높이기 위해 병렬 드래프팅을 개선한 Speculative Decoding 기법을 제안하여 프로필의 핵심 연구 주제와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.21859",
+    "title": "TimeBill: Time-Budgeted Inference for Large Language Models",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "배포된 LLM의 시간 제약 추론을 위해 적응형 KV 캐시 축소 기법을 다루어 프로필의 관심사와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.04474",
+    "title": "Scaling Up, Speeding Up: A Benchmark of Speculative Decoding for Efficient LLM Test-Time Scaling",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추론 시점 연산 가속을 위해 투기적 디코딩(Speculative Decoding) 기법을 벤치마크하고 분석하므로 프로필 주제에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.06175",
+    "title": "VecInfer: Efficient LLM Inference with Low-Bit KV Cache via Outlier-Suppressed Vector Quantization",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 추론 가속 및 메모리 절감을 위해 벡터 양자화 기반 KV 캐시 압축 기법을 제안하는 논문으로 프로필과 직결된다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.07667",
+    "title": "Adaptive Layer Selection for Layer-Wise Token Pruning in LLM Inference",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "추론 단계에서 훈련 없이 적용 가능한 적응형 토큰 프루닝 기반 KV 캐시 압축 방법을 연구하여 프로필 관심사와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.14978",
+    "title": "Performance-Driven Policy Optimization for Speculative Decoding with Adaptive Windowing",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 추론 속도 향상을 위한 투기적 디코딩의 드래프트 모델 최적화 프레임워크를 제안하므로 프로필 주제와 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

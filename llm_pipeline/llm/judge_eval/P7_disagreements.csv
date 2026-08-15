@@ -1,0 +1,5 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P7,2508.07607,X2Edit: Revisiting Arbitrary-Instruction Image Editing through Self-Constructed Data and Task-Aware Representation Learning,0,1,,[]
+P7,2509.11213,Beyond Sliders: Mastering the Art of Diffusion-based Image Manipulation,0,1,,[]
+P7,2509.16968,Penalizing Boundary Activation for Object Completeness in Diffusion Models,0,1,,[]
+P7,2605.27343,Towards Controllable Image Generation through Representation-Conditioned Diffusion Models,0,1,,[]

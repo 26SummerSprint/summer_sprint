@@ -1,0 +1,6 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P5,2601.19314,Instance-Guided Radar Depth Estimation for 3D Object Detection,1,0,,[]
+P5,2511.10035,DGFusion: Dual-guided Fusion for Robust Multi-Modal 3D Object Detection,0,1,,[]
+P5,2512.15311,KD360-VoxelBEV: LiDAR and 360-degree Camera Cross Modality Knowledge Distillation for Bird's-Eye-View Segmentation,0,1,,[]
+P5,2512.02972,BEVDilation: LiDAR-Centric Multi-Modal Fusion for 3D Object Detection,0,1,,[]
+P5,2511.04347,Evaluating the Impact of Weather-Induced Sensor Occlusion on BEVFusion for 3D Object Detection,1,0,,[]

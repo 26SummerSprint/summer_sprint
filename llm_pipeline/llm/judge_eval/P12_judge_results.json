@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2601.17312",
+    "title": "Meta-Judging with Large Language Models: Concepts, Methods, and Challenges",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-Judge의 편향 및 신뢰성 한계를 극복하기 위한 Meta-Judge 패러다임과 평가 방법론을 종합적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.20909",
+    "title": "LogitTrace: Detecting Benchmark Contamination via Layerwise Logit Trajectories",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "벤치마크 오염(contamination) 탐지를 위한 새로운 레이어별 로짓 궤적 분석 방법론을 제안하여 프로필의 관심사와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.09084",
+    "title": "How Many Human Judgments Are Enough? Feasibility Limits of Human Preference Evaluation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "인간 선호도 평가의 신뢰성과 벤치마크 프로토콜 설계 한계를 통계적으로 분석하여 평가 문제 자체를 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.27316",
+    "title": "LLM-Based Examination of Eligibility Criteria from Securities Prospectuses at the German Central Bank",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "증권 설명서 적격성 검토라는 금융 응용 연구이며, LLM-as-a-judge는 성능 측정을 위한 도구로만 사용되었다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.24211",
+    "title": "Teaching Through Analogies: A Modular Pipeline for Educational Analogy Generation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "교육용 비유 생성 파이프라인 제안이 핵심 기여이며, 평가 방법론 자체의 연구가 아닌 응용 태스크 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.14564",
+    "title": "Assessing Large Language Models for Medical QA: Zero-Shot and LLM-as-a-Judge Evaluation",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "새로운 평가 방법론 연구가 아닌 의료 QA에 기존 모델들을 적용하여 점수를 비교하는 응용 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.12162",
+    "title": "AlphaEval: Evaluating Agents in Production",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "프로덕션 환경을 위한 새로운 벤치마크 설계 방법론과 LLM-as-a-judge 기반 평가 프레임워크를 직접 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.07608",
+    "title": "Subtitle-Aligned Fine-Tuning of Whisper for Swiss German ASR: Benchmark Contamination, Convention Mismatch, and an Honest Baseline at 25.6% WER (13.8% cWER)",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "핵심 연구가 스위스 독일어 음성인식(ASR) 모델 미세조정이며 LLM 시스템 평가가 중심이 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.30504",
+    "title": "Auditing LLM Benchmarks with Item Response Theory",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "IRT를 활용해 LLM 벤치마크의 라벨 오류, 오염 및 보상 모델의 평가 편향을 심층 분석하고 감사하는 방법론을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.20858",
+    "title": "When Flores Bloomz Wrong: Cross-Direction Contamination in Machine Translation Evaluation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 평가에서 발생하는 벤치마크 데이터 오염 문제와 이를 탐지 및 분석하는 방법론을 핵심으로 연구한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.02235",
+    "title": "Challenges and Recommendations for LLMs-as-a-Judge in Multilingual Settings and Low-Resource Languages",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다국어 및 저자원 언어 환경에서 LLM-as-a-judge의 신뢰성과 평가 한계 및 가이드라인을 직접적으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.13649",
+    "title": "Fairness or Fluency? An Investigation into Language Bias of Pairwise LLM-as-a-Judge",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "Pairwise LLM-as-a-judge의 언어 편향(language bias)을 심층 분석하여 평가자 편향 및 신뢰성 문제를 직접 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.16041",
+    "title": "Are We on the Right Way to Assessing LLM-as-a-Judge?",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-judge 자체의 신뢰성과 일관성을 평가하기 위한 새로운 프레임워크(Sage)를 제안하여 프로필과 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2603.09992",
+    "title": "TAMUSA-Chat: A Domain-Adapted Large Language Model Conversational System for Research and Responsible Deployment",
+    "result": {
+      "score": 15,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "기관용 대화형 LLM 시스템 구축 및 도메인 적응 프레임워크를 다루며 평가 방법론 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.10908",
+    "title": "SoftMatcha 2: A Fast and Soft Pattern Matcher for Trillion-Scale Corpora",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "대규모 말뭉치 검색 알고리즘 논문으로 벤치마크 오염 탐지를 응용 사례로 언급하지만 핵심 연구 주제는 효율적 패턴 매칭이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.09383",
+    "title": "BiasScope: Towards Automated Detection of Bias in LLM-as-a-Judge Evaluation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-Judge의 알려지지 않은 편향을 자동으로 탐지하는 프레임워크와 벤치마크를 제안하여 프로필의 핵심 관심사에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.08535",
+    "title": "When the Judge Changes, So Does the Measurement: Auditing LLM-as-Judge Reliability",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 평가자의 교체에 따른 측정 유효성, 신뢰도 및 위치 편향 문제를 체계적으로 감사하고 평가 방법론을 제시한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.13685",
+    "title": "The Coin Flip Judge? Reliability and Bias in LLM-as-a-Judge Evaluation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-Judge의 반복 실행 신뢰도, 위치 편향, 일관성 문제를 심층 분석하여 신뢰성 있는 평가 방안을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.06625",
+    "title": "FairJudge: An Adaptive, Debiased, and Consistent LLM-as-a-Judge",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-Judge의 위치/길이 편향 완화 및 평가 일관성 향상을 위한 방법론을 제안하여 프로필 주제와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.19544",
+    "title": "Reliability without Validity: A Systematic, Large-Scale Evaluation of LLM-as-a-Judge Models Across Agreement, Consistency, and Bias",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "대규모 LLM-as-a-Judge 모델들의 신뢰도, 일관성, 위치 편향을 체계적으로 평가하고 검증 프로토콜을 제시한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.06996",
+    "title": "Self-Preference Bias in Rubric-Based Evaluation of Large Language Models",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "루브릭 기반 LLM-as-a-judge 평가에서 발생하는 자기 선호 편향(Self-Preference Bias)과 신뢰성을 심층 분석하여 프로필의 핵심 연구 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.00093",
+    "title": "Agreement Metrics for LLM-as-Judge Evaluation: What to Report and Why",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 평가자와 인간 평가 간의 일치도 지표 및 평가 신뢰성을 측정하고 보고하는 방법론을 체계적으로 다루어 프로필의 관심사에 직접적으로 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.16444",
+    "title": "Exploring the Effects of Alignment on Numerical Bias in Large Language Models",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-judge 평가자에서 발생하는 수치 편향의 원인과 완화 방안을 탐구하여 평가자 신뢰성 및 편향 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.22548",
+    "title": "Are LLM Evaluators Really Narcissists? Sanity Checking Self-Preference Evaluations",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 평가자의 자기 선호 편향(Self-Preference) 측정 방식과 실험적 혼란 변수를 검증하는 평가 방법론 연구로 프로필과 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.1849",
+    "title": "Vector RAG vs LLM-Compiled Wiki: A Preregistered Comparison on a Small Multi-Domain Research",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "Vector RAG와 Wiki 방식을 비교하는 시스템 성능 연구이며, LLM 판사는 보조 도구로만 사용되어 평가 방법론 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.02219",
+    "title": "Am I More Pointwise or Pairwise? Revealing Position Bias in Rubric-Based LLM-as-a-Judge",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "Rubric 기반 LLM-as-a-judge에서 나타나는 position bias를 체계적으로 분석하고 완화 방안을 제시하여 프로필의 핵심 관심사와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.11581",
+    "title": "Hidden Measurement Error in LLM Pipelines Distorts Annotation, Evaluation, and Benchmarking",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM 평가 파이프라인의 측정 오차와 벤치마크 신뢰성 문제를 다루며 총 평가 오차를 줄이는 새로운 평가 방법론을 제안하므로 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.27914",
+    "title": "Does Capability Transfer to Subjective Behavior -- and Would Our Instruments Tell Us? A Self-Evolving, Trust-by-Construction Evaluation Paradigm",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "주관적 LLM 행동 평가의 한계를 극복하기 위한 새로운 벤치마크 설계 및 평가 패러다임을 제안하여 프로필 주제에 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.26072",
+    "title": "The Silent Judge: Unacknowledged Shortcut Bias in LLM-as-a-Judge",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-judge의 편향(shortcut bias)과 신뢰성 저하 문제를 실증적으로 분석하여 프로필의 핵심 관심사와 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.24678",
+    "title": "Reference-Free Rating of LLM Responses via Latent Information",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "LLM-as-a-judge의 점수 불안정성 및 캘리브레이션 문제를 해결하기 위한 새로운 잠재 정보 기반 평가 방법론을 제시하므로 정답이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

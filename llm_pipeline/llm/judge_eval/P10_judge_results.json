@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2512.08892",
+    "title": "Toward Faithful Retrieval-Augmented Generation with Sparse Autoencoders",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 시스템에서 내부 표현(SAE)을 활용한 환각 탐지 및 완화를 다루어 프로필의 핵심 관심사와 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.21999",
+    "title": "Black-Box Hallucination Detection via Consistency Under the Uncertain Expression",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "일반적인 LLM의 블랙박스 환각 탐지를 다루며 RAG 환경이나 검색 기반 생성에 대한 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.13702",
+    "title": "DSCC-HS: A Dynamic Self-Reinforcing Framework for Hallucination Suppression in Large Language Models",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "일반 LLM 디코딩 단계에서의 환각 억제 프레임워크를 제안하며 RAG가 핵심 연구 주제가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.0936",
+    "title": "MetaRAG: Metamorphic Testing for Hallucination Detection in RAG Systems",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 시스템에서 검색된 근거 문맥을 기반으로 환각을 탐지하고 span 단위로 검증하는 연구로 프로필과 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.17671",
+    "title": "Turk-LettuceDetect: A Hallucination Detection Models for Turkish RAG Applications",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 환경에서의 사실성 확보 및 토큰 수준 환각 탐지를 다루어 프로필의 RAG 환각 탐지 관심사에 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.11166",
+    "title": "Small Updates, Big Doubts: Does Parameter-Efficient Fine-tuning Enhance Hallucination Detection ?",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "일반 LLM에 대한 환각 탐지를 다루고 있으나 프로필의 핵심 주제인 검색 증강 생성(RAG) 및 소스 인용 접지 연구와 일치하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.03052",
+    "title": "Detecting Hallucinations in Retrieval-Augmented Generation via Semantic-level Internal Reasoning Graph",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 환경에서 내부 추론 그래프 및 어트리뷰션을 활용해 충실성 환각을 탐지하는 연구로 프로필의 핵심 관심사와 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.10004",
+    "title": "Unsupervised Hallucination Detection by Inspecting Reasoning Processes",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "LLM의 내부 표현을 이용한 비지도 환각 탐지 기법을 제안하지만 RAG나 인용 접지 관련 요소가 결여되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.01552",
+    "title": "HalluZig: Hallucination Detection using Zigzag Persistence",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "어텐션 위상 분석을 통한 일반 LLM 환각 탐지 연구로 핵심 주제인 RAG 및 검색 품질 연계 분석을 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.19918",
+    "title": "Lowest Span Confidence: A Zero-Shot Metric for Efficient and Black-Box Hallucination Detection in LLMs",
+    "result": {
+      "score": 42,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "출력 확률 기반의 블랙박스 환각 탐지 메트릭을 제안하는 논문으로 RAG 기반 연구가 아니므로 프로필과 부합하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.04933",
+    "title": "The Geometry of Truth: Layer-wise Semantic Dynamics for Hallucination Detection in Large Language Models",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "LLM 내부 레이어 동역학을 이용한 환각 탐지 연구로, 프로필의 핵심 주제인 RAG 및 검색 기반 사실성/인용 그라운딩 연구와 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.02772",
+    "title": "Towards Unification of Hallucination Detection and Fact Verification for Large Language Models",
+    "result": {
+      "score": 55,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "모델 중심 환각 탐지와 텍스트 기반 사실 검증의 통합을 다루어 외부 검증 관심사와 일부 부합하지만, RAG 파이프라인이나 인용 그라운딩이 중심 기여는 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.20219",
+    "title": "HalluTruthQA: A Fine-Grained Benchmark for Hallucination Detection, Localization, and Explanation in Arabic Question Answering",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "아랍어 QA에 대한 환각 탐지 및 검증 벤치마크 연구로, 검색 증강 생성(RAG) 및 검색 품질과 사실성의 관계를 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.0229",
+    "title": "Hallucination or Creativity: How to Evaluate AI-Generated Scientific Stories?",
+    "result": {
+      "score": 48,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "과학 논문 기반 스토리 생성 평가 및 어휘적 그라운딩을 다루나, RAG 및 검색 품질/인용 식별 연구와는 초점이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.08158",
+    "title": "Constrained Paraphrase Consistency for LLM Hallucination Detection",
+    "result": {
+      "score": 52,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "문서-주장 쌍의 일관성 제약을 통한 환각 탐지 방법으로 문서 기반 사실성 검증과 연관되나, RAG 및 인용 그라운딩의 핵심 기여는 부족하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.09174",
+    "title": "Facet-Level Tracing of Evidence Uncertainty and Hallucination in RAG",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG에서 검색 증거와 생성의 정렬 및 환각, 세부 단위 그라운딩을 분석하여 프로필의 핵심 연구 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.21729",
+    "title": "Beyond Component Strength: Synergistic Integration and Adaptive Calibration in Multi-Agent RAG Systems",
+    "result": {
+      "score": 80,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "멀티 에이전트 RAG 시스템에서 검색 품질과 검증 메커니즘이 환각 및 답변 사실성에 미치는 영향을 분석한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.00895",
+    "title": "Beyond Document Grounding: Span-Level Hallucination Detection over Code, Tool Output, and Documents",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 시스템에서의 스팬 단위 환각 탐지와 다양한 증거에 대한 그라운딩을 다루어 프로필 관심사에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.21875",
+    "title": "LUMINA: Detecting Hallucinations in RAG System with Context-Knowledge Signals",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 환경에서 내부 모델 신호와 외부 문맥 신호를 결합하여 환각을 탐지하는 기법을 제안하여 프로필과 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.05069",
+    "title": "MIRAGE: Defending Long-Form RAG Against Misinformation Pollution",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "오염된 검색 결과가 RAG의 사실성에 미치는 영향을 다루고 검증을 통해 환각을 완화하는 연구로 프로필에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.19134",
+    "title": "QuCo-RAG: Quantifying Uncertainty from the Pre-training Corpus for Dynamic Retrieval-Augmented Generation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "사전학습 코퍼스 기반의 불확실성 측정을 통해 동적 검색을 수행하여 RAG 환각을 완화하는 연구로 프로필 관심사와 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.07015",
+    "title": "FVA-RAG: Falsification-Verification Alignment for Mitigating Sycophantic Hallucinations",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG에서 검색된 반증 증거를 활용하여 아첨형 환각을 검증 및 완화하는 방법을 다루어 사용자 관심사에 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.2909",
+    "title": "AB-RAG: Adaptive Budgeted Retrieval-Augmented Generation for Reliable Question Answering",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 환경에서 신뢰도 추정과 적응형 검색을 통해 생성 답변의 신뢰성을 개선하고 환각을 줄이는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.07515",
+    "title": "TPA: Next Token Probability Attribution for Detecting Hallucinations in RAG",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 컨텍스트 및 내부 모델 신호 기반의 토큰 확률 기여도 분석을 통해 환각을 탐지하는 연구로 프로필 주제와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.07783",
+    "title": "Evaluating RAG Reliability under Clean, Misleading, and Mixed Retrieval",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "검색 품질(오도된 정보, 혼합 정보 등)이 RAG 생성 답변의 사실성과 신뢰성에 미치는 영향을 평가하여 프로필 핵심 관심사와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.20859",
+    "title": "Concise and Sufficient Sub-Sentence Citations for Retrieval-Augmented Generation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 환경에서 환각 완화 및 검증성을 높이기 위한 서브 문장 단위의 인용 그라운딩 프레임워크를 직접 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.07445",
+    "title": "A Preliminary Study of RAG for Taiwanese Historical Archives",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "검색 품질과 생성 환각의 관계를 다루지만, 특정 역사 아카이브 도메인에 RAG 파이프라인을 적용한 기초 응용 연구에 가깝다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.11509",
+    "title": "Does Less Hallucination Mean Less Creativity? An Empirical Investigation in LLMs",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "환각 저감 기법이 모델의 창의성에 미치는 영향을 분석하는 논문으로 RAG 사실성 및 인용 그라운딩 연구와 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.19927",
+    "title": "Attribution Techniques for Mitigating Hallucinated Information in RAG Systems: A Survey",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RAG 시스템에서 환각을 완화하기 위한 출처 인용 및 속성(attribution) 기법을 포괄적으로 다룬 서베이 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.08046",
+    "title": "Guaranteeing Knowledge Integration with Joint Decoding for Retrieval-Augmented Generation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "검색된 외부 지식과 모델 내부 파라메트릭 지식 간의 충돌을 해결하여 생성 답변의 사실성을 높이고 환각을 저감한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

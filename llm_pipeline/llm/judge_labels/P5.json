@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2607.12419",
+    "title": "DeGuNet: Depth-Guided Ultra-Compact Backbones for Efficient LiDAR-Camera 3D Detection",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "멀티뷰 카메라와 라이다 융합을 통한 BEV 기반 3D 객체 탐지 연구로, 프로필의 핵심 연구 관심사와 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.19314",
+    "title": "Instance-Guided Radar Depth Estimation for 3D Object Detection",
+    "result": {
+      "score": 72,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "BEV 및 3D 객체 탐지를 다루고 있으나 멀티카메라가 아닌 단안 카메라와 레이더 기반 깊이 추정에 초점이 맞춰져 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.1252",
+    "title": "An Initial Study of Bird's-Eye View Generation for Autonomous Vehicles using Cross-View Transformers",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "멀티카메라 기반의 BEV 맵 생성 연구이나 프로필의 주요 관심사인 3D 객체 탐지에 대한 기여는 부족하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.24688",
+    "title": "MIC-BEV: Multi-Infrastructure Camera Bird's-Eye-View Transformer with Relation-Aware Fusion for 3D Object Detection",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "멀티카메라 입력으로부터 BEV 변환을 수행하여 3D 객체 탐지를 수행하는 논문으로 프로필의 핵심 연구 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.10035",
+    "title": "DGFusion: Dual-guided Fusion for Robust Multi-Modal 3D Object Detection",
+    "result": {
+      "score": 82,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "자율주행 환경에서 이미지-포인트 클라우드 다중 모달 융합을 통한 3D 객체 탐지를 다루며 프로필의 관심 범위에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.02979",
+    "title": "Towards Compact Autonomous Driving Perception with Balanced Learning and Multi-sensor Fusion",
+    "result": {
+      "score": 55,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "BEV 투영 및 자율주행 인식을 다루고 있으나, 다중 센서(DVS, LiDAR 등) 멀티태스크 학습에 초점이 맞추어져 있어 카메라 기반 3D 객체 탐지 연구와의 적합성이 다소 낮다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.15935",
+    "title": "PAN: Pillars-Attention-Based Network for 3D Object Detection",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "카메라-레이더 융합을 통한 BEV 기반 3D 객체 탐지 연구로 프로필의 핵심 연구 주제와 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18695",
+    "title": "Exploring Surround-View Fisheye Camera 3D Object Detection",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "서라운드 뷰 어안 카메라 환경에서 BEV 기반의 3D 객체 탐지를 다루어 프로필의 핵심 요구 조건과 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.10287",
+    "title": "Bridging Perspectives: Foundation Model Guided BEV Maps for 3D Object Detection and Tracking",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "카메라 기반 BEV 표현을 활용하여 자율주행 환경의 3D 객체 탐지 성능을 향상시키는 연구로 핵심 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.17462",
+    "title": "MAESTRO: Task-Relevant Optimization via Adaptive Feature Enhancement and Suppression for Multi-task 3D Perception",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 객체 탐지 및 BEV 맵 세그멘테이션 등 자율주행 3D 인식을 위한 다중 태스크 학습 프레임워크를 제안하여 프로필의 관심사에 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.19593",
+    "title": "Generalizing Monocular 3D Object Detection",
+    "result": {
+      "score": 72,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "자율주행 환경의 3D 객체 탐지 및 BEV 기술을 다루지만, 다중 카메라(Multi-camera)가 아닌 단안(Monocular) 카메라 일반화에 초점을 맞추고 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.1762",
+    "title": "StereoMV2D: A Sparse Temporal Stereo-Enhanced Framework for Robust Multi-View 3D Object Detection",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "자율주행을 위한 다중 뷰(Multi-view) 카메라 기반 3D 객체 탐지 프레임워크를 제안하여 프로필의 핵심 연구 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.25293",
+    "title": "Neuromorphic LiDAR-based Bird's Eye View Object Detection using Energy-efficient Spiking Neural Networks",
+    "result": {
+      "score": 10,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "LiDAR 포인트 클라우드만을 사용하는 BEV 객체 탐지 연구로, 명시적인 제외 조건인 LiDAR-only 연구에 해당한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.03568",
+    "title": "Learned Non-Maximum Suppression for 3D Object Detection",
+    "result": {
+      "score": 15,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "LiDAR 기반 3D 객체 탐지의 후처리 NMS 모듈을 다루는 논문으로, 제외 조건인 LiDAR 중심 연구에 해당한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.05785",
+    "title": "CRAB: Camera-Radar Fusion for Reducing Depth Ambiguity in Backward Projection based View Transformation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "BEV 뷰 변환을 활용한 카메라-레이더 융합 3D 객체 탐지 연구로, 카메라 기반 BEV 인식 및 3D 객체 탐지 주제에 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.04702",
+    "title": "BEVCon: Advancing Bird's Eye View Perception with Contrastive Learning",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "자율주행 환경에서 다중 카메라 기반 BEV 표상 학습 및 3D 객체 검출 성능 향상을 직접적으로 다루어 프로필 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.14151",
+    "title": "BEVUDA++: Geometric-aware Unsupervised Domain Adaptation for Multi-View 3D Object Detection",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "다중 뷰 카메라 기반 BEV 3D 객체 검출의 도메인 적응 문제를 해결하는 연구로 프로필의 핵심 관심사와 직접적으로 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.09599",
+    "title": "BridgeTA: Bridging the Representation Gap in Knowledge Distillation via Teacher Assistant for Bird's Eye View Map Segmentation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "자율주행을 위한 카메라 기반 BEV 인지 및 맵 분할 성능을 지식 증류로 개선하는 연구로 프로필 조건에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.13995",
+    "title": "Self-Supervised Sparse Sensor Fusion for Long Range Perception",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "자율주행 3D 인지를 다루지만 BEV 표현의 한계를 극복하기 위해 희소 센서 퓨전을 제안하는 연구로 핵심 관심사인 BEV 연구와는 방향성에 차이가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.15311",
+    "title": "KD360-VoxelBEV: LiDAR and 360-degree Camera Cross Modality Knowledge Distillation for Bird's-Eye-View Segmentation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "자율주행용 카메라 기반 BEV 인지 및 분할을 위해 다중 모달리티 지식 증류를 적용한 연구로 프로필의 핵심 관심사와 잘 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.07626",
+    "title": "Eyes All Around: Design and Analysis of 360-Degree LiDAR Perception Using Equivariant Feature Learning in Unstructured Traffic",
+    "result": {
+      "score": 10,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "LiDAR 센서만을 사용하는 3D 인지 연구로 사용자의 명시적 제외 조건(LiDAR-only)에 해당한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.08237",
+    "title": "Fast-BEV++: Fast by Algorithm, Deployable by Design",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전 기반 BEV 3D 객체 검출 프레임워크를 제안하여 프로필의 핵심 연구 주제와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.26641",
+    "title": "All You Need for Object Detection: From Pixels, Points, and Prompts to Next-Gen Fusion and Multimodal LLMs/VLMs in Autonomous Vehicles",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "자율주행 객체 검출 전반을 다루는 서베이 논문으로 특정 비전 BEV 및 다중 카메라 검출 연구 기여와는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.0159",
+    "title": "Effective Multi-sensor Conditioning for Street-view Novel-view Synthesis",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "주요 연구 주제가 3D 객체 검출이나 BEV 인지가 아닌 비디오 확산 모델 기반의 신규 시점 합성(Novel View Synthesis)이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.12918",
+    "title": "Radar-Camera BEV Multi-Task Learning with Cross-Task Attention Bridge for Joint 3D Detection and Segmentation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "BEV 공간 기반의 3D 객체 검출 및 분할 다중 작업 학습을 다루어 프로필의 핵심 주제에 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.02972",
+    "title": "BEVDilation: LiDAR-Centric Multi-Modal Fusion for 3D Object Detection",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "카메라와 라이다를 융합한 BEV 기반 3D 객체 탐지 방법론을 제안하여 프로필의 핵심 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.25405",
+    "title": "Leveraging Previous-Traversal Point Cloud Map Priors for Camera-Based 3D Object Detection and Tracking",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "카메라 기반 3D 객체 탐지를 위해 BEV 표현과 맵 프라이어를 융합하는 연구로 프로필의 관심 분야와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.1222",
+    "title": "TriBand-BEV: Real-Time LiDAR-Only 3D Pedestrian Detection via Height-Aware BEV and High-Resolution Feature Fusion",
+    "result": {
+      "score": 10,
+      "decision": "오답",
+      "label": 0,
+      "tag": "excl_violation",
+      "reason": "프로필에서 명시적으로 제외한 라이다 전용(LiDAR-only) 3D 객체 탐지 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.06865",
+    "title": "Spatial Retrieval Augmented Autonomous Driving",
+    "result": {
+      "score": 38,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "지리적 이미지 검색 기반의 자율주행 전반 프레임워크 연구로, 프로필의 핵심인 카메라/BEV 3D 객체 탐지와는 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.04347",
+    "title": "Evaluating the Impact of Weather-Induced Sensor Occlusion on BEVFusion for 3D Object Detection",
+    "result": {
+      "score": 75,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "BEV 기반 멀티모달 3D 객체 탐지를 다루고 있으나 새로운 탐지 모델 제안보다는 센서 차폐에 따른 강건성 평가 분석에 집중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

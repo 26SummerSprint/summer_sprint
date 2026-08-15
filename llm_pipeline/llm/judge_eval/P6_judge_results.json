@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2601.17934",
+    "title": "From Specialist to Generalist: Unlocking SAM's Learning Potential on Unlabeled Medical Images",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 영상 분할을 위해 SAM과 PEFT를 활용하여 준지도 학습 프레임워크를 제안하므로 프로필의 핵심 연구 주제와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.0452",
+    "title": "Boundary-Aware Test-Time Adaptation for Zero-Shot Medical Image Segmentation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 영상 분할을 위해 SAM의 인코더 레벨 프롬프트 주입 및 테스트 타임 적응(TTA)을 연구하여 프로필의 관심사와 직접적으로 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.17684",
+    "title": "Intelligent Communication Mixture-of-Experts Boosted-Medical Image Segmentation Foundation Model",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 영상 분할을 위한 파운데이션 모델의 적응형 파인튜닝 및 MoE 기법을 제안하여 프로필의 핵심 요구 조건을 만족한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.16073",
+    "title": "DSFedMed: Dual-Scale Federated Medical Image Segmentation via Mutual Distillation Between Foundation and Lightweight Models",
+    "result": {
+      "score": 72,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "파운데이션 모델을 의료 영상 분할에 적용하지만, 연합 학습과 지식 증류 중심의 연구로 프로필이 선호하는 PEFT/어댑터/프롬프트 튜닝 연구와는 차이가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.20909",
+    "title": "Dino U-Net: Exploiting High-Fidelity Dense Features from Foundation Models for Medical Image Segmentation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "DINO 파운데이션 모델과 어댑터 모듈을 활용하여 의료 영상 분할 성능을 극대화하는 방법을 연구하므로 프로필과 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.02379",
+    "title": "MedDINOv3: How to adapt vision foundation models for medical image segmentation?",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "DINOv3 파운데이션 모델을 의료 영상 분할에 적용하기 위한 도메인 적응 프레임워크를 제안하여 프로필과 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.13101",
+    "title": "Harmonizing Generalization and Specialization: Uncertainty-Informed Collaborative Learning for Semi-supervised Medical Image Segmentation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전 파운데이션 모델의 지식을 증류하여 준지도 의료 영상 분할 성능을 향상시키는 연구로 프로필의 핵심 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.01038",
+    "title": "Foundation Model-guided Iteratively Prompting and Pseudo-Labeling for Partially Labeled Medical Image Segmentation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "파운데이션 모델의 프롬프팅 및 의사 라벨링을 활용한 의료 영상 분할 연구로 프로필 조건과 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.1088",
+    "title": "Medical SAM3: A Foundation Model for Universal Prompt-Driven Medical Image Segmentation",
+    "result": {
+      "score": 96,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "SAM3 파운데이션 모델을 텍스트 및 프롬프트 기반 의료 영상 분할에 적응시킨 연구로 프로필 요구사항을 완벽히 만족한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.16935",
+    "title": "Parameter-efficient fine-tuning (PEFT) of Vision Foundation Models for Atypical Mitotic Figure Classification",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "의료 파운데이션 모델의 PEFT(LoRA) 기법을 다루지만, 분할/검출이 아닌 병리 이미지 분류에 초점을 맞추고 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.04571",
+    "title": "TAPE: A two-stage parameter-efficient adaptation framework for foundation models in OCT-OCTA analysis",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "MAE 등 파운데이션 모델에 PEFT 기법을 적용하여 안과 의료 영상 분할을 수행하므로 프로필 관심사와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.19759",
+    "title": "Vision-Language Enhanced Foundation Model for Semi-supervised Medical Image Segmentation",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "VLM과 SAM 기반 파운데이션 모델 및 프롬프트를 활용한 준지도 의료 영상 분할 연구로 프로필 조건에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.26996",
+    "title": "MoME: Mixture of Visual Language Medical Experts for Medical Imaging Segmentation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "비전-언어 파운데이션 모델을 결합한 MoE 구조를 제안하여 3D CT 의료 영상 분할을 다루는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.03499",
+    "title": "NAS-LoRA: Empowering Parameter-Efficient Fine-Tuning for Visual Foundation Models with Searchable Adaptation",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "SAM 기반 PEFT 방법을 다루고 의료 도메인을 포함하나, 의료 영상 특화 연구라기보다 범용 비전 모델 어댑테이션에 치중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.30577",
+    "title": "APRIL-MedSeg: A Modular Medical Image Segmentation Toolbox Embracing Modern Paradigms",
+    "result": {
+      "score": 42,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "의료 영상 분할을 위한 범용 툴박스 및 프레임워크 논문으로, 파운데이션 모델 응용 연구가 핵심 기여가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.16973",
+    "title": "Foundation Models in Medical Image Analysis: A Systematic Review and Meta-Analysis",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "의료 영상 파운데이션 모델 및 효율적 미세조정 전반을 다루는 포괄적인 리뷰 논문으로 직접적인 방법론 제안 연구는 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.13608",
+    "title": "DBT-DINO: Towards Foundation model based analysis of Digital Breast Tomosynthesis",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "DINO 기반의 파운데이션 모델을 3차원 유방 단층촬영 영상에 적용하여 병변 검출 및 진단 성능을 검증한 논문으로 프로필 주제와 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.01284",
+    "title": "Adaptation of Foundation Models for Medical Image Analysis: Strategies, Challenges, and Future Directions",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "의료 영상에서 파운데이션 모델의 적응 및 PEFT 전략을 종합적으로 정리한 리뷰 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.07219",
+    "title": "Vision Foundation Models in Radiology: A Scoping Review of Data, Methodology, Evaluation and Clinical Translation",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "방사선 영상 분야의 비전 파운데이션 모델 현황과 분할 평가 등을 다룬 스코핑 리뷰 논문이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.06096",
+    "title": "MedSeqFT: Sequential Fine-tuning Foundation Models for 3D Medical Image Segmentation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 영상 분할을 위해 LoRA 기반 PEFT 기법을 활용하여 파운데이션 모델을 순차적으로 미세조정하는 방법론을 제안하여 프로필과 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.17828",
+    "title": "Toward explainable AI approaches for breast imaging: adapting foundation models to diverse populations",
+    "result": {
+      "score": 58,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "BiomedCLIP을 의료 영상에 적용하지만 분할 및 검출이 아닌 유방 밀도 분류(Classification)가 핵심 과제이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.11212",
+    "title": "MAFM^3: Modular Adaptation of Foundation Models for Multi-Modal Medical AI",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 파운데이션 모델에 경량 모듈형 적응(PEFT/Modular adaptation) 기법을 적용하여 의료 영상 분할 및 예후 예측 성능을 개선했다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.09742",
+    "title": "Feature Quality and Adaptability of Medical Foundation Models: A Comparative Evaluation for Radiographic Classification and Segmentation",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "의료 파운데이션 모델(DINO 등)의 흉부 X-ray 분할 및 분류 적응성을 평가한 벤치마크/비교 연구로, 새로운 PEFT/어댑터 방법론 제안은 부족하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.18707",
+    "title": "PEFT-MedSAM: Efficient Fine-Tuning of Medical Foundation Models for Explainable Skin Lesion Segmentation",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "MedSAM 파운데이션 모델을 경량 파라미터 효율적 미세조정(PEFT) 기법을 통해 피부 병변 분할에 성공적으로 적용했다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.11032",
+    "title": "MedSAMix: A Training-Free Model Merging Approach for Medical Image Segmentation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "SAM과 MedSAM 파운데이션 모델을 결합하는 모델 병합 기법을 제안하여 다양한 의료 영상 분할 작업에 적용하였다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.12382",
+    "title": "A Hierarchical Benchmark of Foundation Models for Dermatology",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "의료 파운데이션 모델과 어댑터를 활용하지만, 분할이나 검출이 아닌 피부 질환 분류 벤치마크에 초점을 맞추고 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.03441",
+    "title": "MedCAL-Bench: A Comprehensive Benchmark on Cold-Start Active Learning with Foundation Models for Medical Image Analysis",
+    "result": {
+      "score": 58,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "DINO 등 파운데이션 모델과 의료 영상 분할을 다루지만, 핵심 연구 주제는 콜드 스타트 능동 학습 벤치마크 구축이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.10358",
+    "title": "Benchmarking the Robustness of Foundation Models for Mammography under Domain Shift",
+    "result": {
+      "score": 42,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "의료 파운데이션 모델 및 VLM을 평가하지만 분할 및 검출이 아닌 유방암 및 치밀도 분류의 도메인 시프트 강건성 평가에 집중한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.07643",
+    "title": "Uncovering Modality Discrepancy and Generalization Illusion for General-Purpose 3D Medical Segmentation",
+    "result": {
+      "score": 75,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "3D 의료 영상 분할 파운데이션 모델의 모달리티 일반화를 다루어 관련성이 높으나, 방법론 개발보다는 평가 및 벤치마킹 분석 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.24231",
+    "title": "EVLF-FM: Explainable Vision Language Foundation Model for Medicine",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "의료 멀티모달 VLM을 개발하여 픽셀 단위 비주얼 그라운딩 및 진단을 수행하므로 프로필의 핵심 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

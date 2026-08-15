@@ -1,0 +1,11 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P8,2605.03294,FACTOR: Counterfactual Training-Free Test-Time Adaptation for Open-Vocabulary Object Detection,0,1,,[]
+P8,2511.18925,LookSharp: Attention Entropy Minimization for Test-Time Adaptation,0,1,,[]
+P8,2604.01589,Mitigating the ID-OOD Tradeoff in Open-Set Test-Time Adaptation,0,1,,[]
+P8,2510.14634,SteeringTTA: Guiding Diffusion Trajectories for Robust Test-Time-Adaptation,0,1,,[]
+P8,2604.19093,Multi-modal Test-time Adaptation via Adaptive Probabilistic Gaussian Calibration,0,1,,[]
+P8,2508.03388,Neutralizing Token Aggregation via Information Augmentation for Efficient Test-Time Adaptation,0,1,,[]
+P8,2509.17598,COLA: Context-aware Language-driven Test-time Adaptation,0,1,,[]
+P8,2508.1269,TTA-DAME: Test-Time Adaptation with Domain Augmentation and Model Ensemble for Dynamic Driving Conditions,0,1,,[]
+P8,2511.1812,MVS-TTA: Test-Time Adaptation for Multi-View Stereo via Meta-Auxiliary Learning,0,1,,[]
+P8,2508.20029,Segmentation Assisted Incremental Test Time Adaptation in an Open World,1,0,,[]

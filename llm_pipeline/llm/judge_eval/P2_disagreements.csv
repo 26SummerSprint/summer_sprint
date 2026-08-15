@@ -1,0 +1,8 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P2,2512.2197,StereoVLA: Enhancing Vision-Language-Action Models with Stereo Vision,1,0,,[]
+P2,2606.17046,Geometric Action Model for Robot Policy Learning,1,0,,[]
+P2,2607.11427,EDAR: Learning Environment-Dependent Action Representations for Robotic Manipulation,0,1,,[]
+P2,2607.04434,RoboDojo: A Unified Sim-and-Real Benchmark for Comprehensive Evaluation of Generalist Robot Manipulation Policies,0,1,,[]
+P2,2509.24768,IA-VLA: Input Augmentation for Vision-Language-Action models in settings with semantically complex tasks,0,1,,[]
+P2,2607.26513,Explicit Kinematic Guidance from Analytic Concepts for Vision-Language-Action Models,1,0,,[]
+P2,2602.22663,Rethinking the Practicality of Vision-language-action Model: A Comprehensive Benchmark and An Improved Baseline,1,0,,[]

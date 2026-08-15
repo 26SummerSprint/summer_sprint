@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2510.06308",
+    "title": "Lumina-DiMOO: An Omni Diffusion Large Language Model for Multi-Modal Generation and Understanding",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델 기반으로 텍스트-이미지 생성뿐만 아니라 이미지 편집 및 인페인팅을 지원하는 통합 생성 모델을 제안하여 프로필과 잘 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.23023",
+    "title": "UniAIDet: A Unified and Universal Benchmark for AI-Generated Image Content Detection and Localization",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "생성된 이미지의 탐지 및 위치 식별(Detection) 벤치마크 논문으로, 이미지 생성 및 편집 모델 연구와는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.15857",
+    "title": "BLIP3o-NEXT: Next Frontier of Native Image Generation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델 구조를 기반으로 텍스트-이미지 생성 및 이미지 편집 성능을 통합하여 향상시킨 연구로 프로필 조건과 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.19244",
+    "title": "Lavida-O: Elastic Large Masked Diffusion Models for Unified Multimodal Understanding and Generation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "마스크드 디퓨전 모델을 활용하여 고해상도 이미지 생성 및 이미지 편집을 수행하는 모델을 제안하므로 프로필 관심사와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.26105",
+    "title": "Security Risk of Misalignment between Text and Image in Multi-modal Model",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "멀티모달 디퓨전 모델에 대한 적대적 공격(보안) 연구로, 이미지 생성 및 편집 기술 개발이라는 프로필의 핵심 목표와 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.02987",
+    "title": "LAMS-Edit: Latent and Attention Mixing with Schedulers for Improved Content Preservation in Diffusion-Based Image and Style Editing",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델 기반의 텍스트-이미지 편집 및 마스크 기반 국소 편집 기술을 제안하여 프로필의 핵심 관심사와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.19902",
+    "title": "MMCORE: MultiModal COnnection with Representation Aligned Latent Embeddings",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "VLM과 디퓨전 모델을 결합한 멀티모달 이미지 생성 및 이미지 편집 프레임워크를 다루어 프로필 주제에 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.07607",
+    "title": "X2Edit: Revisiting Arbitrary-Instruction Image Editing through Self-Constructed Data and Task-Aware Representation Learning",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "FLUX 디퓨전 모델 기반의 지시어 기반 이미지 편집 데이터셋 구축 및 모듈 학습을 다루어 프로필의 핵심 요구와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.03247",
+    "title": "PixPerfect: Seamless Latent Diffusion Local Editing with Discriminative Pixel-Space Refinement",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "잠재 디퓨전 모델(LDM)의 인페인팅 및 국소 이미지 편집 성능 개선을 다루어 프로필이 우선시하는 주제와 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.01984",
+    "title": "Discrete Noise Inversion for Next-scale Autoregressive Text-based Image Editing",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "텍스트 기반 이미지 편집을 다루고 있으나 사용자가 선호하는 디퓨전 모델이 아닌 시각적 자기회귀(VAR) 모델 기반 기법을 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.10711",
+    "title": "NextStep-1: Toward Autoregressive Image Generation with Continuous Tokens at Scale",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "이미지 생성 및 편집을 다루지만 프로필에서 선호하는 확산 모델이 아닌 자기회귀(Autoregressive) 기반 모델이 핵심 기여이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.24057",
+    "title": "EPEdit: Redefining Image Editing with Generative AI and User-Centric Design",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "Stable Diffusion을 활용하여 마스크 및 프롬프트 기반의 이미지 편집과 인페인팅을 수행하는 연구로 프로필 조건과 직접 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.10509",
+    "title": "A Segmentation-driven Editing Method for Bolt Defect Augmentation and Detection",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "인페인팅 기법이 포함되어 있으나 핵심 목적은 특정 도메인의 결함 검출을 위한 데이터 증강이며 확산 모델 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.12575",
+    "title": "StructDiff: A Structure-Preserving and Spatially Controllable Diffusion Model for Single-Image Generation",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "확산 모델 기반으로 단일 이미지 생성, 편집 및 아웃페인팅의 공간적 제어를 다루어 프로필의 핵심 관심사와 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.13214",
+    "title": "End4: End-to-end Denoising Diffusion for Diffusion-Based Inpainting Detection",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "이미지 생성 및 편집 모델 연구가 아니라 확산 모델로 인페인팅된 위조 이미지를 탐지(Detection)하는 포렌식 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.24888",
+    "title": "DiffusionBench: On Holistic Evaluation of Diffusion Transformers",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "디퓨전 기반 이미지 생성 모델의 벤치마크 연구로 관련성은 있으나, 프로필에서 우선하는 이미지 편집/인페인팅 주제와는 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.21887",
+    "title": "Generative AI in Depth: A Survey of Recent Advances, Model Variants, and Real-World Applications",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "생성형 AI 전반을 다루는 광범위한 서베이 논문으로, 디퓨전 기반 이미지 생성 및 편집에 특화된 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.11213",
+    "title": "Beyond Sliders: Mastering the Art of Diffusion-based Image Manipulation",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델 기반의 이미지 조작(Image Manipulation/Editing)을 다루어 프로필의 핵심 관심사와 정확히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.22125",
+    "title": "Creative Image Generation with Diffusion Models",
+    "result": {
+      "score": 70,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "디퓨전 기반 텍스트-이미지 생성 연구이지만 우선순위인 이미지 편집이나 인페인팅이 아닌 일반 창의적 생성에 집중되어 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.05478",
+    "title": "Can We Predict The Human Preference For Text-to-Image Content Prior To Generation And Is It Even Useful To Do So?",
+    "result": {
+      "score": 60,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "텍스트-이미지 디퓨전 모델의 인간 선호도 예측 및 품질 향상을 다루지만, 프로필에서 원하는 이미지 편집/인페인팅 중심 연구는 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.18281",
+    "title": "Uni-DAD: Unified Distillation and Adaptation of Diffusion Models for Few-step Few-shot Image Generation",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "디퓨전 모델 기반 이미지 생성 및 도메인 적응을 다루고 있으나, 우선순위 주제인 이미지 편집 및 인페인팅에 특화된 연구는 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2511.22677",
+    "title": "Decoupled DMD: CFG Augmentation as the Spear, Distribution Matching as the Shield",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "디퓨전 모델의 증류 및 텍스트-이미지 생성을 다루는 연구이나, 우선순위인 이미지 편집/인페인팅 주제를 핵심 기여로 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.11289",
+    "title": "i1: A Simple and Fully Open Recipe for Strong Text-to-Image Models",
+    "result": {
+      "score": 65,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "텍스트-이미지 디퓨전 모델 구축에 관한 연구로 관련성은 있으나, 최우선 관심사인 이미지 편집 및 인페인팅 연구는 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.03046",
+    "title": "MagicQuillV2: Precise and Interactive Image Editing with Layered Visual Cues",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델을 활용한 상호작용적 이미지 편집 및 국소 편집(객체 제거 등)을 핵심 기여로 제안하여 프로필의 관심사와 완벽히 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.1735",
+    "title": "Beyond Semantic Features: Pixel-level Mapping for Generalized AI-Generated Image Detection",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "생성형 모델로 만들어진 이미지를 탐지(Detection)하는 연구로, 이미지 생성 및 편집 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.24891",
+    "title": "VAGUEGAN: Stealthy Poisoning and Backdoor Attacks on Image Generative Pipelines",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "생성 모델에 대한 보안 및 백도어 공격을 연구하는 논문으로, 프로필이 요구하는 이미지 생성 및 편집 방법론 연구와 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.16968",
+    "title": "Penalizing Boundary Activation for Object Completeness in Diffusion Models",
+    "result": {
+      "score": 82,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 기반 텍스트-이미지 생성 모델에서 객체 완성도를 높이기 위한 디노이징 경계 제어 방법을 제안하여 핵심 연구 주제에 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.20241",
+    "title": "BAFIS: Dataset + Framework to assess occupational Bias and Human Preference in modern Text-to-image Models",
+    "result": {
+      "score": 30,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "텍스트-이미지 생성 모델의 직업 관련 편향 및 인간 선호도 평가에 초점을 맞춘 연구로 생성 알고리즘 개발과 거리가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2507.23313",
+    "title": "The Cow of Rembrandt - Analyzing Artistic Prompt Interpretation in Text-to-Image Models",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "디퓨전 모델의 스타일 및 내용 해석 메커니즘을 분석하는 연구로, 프로필이 우선시하는 생성 및 편집 알고리즘 연구와는 차이가 있다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.27343",
+    "title": "Towards Controllable Image Generation through Representation-Conditioned Diffusion Models",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "디퓨전 모델을 활용하여 제어 가능한 이미지 생성 및 편집을 달성하는 표현 조건부 방법론을 제안하여 프로필의 관심사에 매우 적합하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]

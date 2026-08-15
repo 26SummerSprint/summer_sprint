@@ -1,0 +1,5 @@
+﻿profile,arxiv_id,title,human_label,judge_label,error,parse_warnings
+P11,2511.18413,Multi-Agent Collaborative Filtering: Orchestrating Users and Items for Agentic Recommendations,1,0,,[]
+P11,2605.20833,MemGym: a Long-Horizon Memory Environment for LLM Agents,1,0,,[]
+P11,2508.17281,From Language to Action: A Review of Large Language Models as Autonomous Agents and Tool Users,1,0,,[]
+P11,2606.16576,Can LLM Agents Infer World Models? Evidence from Agentic Automata Learning,1,0,,[]

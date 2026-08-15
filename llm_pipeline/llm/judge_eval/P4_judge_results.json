@@ -1,0 +1,452 @@
+[
+  {
+    "arxiv_id": "2601.01675",
+    "title": "VisuoTactile 6D Pose Estimation of an In-Hand Object using Vision and Tactile Sensor Data",
+    "result": {
+      "score": 68,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "촉각 포인트 클라우드와 시각 데이터를 융합해 인핸드 물체 6D 포즈를 추정하지만, 다운스트림 조작 플래닝과의 직접적인 연계 파이프라인은 다루지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.16308",
+    "title": "Markerless Robot Detection and 6D Pose Estimation for Multi-Agent SLAM",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "다중 로봇 SLAM 및 상호 위치 추정에 관한 연구로 물체 인식 및 조작 플래닝과 무관하다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.0469",
+    "title": "Pickalo: Leveraging 6D Pose Estimation for Low-Cost Industrial Bin Picking",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "RGB-D 깊이 및 6D 포즈 추정 결과를 물체 파지 및 충돌 검사 플래닝으로 연결하는 전주기 조작 파이프라인을 다루어 프로필과 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.08034",
+    "title": "Fiducial Exoskeletons: Image-Centric Robot State Estimation",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "물체 인식 및 조작이 아닌 로봇 자체 링크의 6D 포즈 및 상태 추정을 통한 캘리브레이션 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.16365",
+    "title": "Markerless 6D Pose Estimation and Position-Based Visual Servoing for Endoscopic Continuum Manipulators",
+    "result": {
+      "score": 25,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "조작 대상 물체 인식이 아닌 수술용 매니퓰레이터 자체의 포즈 추정 및 비주얼 서보잉 제어에 초점을 둔다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.02109",
+    "title": "ROS 2-Based LiDAR Perception Framework for Mobile Robots in Dynamic Production Environments, Utilizing Synthetic Data Generation, Transformation-Equivariant 3D Detection and Multi-Object Tracking",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "이동 로봇의 LiDAR 기반 3D 물체 탐지 및 추적에 초점을 맞추고 있으며 조작을 위한 하위 행동 계획 파이프라인 연구가 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2605.02708",
+    "title": "Temporally Consistent Object 6D Pose Estimation for Robot Control",
+    "result": {
+      "score": 85,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "로봇 매니퓰레이터 제어를 위해 객체의 6D 포즈 인식 결과를 시간적으로 일관되게 추정하고 피드백 제어로 전달하는 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2510.05662",
+    "title": "DeLTa: Demonstration and Language-Guided Novel Transparent Object Manipulation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "깊이 및 6D 포즈 추정 등 3D 인식 데이터를 하위 로봇 작업 계획 및 궤적 생성으로 직접 연계하여 조작을 수행하는 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.02759",
+    "title": "OMNI-PoseX: A Fast Vision Model for 6D Object Pose Estimation in Embodied Tasks",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "임바디드 로봇 파지 작업을 위해 기하학적 일관성을 갖는 6D 포즈 표현을 학습하고 실제 로봇 파지 시스템에 통합한 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.02187",
+    "title": "Registering the 4D Millimeter Wave Radar Point Clouds Via Generalized Method of Moments",
+    "result": {
+      "score": 20,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "SLAM 및 위치 추정을 위한 4D 레이더 포인트 클라우드 정합 연구로, 객체 조작 및 행동 계획 파이프라인과 관련이 없다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.16532",
+    "title": "No Need for Real 3D: Fusing 2D Vision with Pseudo 3D Representations for Robotic Manipulation Learning",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "단안 영상에서 의사 포인트 클라우드 표현을 생성하여 3D 구조를 인지하고 이를 로봇 조작 정책 학습에 활용하는 파이프라인을 핵심으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.21788",
+    "title": "Rotation-Aware Point-Cloud Embeddings for Vision-Based In-Hand Reorientation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "조작 작업을 위해 3D 포인트 클라우드 데이터를 다운스트림 정책 제어에 적합한 회전 인식 임베딩으로 변환하는 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.15427",
+    "title": "Lang2Lift: A Language-Guided Autonomous Forklift System for Outdoor Industrial Pallet Handling",
+    "result": {
+      "score": 82,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "시각 기반 6D 포즈 추정 결과를 다운스트림 모션 플래닝 및 제어 모듈과 직접 결합하여 조작을 수행하는 전체 시스템 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2602.17101",
+    "title": "Benchmarking the Effects of Object Pose Estimation and Reconstruction on Robotic Grasping Success",
+    "result": {
+      "score": 86,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 복원 및 6D 포즈 추정 등 3D 인지 데이터가 다운스트림 파지 계획 및 조작 성공에 미치는 영향을 체계적으로 분석한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2508.15972",
+    "title": "UnPose: Uncertainty-Guided Diffusion Priors for Zero-Shot Pose Estimation",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "확산 모델 기반 6D 포즈 추정 및 3D 복원 자체에 집중된 연구로, 인지 데이터를 조작 파이프라인으로 연결하는 연구가 핵심이 아니다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.22988",
+    "title": "Learning Geometrically-Grounded 3D Visual Representations for View-Generalizable Robotic Manipulation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "포인트 클라우드 기반의 3D 기하 표현 학습 및 이를 조작 정책으로 전달하는 파이프라인을 다루어 프로필에 완벽히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.03163",
+    "title": "Beyond Point-Attached Semantics: Object-Centric Semantic Fields for Generalizable Manipulation",
+    "result": {
+      "score": 94,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "객체 포인트 클라우드에서 3D 의미 필드 표현을 추출하여 다운스트림 로봇 조작 정책에 전달하는 구조를 직접적으로 연구한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.17125",
+    "title": "Imagine2Act: Leveraging Object-Action Motion Consistency from Imagined Goals for Robotic Manipulation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 포인트 클라우드 및 6D 포즈 일관성 제약을 조작 정책 학습에 전달하여 행동을 계획하는 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2601.03782",
+    "title": "PointWorld: Scaling 3D World Models for In-The-Wild Robotic Manipulation",
+    "result": {
+      "score": 90,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 포인트 플로우 기반의 월드 모델 표현을 구축하고 이를 모델 예측 제어(MPC) 액션 플래닝에 직접 통합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2604.12908",
+    "title": "Robotic Manipulation is Vision-to-Geometry Mapping ($f(v) \\rightarrow G$): Vision-Geometry Backbones over Language and Video Models",
+    "result": {
+      "score": 91,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "시각 입력을 네이티브 3D 기하 표현으로 변환하여 로봇 조작 행동 생성에 직접 매핑하는 프레임워크를 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2512.24845",
+    "title": "ArtiSG: Functional 3D Scene Graph Construction via Human-demonstrated Articulated Objects Manipulation",
+    "result": {
+      "score": 88,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 관측 및 6-DoF 궤적으로부터 관절체 객체의 3D 씬 그래프를 구성하여 다운스트림 조작 계획에 활용하는 파이프라인을 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.06233",
+    "title": "O$^3$Afford: One-Shot 3D Object-to-Object Affordance Grounding for Generalizable Robotic Manipulation",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "포인트 클라우드 기반 3D 기하 정보와 어포던스 표현을 추출하여 로봇 조작 및 작업 계획에 연계하는 과정을 직접 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2607.00031",
+    "title": "Joint Discovery of Object and Action Symbols through Effect Prediction for Robotic Manipulation Planning",
+    "result": {
+      "score": 62,
+      "decision": "경계",
+      "label": 0,
+      "tag": "uncertain",
+      "reason": "상호작용 효과 예측을 통한 객체-행동 심볼 추상화 및 조작 계획을 다루나, 포인트 클라우드나 6D 포즈 등 3D 지각 파이프라인에 대한 집중도는 낮다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.04645",
+    "title": "Planning from Point Clouds over Continuous Actions for Multi-object Rearrangement",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "부분 관측 포인트 클라우드를 직접적인 상태 표현으로 활용하여 연속 행동 공간에서 다중 객체 재배치 계획을 수행하는 파이프라인을 제안한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.06191",
+    "title": "Learning in ImaginationLand: Omnidirectional Policies through 3D Generative Models (OP-Gen)",
+    "result": {
+      "score": 40,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "3D 생성 모델을 활용한 정책 학습용 시점 데이터 증강에 초점을 맞추고 있어 지각-조작 표현 파이프라인 연구와 방향이 다르다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.20297",
+    "title": "mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies",
+    "result": {
+      "score": 92,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "환경의 3D 시맨틱 재구성 및 공간 메모리를 구축하여 3D 로봇 제어 정책(Diffusion Policy)에 반영하는 파이프라인을 핵심으로 다루고 있어 프로필과 일치한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2603.006",
+    "title": "I-Perceive: A Foundation Model for Active Perception with Language Instructions",
+    "result": {
+      "score": 35,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "3D 객체 인식을 조작 정책을 위한 표현으로 변환하는 것이 아니라, 능동적 시점 조절(Active Perception)을 위한 카메라 뷰 예측에 집중된 연구이다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2606.02274",
+    "title": "Dexterity-BEV: Aligning 3D World and Actions for Generalizable Robot Policies Learning",
+    "result": {
+      "score": 95,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "2D 시각 입력을 3D 버텍스 맵 및 BEV 기반의 정렬된 3D 표현으로 변환하여 다운스트림 로봇 조작 정책으로 전달하는 파이프라인을 핵심으로 다룬다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.18676",
+    "title": "3D Flow Diffusion Policy: Visuomotor Policy Learning via Generating Flow in 3D Space",
+    "result": {
+      "score": 93,
+      "decision": "정답",
+      "label": 1,
+      "tag": "none",
+      "reason": "3D 공간의 플로우(3D Flow)를 구조화된 중간 표현으로 변환하여 로봇 조작 액션 생성 정책에 연결하는 파이프라인을 제안하여 프로필의 관심사와 정확히 부합한다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  },
+  {
+    "arxiv_id": "2509.25747",
+    "title": "Best of Sim and Real: Decoupled Visuomotor Manipulation via Learning Control in Simulation and Perception in Real",
+    "result": {
+      "score": 45,
+      "decision": "오답",
+      "label": 0,
+      "tag": "kw_only",
+      "reason": "Sim-to-Real 전이를 위한 제어와 인식의 분리 프레임워크를 다루며, 3D 객체 인식 데이터의 조작 표현 변환 파이프라인을 핵심으로 연구하지 않는다.",
+      "analysis": "",
+      "raw_response": "",
+      "parse_warnings": []
+    },
+    "error": null
+  }
+]
