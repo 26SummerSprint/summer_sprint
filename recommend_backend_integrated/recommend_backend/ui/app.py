@@ -238,10 +238,11 @@ with st.sidebar:
     st.header(f"🔖 보관함 ({len(saved)})")
     if not saved:
         st.caption("추천 카드의 🔖 버튼으로 논문을 보관하세요.")
-    for item in saved:
+    for idx, item in enumerate(saved, 1):
         aid = item.get("arxiv_id", "")
         title = item.get("title") or "(제목 없음)"
-        with st.expander(title[:60] + ("…" if len(title) > 60 else "")):
+        label = f"{idx}. {title}"
+        with st.expander(label[:60] + ("…" if len(label) > 60 else "")):
             link = item.get("link")
             pdf = item.get("pdf_url")
             if aid:
@@ -270,8 +271,8 @@ with st.sidebar:
 
             abstract = item.get("abstract")
             if abstract:
-                st.markdown("**초록**")
-                st.caption(abstract)
+                if st.toggle("초록 보기", key=f"abs_{aid}"):
+                    st.caption(abstract)
 
             st.button(
                 "🗑 보관 삭제", key=f"del_{aid}",
