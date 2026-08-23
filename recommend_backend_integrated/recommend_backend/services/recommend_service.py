@@ -358,7 +358,8 @@ class RecommendService:
 
         # ====================================================
         # 피드백 반영 (키워드 단위 — 프로필 무관)
-        #   다운보트 누적 논문 제외 / 업보트 누적 논문은 이후 상위로
+        #   다운보트 누적 논문 제외(후보 단계) /
+        #   업보트 누적 논문은 Stage 2에서 '유사 논문 부스트'로 반영
         # ====================================================
         excluded_ids, upvoted_ids = feedback_sets(
             extracted_profile.keywords
@@ -408,6 +409,7 @@ class RecommendService:
                 ),
                 candidates=candidates,
                 diversity=diversity,
+                boost_ids=list(upvoted_ids),
             )
         )
 
@@ -485,13 +487,8 @@ class RecommendService:
             )
         )
 
-        # 피드백: 업보트 누적 논문을 상위로 재정렬(있을 때만)
-        if upvoted_ids:
-            recommendations.sort(
-                key=lambda r: 0 if r.paper.get("arxiv_id") in upvoted_ids else 1
-            )
-            for i, r in enumerate(recommendations, 1):
-                r.rank = i
+        # 업보트 반영은 Stage 2 rerank 단계의 유사도 부스트(boost_ids)로 처리한다.
+        # (업보트한 논문 '자체'가 아니라 그와 유사한 후보를 상위로 → Gemini에 더 노출)
 
         print(
             "[RecommendService] "
@@ -542,6 +539,7 @@ class RecommendService:
         profile_text_en: str,
         candidates: List[_Candidate],
         diversity: float = 0.0,
+        boost_ids: Optional[List[str]] = None,
     ) -> List[_Candidate]:
         """
         arxiv_pipeline의 /rerank를 호출하여
@@ -615,6 +613,8 @@ class RecommendService:
                     ),
 
                     diversity=diversity,
+
+                    boost_ids=boost_ids,
                 )
             )
 

@@ -50,6 +50,7 @@ class RerankPipelineClient:
         profile_text: str,
         candidates: List[Dict[str, Any]],
         diversity: float = 0.0,
+        boost_ids: List[str] = None,
     ) -> List[Dict[str, Any]]:
         """
         arxiv_pipeline /rerank 호출.
@@ -97,6 +98,7 @@ class RerankPipelineClient:
         payload = {
             "profile_text": profile_text,
             "diversity": diversity,
+            "boost_ids": boost_ids or [],
             "candidates": [
                 {
                     "arxiv_id": c.get(

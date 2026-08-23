@@ -350,6 +350,9 @@ class RerankRequest(BaseModel):
     # 다양성 재랭킹(MMR) 강도. 0.0=관련성만(기존 동작), 클수록 다양성↑ (권장 0~0.7)
     diversity: float = 0.0
 
+    # 업보트 유사도 부스트 대상 arxiv_id. 이 논문들과 비슷한 후보를 상위로 올린다.
+    boost_ids: List[str] = []
+
 
 class RerankResult(BaseModel):
     """
@@ -739,6 +742,29 @@ def rerank_candidates(
             status_code=500,
             detail=f"Reranker execution failed: {e}",
         )
+
+    # --------------------------------------------------------
+    # 업보트 유사도 부스트 — boost_ids(과거 업보트 논문)와
+    # 비슷한 후보를 상위로 올린다. (다양성 재랭킹보다 먼저 적용)
+    # --------------------------------------------------------
+    if req.boost_ids and len(ranked) > 1:
+        try:
+            from embedder import embed_texts
+            from reranker import doc_text, similarity_boost_order
+
+            with get_conn() as conn:
+                bmeta = get_papers_by_ids(conn, req.boost_ids)
+
+            boost_docs = [d for d in (doc_text(m) for m in bmeta.values()) if d]
+            if boost_docs:
+                cand_emb = embed_texts([it["doc"] for it in ranked])
+                boost_emb = embed_texts(boost_docs)
+                rels = [it["rerank_score"] for it in ranked]
+                order = similarity_boost_order(rels, cand_emb, boost_emb, weight=0.3)
+                ranked = [ranked[i] for i in order]
+                print(f"[Reranker] 업보트 부스트 적용: {len(boost_docs)}편 기준")
+        except Exception as e:  # noqa: BLE001
+            print(f"[Reranker] 업보트 부스트 실패(관련성 순서 유지): {e}")
 
     # --------------------------------------------------------
     # 다양성 재랭킹 (MMR) — diversity > 0 일 때만

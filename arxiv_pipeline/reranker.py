@@ -161,6 +161,43 @@ def mmr_order(rel_scores: List[float], embeddings, lambda_mult: float = 0.5) -> 
     return selected
 
 
+def similarity_boost_order(
+    rel_scores: List[float],
+    cand_embeddings,
+    boost_embeddings,
+    weight: float = 0.3,
+) -> List[int]:
+    """업보트한 논문들과의 유사도로 후보 순위를 부스트한 인덱스를 반환한다.
+
+    boosted = (1-weight)*정규화관련도 + weight*(업보트 논문과의 최대 코사인유사도)
+    - weight=0 → 관련도만(부스트 없음), 클수록 업보트한 것과 비슷한 후보를 위로
+    - rel_scores: 각 후보의 재랭커 점수
+    - cand_embeddings: 각 후보 임베딩, boost_embeddings: 업보트 논문 임베딩
+    사용자가 업보트한 논문 '자체'가 아니라 그와 '유사한' 후보를 상위로 올린다.
+    """
+    import numpy as np
+
+    C = np.asarray(cand_embeddings, dtype=float)
+    B = np.asarray(boost_embeddings, dtype=float)
+    if C.ndim != 2 or B.ndim != 2 or len(C) == 0 or len(B) == 0:
+        return list(range(len(rel_scores)))
+
+    def _norm(M):
+        n = np.linalg.norm(M, axis=1, keepdims=True)
+        n[n == 0] = 1.0
+        return M / n
+
+    C, B = _norm(C), _norm(B)
+    sim = np.clip((C @ B.T).max(axis=1), 0.0, 1.0)  # 후보별 업보트 최대 유사도
+
+    rel = np.asarray(rel_scores, dtype=float)
+    rng = rel.max() - rel.min()
+    rel = (rel - rel.min()) / rng if rng > 0 else np.ones_like(rel)
+
+    boosted = (1.0 - weight) * rel + weight * sim
+    return list(np.argsort(-boosted))
+
+
 # ── 지표 ──────────────────────────────────────────────
 def recall_at_k(labels_ranked: List[int], k: int) -> Optional[float]:
     rel = sum(labels_ranked)
