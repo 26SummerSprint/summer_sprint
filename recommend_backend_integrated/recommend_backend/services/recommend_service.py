@@ -258,6 +258,7 @@ class RecommendService:
         self,
         profile: str,
         category: Optional[str] = None,
+        diversity: float = 0.0,
     ) -> RecommendResponse:
         """
         전체 추천 파이프라인.
@@ -386,6 +387,7 @@ class RecommendService:
                     extracted_profile.profile_text_en
                 ),
                 candidates=candidates,
+                diversity=diversity,
             )
         )
 
@@ -511,6 +513,7 @@ class RecommendService:
         self,
         profile_text_en: str,
         candidates: List[_Candidate],
+        diversity: float = 0.0,
     ) -> List[_Candidate]:
         """
         arxiv_pipeline의 /rerank를 호출하여
@@ -582,6 +585,8 @@ class RecommendService:
                     candidates=(
                         payload_candidates
                     ),
+
+                    diversity=diversity,
                 )
             )
 

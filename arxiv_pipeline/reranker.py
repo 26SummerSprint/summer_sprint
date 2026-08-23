@@ -124,6 +124,43 @@ def rerank(model, query: str, candidates: List[dict], batch_size: int = 32) -> L
     return sorted(candidates, key=lambda c: c["rerank_score"], reverse=True)
 
 
+def mmr_order(rel_scores: List[float], embeddings, lambda_mult: float = 0.5) -> List[int]:
+    """MMR(Maximal Marginal Relevance) 재정렬 인덱스를 반환한다.
+
+    각 단계에서 lambda_mult*관련도 - (1-lambda_mult)*(이미 선택된 것과의 최대 유사도)
+    를 최대화하는 후보를 골라, 관련성과 다양성을 함께 최적화한다.
+    - lambda_mult=1 → 관련도만(다양성 없음), 낮을수록 다양성↑
+    - rel_scores: 각 후보의 관련도(재랭커 점수 등), embeddings: 각 후보 임베딩(코사인용)
+    """
+    import numpy as np
+
+    E = np.asarray(embeddings, dtype=float)
+    norms = np.linalg.norm(E, axis=1, keepdims=True)
+    norms[norms == 0] = 1.0
+    E = E / norms  # 코사인 = 정규화 후 내적
+
+    rel = np.asarray(rel_scores, dtype=float)
+    rng = rel.max() - rel.min()
+    rel = (rel - rel.min()) / rng if rng > 0 else np.ones_like(rel)
+
+    selected: List[int] = []
+    remaining = list(range(len(rel)))
+    while remaining:
+        if not selected:
+            best = max(remaining, key=lambda x: rel[x])
+        else:
+            sel = E[selected]
+
+            def mmr_score(x):
+                sim = float(np.max(E[x] @ sel.T))
+                return lambda_mult * rel[x] - (1.0 - lambda_mult) * sim
+
+            best = max(remaining, key=mmr_score)
+        selected.append(best)
+        remaining.remove(best)
+    return selected
+
+
 # ── 지표 ──────────────────────────────────────────────
 def recall_at_k(labels_ranked: List[int], k: int) -> Optional[float]:
     rel = sum(labels_ranked)

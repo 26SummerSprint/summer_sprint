@@ -347,6 +347,9 @@ class RerankRequest(BaseModel):
 
     candidates: List[RerankCandidate]
 
+    # 다양성 재랭킹(MMR) 강도. 0.0=관련성만(기존 동작), 클수록 다양성↑ (권장 0~0.7)
+    diversity: float = 0.0
+
 
 class RerankResult(BaseModel):
     """
@@ -736,6 +739,23 @@ def rerank_candidates(
             status_code=500,
             detail=f"Reranker execution failed: {e}",
         )
+
+    # --------------------------------------------------------
+    # 다양성 재랭킹 (MMR) — diversity > 0 일 때만
+    # 관련도(rerank_score) + 후보 임베딩(코사인)으로 재정렬.
+    # --------------------------------------------------------
+    if req.diversity and req.diversity > 0 and len(ranked) > 2:
+        try:
+            from embedder import embed_texts
+            from reranker import mmr_order
+
+            embs = embed_texts([it["doc"] for it in ranked])
+            rels = [it["rerank_score"] for it in ranked]
+            lam = max(0.0, min(1.0, 1.0 - float(req.diversity)))  # diversity→lambda
+            order = mmr_order(rels, embs, lambda_mult=lam)
+            ranked = [ranked[i] for i in order]
+        except Exception as e:  # noqa: BLE001
+            print(f"[Reranker] MMR 실패(관련성 순서 유지): {e}")
 
     # --------------------------------------------------------
     # Response 생성

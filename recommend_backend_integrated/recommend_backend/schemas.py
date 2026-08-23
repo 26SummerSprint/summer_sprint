@@ -10,6 +10,7 @@ from pydantic import BaseModel
 class RecommendRequest(BaseModel):
     profile: str
     category: Optional[str] = None
+    diversity: float = 0.0  # 다양성(MMR) 강도. 0=관련성만, 클수록 다양성↑ (권장 0~0.7)
 
 
 class ExtractedProfile(BaseModel):

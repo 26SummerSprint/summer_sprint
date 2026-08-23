@@ -14,6 +14,8 @@ _service = RecommendService()
 @router.post("/recommend", response_model=RecommendResponse)
 async def recommend(req: RecommendRequest) -> RecommendResponse:
     try:
-        return await _service.recommend(profile=req.profile, category=req.category)
+        return await _service.recommend(
+            profile=req.profile, category=req.category, diversity=req.diversity
+        )
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=502, detail=str(e)) from e

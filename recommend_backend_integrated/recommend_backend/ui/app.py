@@ -53,6 +53,10 @@ with st.sidebar:
     st.header("설정")
     backend_url = st.text_input("백엔드 주소", value=DEFAULT_BACKEND)
     st.caption("`POST {주소}/api/v1/recommend` 를 호출합니다.")
+    diversity = st.slider(
+        "다양성 (MMR)", 0.0, 0.7, 0.0, 0.1,
+        help="0 = 관련성만, 값이 클수록 서로 다른 주제를 섞어 추천(다양성↑)",
+    )
 
 
 def _esc(x) -> str:
@@ -106,7 +110,7 @@ if go:
         try:
             resp = requests.post(
                 f"{backend_url.rstrip('/')}/api/v1/recommend",
-                json={"profile": profile, "category": None},
+                json={"profile": profile, "category": None, "diversity": diversity},
                 timeout=180,
             )
             resp.raise_for_status()
