@@ -364,17 +364,23 @@ class RecommendService:
         excluded_ids, upvoted_ids = feedback_sets(
             extracted_profile.keywords
         )
-        if excluded_ids:
-            kept = [
+        # B안: 다운보트 논문은 제외, 업보트 논문은 '이미 본 것'이라 결과에서 숨긴다.
+        #      업보트 id는 숨기되 boost_ids(유사도 부스트 앵커)로는 계속 사용해
+        #      "그 논문 자체"가 아니라 "유사한 새 논문"을 상위로 올린다.
+        hide_ids = set(excluded_ids) | set(upvoted_ids)
+        if hide_ids:
+            n_down = sum(1 for c in candidates if c.arxiv_id in excluded_ids)
+            n_up = sum(1 for c in candidates if c.arxiv_id in upvoted_ids)
+            candidates = [
                 c for c in candidates
-                if c.arxiv_id not in excluded_ids
+                if c.arxiv_id not in hide_ids
             ]
-            if len(kept) != len(candidates):
+            if n_down or n_up:
                 print(
                     "[RecommendService] "
-                    f"피드백: 다운보트 {len(candidates) - len(kept)}편 제외"
+                    f"피드백: 다운보트 {n_down}편 제외, "
+                    f"업보트 {n_up}편 숨김(유사 논문은 부스트)"
                 )
-            candidates = kept
 
         # 후보가 하나도 없으면 바로 종료
         if not candidates:

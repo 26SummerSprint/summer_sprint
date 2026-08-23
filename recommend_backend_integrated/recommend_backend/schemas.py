@@ -42,3 +42,21 @@ class FeedbackRequest(BaseModel):
     title: Optional[str] = None
     category: Optional[str] = None
     vote: str  # "up" | "down" | "save"
+
+
+class SavedPaperRequest(BaseModel):
+    """재열람용 보관 1건. 추천 당시의 맥락(프로필·키워드·이유·초록)을 함께 저장해
+    나중에 그대로 다시 볼 수 있게 한다(학습 신호와 분리)."""
+    arxiv_id: str
+    title: Optional[str] = None
+    link: Optional[str] = None            # abs_url 등 논문 링크
+    pdf_url: Optional[str] = None
+    profile: Optional[str] = None         # 추천 시 입력한 프로필
+    keywords: List[str] = []              # 추출된 키워드
+    reason: Optional[str] = None          # 추천 이유(Gemini)
+    abstract: Optional[str] = None        # 초록
+    category: Optional[str] = None
+
+
+class SavedPaperOut(SavedPaperRequest):
+    ts: str  # 저장 시각(ISO)

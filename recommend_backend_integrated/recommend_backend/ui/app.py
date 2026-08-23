@@ -72,7 +72,7 @@ def _arxiv_id(paper: dict) -> str:
 
 
 def post_feedback(arxiv_id: str, title: str, vote: str):
-    """피드백 1건을 백엔드에 기록. Streamlit 버튼 on_click 콜백."""
+    """학습 신호(👍/👎)를 백엔드에 기록. Streamlit 버튼 on_click 콜백."""
     try:
         requests.post(
             f"{backend_url.rstrip('/')}/api/v1/feedback",
@@ -86,9 +86,53 @@ def post_feedback(arxiv_id: str, title: str, vote: str):
             },
             timeout=10,
         )
-        st.toast({"up": "👍 좋아요 기록", "down": "👎 관심없음 기록", "save": "🔖 저장됨"}[vote])
+        st.toast({"up": "👍 좋아요 기록", "down": "👎 관심없음 기록"}[vote])
     except requests.RequestException as e:
         st.toast(f"피드백 실패: {e}")
+
+
+def save_paper(paper: dict, reason: str):
+    """🔖 재열람용 보관 — 추천 맥락(프로필·키워드·이유·초록)까지 함께 저장."""
+    try:
+        requests.post(
+            f"{backend_url.rstrip('/')}/api/v1/saved",
+            json={
+                "arxiv_id": _arxiv_id(paper),
+                "title": paper.get("title"),
+                "link": paper.get("abs_url"),
+                "pdf_url": paper.get("pdf_url"),
+                "profile": st.session_state.get("profile", ""),
+                "keywords": st.session_state.get("keywords", []),
+                "reason": reason,
+                "abstract": paper.get("abstract_clean"),
+                "category": paper.get("primary_category"),
+            },
+            timeout=10,
+        )
+        st.toast("🔖 보관함에 저장됨")
+    except requests.RequestException as e:
+        st.toast(f"보관 실패: {e}")
+
+
+def load_saved() -> list:
+    """보관함 목록을 백엔드에서 가져온다(최신순)."""
+    try:
+        r = requests.get(f"{backend_url.rstrip('/')}/api/v1/saved", timeout=10)
+        r.raise_for_status()
+        return r.json()
+    except requests.RequestException:
+        return []
+
+
+def remove_saved(arxiv_id: str):
+    """보관함에서 1건 삭제. on_click 콜백."""
+    try:
+        requests.delete(
+            f"{backend_url.rstrip('/')}/api/v1/saved/{arxiv_id}", timeout=10
+        )
+        st.toast("보관함에서 삭제")
+    except requests.RequestException as e:
+        st.toast(f"삭제 실패: {e}")
 
 
 # ── 입력 ──────────────────────────────────────────────────
@@ -175,8 +219,8 @@ if data:
                   on_click=post_feedback, args=(aid, title, "up"))
         b2.button("👎", key=f"down_{rank}_{aid}", help="관심 없음",
                   on_click=post_feedback, args=(aid, title, "down"))
-        b3.button("🔖", key=f"save_{rank}_{aid}", help="저장",
-                  on_click=post_feedback, args=(aid, title, "save"))
+        b3.button("🔖", key=f"save_{rank}_{aid}", help="보관함에 저장",
+                  on_click=save_paper, args=(paper, rec.get("reason", "")))
 
         abstract = paper.get("abstract_clean") or ""
         if abstract:
@@ -185,3 +229,51 @@ if data:
 
     if not recs:
         st.info("추천 결과가 없습니다. 프로필을 더 구체적으로 적어보세요.")
+
+
+# ── 사이드바: 🔖 보관함 (재열람용) ──────────────────────────
+with st.sidebar:
+    st.divider()
+    saved = load_saved()
+    st.header(f"🔖 보관함 ({len(saved)})")
+    if not saved:
+        st.caption("추천 카드의 🔖 버튼으로 논문을 보관하세요.")
+    for item in saved:
+        aid = item.get("arxiv_id", "")
+        title = item.get("title") or "(제목 없음)"
+        with st.expander(title[:60] + ("…" if len(title) > 60 else "")):
+            link = item.get("link")
+            pdf = item.get("pdf_url")
+            if aid:
+                st.caption(f"`{aid}`  ·  {item.get('category', '')}")
+            link_md = []
+            if link:
+                link_md.append(f"[abstract ↗]({link})")
+            if pdf:
+                link_md.append(f"[PDF ↗]({pdf})")
+            if link_md:
+                st.markdown("  ".join(link_md))
+
+            kws = item.get("keywords") or []
+            if kws:
+                st.markdown("**추출 키워드**: " + ", ".join(kws))
+
+            prof = item.get("profile")
+            if prof:
+                st.markdown("**추천 시 프로필**")
+                st.caption(prof)
+
+            reason = item.get("reason")
+            if reason:
+                st.markdown("**추천 이유**")
+                st.info(reason)
+
+            abstract = item.get("abstract")
+            if abstract:
+                st.markdown("**초록**")
+                st.caption(abstract)
+
+            st.button(
+                "🗑 보관 삭제", key=f"del_{aid}",
+                on_click=remove_saved, args=(aid,),
+            )

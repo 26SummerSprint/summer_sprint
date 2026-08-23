@@ -15,11 +15,13 @@ from fastapi import FastAPI
 
 from .routers.recommend import router as recommend_router
 from .routers.feedback import router as feedback_router
+from .routers.saved import router as saved_router
 
 app = FastAPI(title="AI Paper Recommender - Orchestration Backend", version="0.1.0")
 
 app.include_router(recommend_router, prefix="/api/v1", tags=["recommend"])
 app.include_router(feedback_router, prefix="/api/v1", tags=["feedback"])
+app.include_router(saved_router, prefix="/api/v1", tags=["saved"])
 
 
 @app.get("/health")

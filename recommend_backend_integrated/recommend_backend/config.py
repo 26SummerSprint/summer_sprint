@@ -196,3 +196,11 @@ FEEDBACK_LOG_PATH = os.getenv(
     "FEEDBACK_LOG_PATH",
     os.path.join(os.path.dirname(os.path.abspath(__file__)), "feedback_log.jsonl"),
 )
+
+# ============================================================
+# 보관함 (재열람용 저장 — 학습 신호와 분리)
+# ============================================================
+SAVED_LOG_PATH = os.getenv(
+    "SAVED_LOG_PATH",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "saved_papers.jsonl"),
+)
