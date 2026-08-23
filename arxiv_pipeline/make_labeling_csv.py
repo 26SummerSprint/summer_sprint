@@ -1,8 +1,9 @@
 """
 골드셋 라벨링 후보 CSV 생성 스크립트 (서버 실행).
 
-profiles.json의 각 프로필에 대해 build_labeling_pool로 후보(하이브리드 ∪ 랜덤)를 뽑고,
+profiles.json의 각 프로필에 대해 build_labeling_pool로 후보(하이브리드, 기본 최근 1년)를 뽑고,
 논문 메타데이터를 붙여 프로필별 CSV로 저장한다. 이 CSV가 judge 채점 / 사람 라벨링의 입력.
+후보는 최근 1년(--recent-days) 이내 논문만 — 3년~1년 전 논문은 keyword_df 계산에만 쓰인다.
 
 CSV 컬럼:
     profile_id, arxiv_id, source, label, tag, title, primary_category, submitted_date, abstract
@@ -31,7 +32,7 @@ CSV_COLUMNS = [
 ]
 
 
-def main(profiles_path: str, outdir: str, total: int, n_random: int, n_keyword: int, m_embedding: int):
+def main(profiles_path: str, outdir: str, total: int, n_random: int, n_keyword: int, m_embedding: int, recent_days: int):
     os.makedirs(outdir, exist_ok=True)
     with open(profiles_path, encoding="utf-8") as f:
         profiles = json.load(f)
@@ -40,6 +41,7 @@ def main(profiles_path: str, outdir: str, total: int, n_random: int, n_keyword: 
         pool = build_labeling_pool(
             p["profile_text"], p["keywords"], category=p["category"],
             total=total, n_random=n_random, n_keyword=n_keyword, m_embedding=m_embedding,
+            recent_days=recent_days,
         )
         ids = [c["arxiv_id"] for c in pool]
         with get_conn() as conn:
@@ -66,9 +68,10 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="프로필별 골드셋 라벨링 후보 CSV 생성")
     ap.add_argument("--profiles", default="profiles.json")
     ap.add_argument("--outdir", default="labeling")
-    ap.add_argument("--total", type=int, default=60, help="프로필당 후보 편수 (회의 확정 60)")
-    ap.add_argument("--n-random", type=int, default=10, help="그중 랜덤 샘플 편수")
-    ap.add_argument("--n-keyword", type=int, default=30)
+    ap.add_argument("--total", type=int, default=30, help="프로필당 후보 편수 (30)")
+    ap.add_argument("--n-random", type=int, default=0, help="그중 랜덤 샘플 편수 (기본 0=하이브리드만)")
+    ap.add_argument("--n-keyword", type=int, default=15, help="키워드 축 편수 (기본 15, 임베딩과 균형)")
     ap.add_argument("--m-embedding", type=int, default=70)
+    ap.add_argument("--recent-days", type=int, default=365, help="후보를 최근 N일 이내로 제한 (기본 365=1년)")
     args = ap.parse_args()
-    main(args.profiles, args.outdir, args.total, args.n_random, args.n_keyword, args.m_embedding)
+    main(args.profiles, args.outdir, args.total, args.n_random, args.n_keyword, args.m_embedding, args.recent_days)

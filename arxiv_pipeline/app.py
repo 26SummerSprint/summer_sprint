@@ -41,7 +41,7 @@ from typing import List, Optional
 from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel
 
-from config import API_KEY
+from config import API_KEY, RERANKER_PATH
 
 from db import (
     PaperRecord,
@@ -117,7 +117,7 @@ def verify_api_key(
 # ├── reranker.py
 # └── reranker_model/
 #
-RERANK_MODEL_PATH = "reranker_model"
+RERANK_MODEL_PATH = RERANKER_PATH  # config 단일 출처 (train_reranker_cli.py 저장 경로와 일치)
 
 _reranker_model = None
 

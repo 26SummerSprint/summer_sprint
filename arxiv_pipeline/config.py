@@ -31,10 +31,12 @@ API_PORT = 8000
 API_KEY = os.environ.get("ARXIV_API_KEY", "change-me-team-secret")
 
 # ── Gemini (프로필 번역·키워드 추출, 논문 선정·이유 생성) ──────────
-# 회의 확정: 논문 선정/키워드 추출/이유 생성 = Gemini 2.5 Flash, judge = Qwen(별도)
+# 회의 확정: 논문 선정/키워드 추출/이유 생성 = Gemini(flash 계열), judge = Qwen(별도)
 # export GEMINI_API_KEY="..." 로 주입
+# GEMINI_MODEL은 fallback 기본값 — 코드가 models.list()로 사용 가능한 flash 모델을
+# 자동 선택하고, 실패 시에만 이 값을 쓴다. (gemini-2.5-flash는 신규 계정에서 404가 남)
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
 
 # ── 임베딩 모델 ──────────────────────────────────────────
 # 로컬에서 무료로 돌아가는 sentence-transformers 모델.
@@ -42,6 +44,12 @@ GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 # 더 높은 품질이 필요하면 "BAAI/bge-base-en-v1.5" 로 교체 가능(속도는 느려짐).
 EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 EMBEDDING_BATCH_SIZE = 64
+
+# ── Stage 2 재랭커 ────────────────────────────────────────
+# 학습된 cross-encoder 재랭커 경로. train_reranker_cli.py로 생성, app.py의 /recommend가 로드.
+# 확정 모델 = MiniLM 파인튜닝(BCE). 파일 없으면 /recommend는 Stage1 순서로 폴백.
+RERANKER_PATH = os.environ.get("RERANKER_PATH", str(BASE_DIR / "models" / "stage2_reranker"))
+RERANK_TOP_K = int(os.environ.get("RERANK_TOP_K", "10"))
 
 # 모델별로 컬렉션을 분리해서 저장. 임베딩 모델을 바꿔가며 실험해도
 # 기존 컬렉션(벡터)이 삭제/충돌되지 않고 그대로 남아있음 (모델명이 바뀌면

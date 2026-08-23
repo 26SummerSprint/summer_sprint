@@ -21,3 +21,8 @@ __pycache__/
 
 # ── 문서(.md)는 커밋하지 않음 (기획/문서는 Notion에서 관리) ──
 *.md
+
+# 학습 모델·라벨 작업본 (서버/로컬 생성)
+arxiv_pipeline/models/
+arxiv_pipeline/labeling/
+arxiv_pipeline/labeling_csv/

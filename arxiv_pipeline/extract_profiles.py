@@ -25,6 +25,7 @@ profiles.json의 각 프로필(profile_text_ko, 한국어 원문)을 읽어 Gemi
 import argparse
 import json
 import sys
+import time
 
 from config import GEMINI_API_KEY, GEMINI_MODEL
 
@@ -55,21 +56,55 @@ def _make_client():
     return genai.Client(api_key=GEMINI_API_KEY)
 
 
-def _extract_one(client, body: str) -> dict:
-    """Gemini에 프로필 본문을 보내 {profile_text, keywords, exclusion} JSON을 받는다."""
+# gemini-2.5-flash가 신규 계정에서 막히는(404) 문제 → 사용 가능한 flash 모델을 자동 선택
+_PREFER = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-2.0-flash-001",
+           "gemini-2.5-flash-lite", "gemini-2.5-flash"]
+
+
+def _pick_model(client) -> str:
+    try:
+        avail = [
+            m.name.split("/")[-1] for m in client.models.list()
+            if "generateContent" in (getattr(m, "supported_actions", None) or ["generateContent"])
+        ]
+        for name in _PREFER:
+            if name in avail:
+                return name
+        for name in avail:
+            if "flash" in name and not any(x in name for x in ("vision", "thinking", "preview", "exp", "tts", "image")):
+                return name
+        if avail:
+            return avail[0]
+    except Exception as e:
+        print(f"모델 목록 조회 실패, 기본값({GEMINI_MODEL}) 사용:", e)
+    return GEMINI_MODEL
+
+
+def _extract_one(client, model: str, body: str, max_retries: int = 6) -> dict:
+    """Gemini에 프로필 본문을 보내 {profile_text, keywords, exclusion} JSON을 받는다.
+    429(분당 요청 제한) 발생 시 대기 후 재시도."""
     from google.genai import types
 
-    resp = client.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=PROMPT.format(body=body),
-        config=types.GenerateContentConfig(response_mime_type="application/json"),
-    )
-    text = (resp.text or "").strip()
-    # 혹시 코드펜스가 붙어오면 제거
-    if text.startswith("```"):
-        text = text.strip("`")
-        text = text[text.find("{"): text.rfind("}") + 1]
-    return json.loads(text)
+    for attempt in range(max_retries):
+        try:
+            resp = client.models.generate_content(
+                model=model,
+                contents=PROMPT.format(body=body),
+                config=types.GenerateContentConfig(response_mime_type="application/json"),
+            )
+            text = (resp.text or "").strip()
+            # 혹시 코드펜스가 붙어오면 제거
+            if text.startswith("```"):
+                text = text.strip("`")
+                text = text[text.find("{"): text.rfind("}") + 1]
+            return json.loads(text)
+        except Exception as e:
+            if ("429" in str(e)) or ("RESOURCE_EXHAUSTED" in str(e)):
+                print(f"  429 rate limit → 62초 대기 후 재시도 ({attempt + 1}/{max_retries})")
+                time.sleep(62)
+                continue
+            raise
+    raise RuntimeError("재시도 초과 (429)")
 
 
 def main(path: str, dry_run: bool, only_unconfirmed: bool, overwrite_confirmed: bool):
@@ -77,16 +112,22 @@ def main(path: str, dry_run: bool, only_unconfirmed: bool, overwrite_confirmed: 
         profiles = json.load(f)
 
     client = _make_client()
+    model = _pick_model(client)
+    print(f"사용 모델: {model}")
 
+    sent = 0
     for p in profiles:
         confirmed = p.get("keywords_confirmed", False)
         if only_unconfirmed and confirmed:
             print(f"[skip] {p['profile_id']} (keywords_confirmed)")
             continue
 
+        if sent:
+            time.sleep(13)  # 무료 티어 분당 요청 제한(≈5/min) 회피
+        sent += 1
         body = p.get("profile_text_ko") or p.get("profile_text", "")
         try:
-            out = _extract_one(client, body)
+            out = _extract_one(client, model, body)
         except Exception as e:
             print(f"[오류] {p['profile_id']}: {e}")
             continue
