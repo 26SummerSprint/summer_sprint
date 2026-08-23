@@ -9,10 +9,36 @@
 
 import json
 import os
+import re
 from collections import defaultdict
 from typing import List, Set, Tuple
 
 from ..config import FEEDBACK_LOG_PATH
+
+# 토큰 매칭 시 무시할 일반어(이것만 겹치는 건 "같은 키워드"로 보지 않음)
+_STOP = {
+    "model", "models", "based", "using", "use", "method", "methods",
+    "approach", "approaches", "llm", "llms", "ai", "system", "systems",
+    "framework", "frameworks", "language", "learning", "the", "a", "an",
+    "of", "for", "and", "with", "in", "on", "to", "via", "study",
+}
+
+
+def _tokens(keywords: List[str]) -> Set[str]:
+    """키워드 리스트 → 정규화 토큰 집합.
+    문자열이 달라도(예: 'autonomous research agent' vs 'LLM autonomous agents')
+    의미가 겹치는 토큰(autonomous, agent)으로 매칭되게 한다."""
+    toks: Set[str] = set()
+    for k in keywords or []:
+        for w in re.split(r"[^a-z0-9]+", str(k).lower()):
+            if len(w) < 3:
+                continue
+            if len(w) > 4 and w.endswith("s") and not w.endswith("ss"):
+                w = w[:-1]  # 간단 단수화 (agents→agent) — 양쪽 동일 규칙이라 일관 매칭
+            if w in _STOP:
+                continue
+            toks.add(w)
+    return toks
 
 
 def _load() -> List[dict]:
@@ -35,14 +61,15 @@ def _load() -> List[dict]:
 
 
 def _net_votes(session_keywords: List[str]) -> dict:
-    """세션 키워드와 겹치는 피드백만 반영해 arxiv_id별 net(up-down)을 집계."""
-    sk = {k.lower().strip() for k in (session_keywords or []) if k}
+    """세션 키워드와 겹치는 피드백만 반영해 arxiv_id별 net(up-down)을 집계.
+    매칭은 토큰 단위 — 문자열이 달라도 의미가 겹치면(agent/autonomous 등) 반영된다."""
+    sk = _tokens(session_keywords)
     net: dict = defaultdict(int)
     if not sk:
         return net
     for r in _load():
-        rk = {k.lower().strip() for k in (r.get("keywords") or []) if k}
-        if not (rk & sk):  # 키워드 교집합 없으면 무시
+        rk = _tokens(r.get("keywords"))
+        if not (rk & sk):  # 토큰 교집합 없으면 무시
             continue
         aid = r.get("arxiv_id")
         if not aid:
