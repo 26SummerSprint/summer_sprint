@@ -39,18 +39,19 @@ def _save_all(recs: List[dict]) -> None:
 
 
 def add_saved(record: dict) -> dict:
-    """보관함에 1건 추가. 같은 arxiv_id가 있으면 최신으로 교체(중복 방지)."""
+    """보관함에 1건 추가. 같은 arxiv_id가 있으면 교체(중복 방지).
+    파일의 저장 순서 = 화면 표시 순서이며, 새로 저장한 논문은 맨 위로 넣는다."""
     record = dict(record)
     record["ts"] = datetime.now(timezone.utc).isoformat()
     recs = [r for r in _load() if r.get("arxiv_id") != record.get("arxiv_id")]
-    recs.append(record)
+    recs.insert(0, record)  # 최신 저장을 맨 위(1번)로
     _save_all(recs)
     return record
 
 
 def list_saved() -> List[dict]:
-    """보관 목록(최신순)."""
-    return sorted(_load(), key=lambda r: r.get("ts", ""), reverse=True)
+    """보관 목록(사용자가 정한 표시 순서 = 파일 순서)."""
+    return _load()
 
 
 def remove_saved(arxiv_id: str) -> int:
@@ -60,3 +61,17 @@ def remove_saved(arxiv_id: str) -> int:
     if len(kept) != len(recs):
         _save_all(kept)
     return len(recs) - len(kept)
+
+
+def move_saved(arxiv_id: str, direction: str) -> bool:
+    """보관 논문의 순위를 한 칸 위(up)/아래(down)로 이동. 성공 여부 반환."""
+    recs = _load()
+    i = next((k for k, r in enumerate(recs) if r.get("arxiv_id") == arxiv_id), None)
+    if i is None:
+        return False
+    j = i - 1 if direction == "up" else i + 1
+    if j < 0 or j >= len(recs):
+        return False
+    recs[i], recs[j] = recs[j], recs[i]
+    _save_all(recs)
+    return True

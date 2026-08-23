@@ -1,9 +1,13 @@
 """
-Streamlit UI — AI 논문 추천 데모 (HTML 카드 + 피드백 버튼).
+Streamlit UI — AI 논문 추천 데모 (HTML 카드 + 피드백 + 보관함 페이지).
 
 전체 파이프라인: 키워드(BM25)+임베딩 하이브리드 검색 → CrossEncoder 재랭킹
-→ Gemini 최종 선정(제외조건 반영). 각 추천에 👍/👎/저장 피드백을 남기면
-백엔드가 로깅(골드셋 확장·재랭커 재학습 재료).
+→ Gemini 최종 선정(제외조건 반영). 각 추천에 👍/👎/🔖 를 남기면 백엔드가
+로깅(👍/👎 = 학습 신호, 🔖 = 재열람용 보관함).
+
+두 개 페이지(사이드바 메뉴로 전환):
+- 📚 추천     : 프로필 입력 → 추천
+- 🔖 보관함   : 저장한 논문 열람/순위변경/삭제
 
 실행:
     uvicorn recommend_backend.main:app --reload --port 8100   # 백엔드
@@ -46,18 +50,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("📚 AI Paper Recommender")
-st.caption("키워드(BM25) + 임베딩 하이브리드 검색 → 재랭킹 → Gemini 최종 선정(제외조건 반영)")
+if "page" not in st.session_state:
+    st.session_state["page"] = "recommend"
 
-with st.sidebar:
-    st.header("설정")
-    backend_url = st.text_input("백엔드 주소", value=DEFAULT_BACKEND)
-    st.caption("`POST {주소}/api/v1/recommend` 를 호출합니다.")
-    diversity = st.slider(
-        "다양성 (MMR)", 0.0, 0.7, 0.0, 0.1,
-        help="0 = 관련성만, 값이 클수록 서로 다른 주제를 섞어 추천(다양성↑)",
-    )
 
+# ============================================================
+# 헬퍼
+# ============================================================
 
 def _esc(x) -> str:
     return html.escape(str(x or ""))
@@ -71,11 +70,19 @@ def _arxiv_id(paper: dict) -> str:
     return url.rstrip("/").split("/")[-1] if url else ""
 
 
+def _api(path: str) -> str:
+    return f"{backend_url.rstrip('/')}/api/v1{path}"
+
+
+def set_page(p: str):
+    st.session_state["page"] = p
+
+
 def post_feedback(arxiv_id: str, title: str, vote: str):
     """학습 신호(👍/👎)를 백엔드에 기록. Streamlit 버튼 on_click 콜백."""
     try:
         requests.post(
-            f"{backend_url.rstrip('/')}/api/v1/feedback",
+            _api("/feedback"),
             json={
                 "profile": st.session_state.get("profile", ""),
                 "keywords": st.session_state.get("keywords", []),
@@ -95,7 +102,7 @@ def save_paper(paper: dict, reason: str):
     """🔖 재열람용 보관 — 추천 맥락(프로필·키워드·이유·초록)까지 함께 저장."""
     try:
         requests.post(
-            f"{backend_url.rstrip('/')}/api/v1/saved",
+            _api("/saved"),
             json={
                 "arxiv_id": _arxiv_id(paper),
                 "title": paper.get("title"),
@@ -115,9 +122,9 @@ def save_paper(paper: dict, reason: str):
 
 
 def load_saved() -> list:
-    """보관함 목록을 백엔드에서 가져온다(최신순)."""
+    """보관함 목록을 백엔드에서 가져온다(표시 순서)."""
     try:
-        r = requests.get(f"{backend_url.rstrip('/')}/api/v1/saved", timeout=10)
+        r = requests.get(_api("/saved"), timeout=10)
         r.raise_for_status()
         return r.json()
     except requests.RequestException:
@@ -127,50 +134,94 @@ def load_saved() -> list:
 def remove_saved(arxiv_id: str):
     """보관함에서 1건 삭제. on_click 콜백."""
     try:
-        requests.delete(
-            f"{backend_url.rstrip('/')}/api/v1/saved/{arxiv_id}", timeout=10
-        )
+        requests.delete(_api(f"/saved/{arxiv_id}"), timeout=10)
         st.toast("보관함에서 삭제")
     except requests.RequestException as e:
         st.toast(f"삭제 실패: {e}")
 
 
-# ── 입력 ──────────────────────────────────────────────────
-profile = st.text_area(
-    "연구 관심사 프로필",
-    placeholder=(
-        "예) Retrieval-Augmented Generation과 citation grounding에 관심. "
-        "특히 생성 답변의 사실성(hallucination) 검증. 순수 IR 랭킹 연구는 제외."
-    ),
-    height=130,
-)
-go = st.button("추천 받기", type="primary")
+def move_saved(arxiv_id: str, direction: str):
+    """보관 논문 순위를 위/아래로 이동. on_click 콜백."""
+    try:
+        requests.post(
+            _api(f"/saved/{arxiv_id}/move"),
+            params={"direction": direction},
+            timeout=10,
+        )
+    except requests.RequestException as e:
+        st.toast(f"이동 실패: {e}")
 
-# ── 요청 ──────────────────────────────────────────────────
-if go:
-    if not profile.strip():
-        st.warning("프로필을 입력해주세요.")
-        st.stop()
-    with st.spinner("검색 → 재랭킹 → Gemini 최종 선정 중… (최대 2분)"):
-        try:
-            resp = requests.post(
-                f"{backend_url.rstrip('/')}/api/v1/recommend",
-                json={"profile": profile, "category": None, "diversity": diversity},
-                timeout=180,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            st.session_state["result"] = data
-            st.session_state["profile"] = profile
-            st.session_state["category"] = None
-            st.session_state["keywords"] = (data.get("extracted_profile") or {}).get("keywords", [])
-        except requests.RequestException as e:
-            st.error(f"요청 실패: {e}")
-            st.session_state.pop("result", None)
 
-# ── 렌더 (session_state 기반 → 피드백 클릭해도 결과 유지) ──────
-data = st.session_state.get("result")
-if data:
+# ============================================================
+# 사이드바 (공용) — 설정 + 페이지 메뉴
+# ============================================================
+
+with st.sidebar:
+    st.header("설정")
+    backend_url = st.text_input("백엔드 주소", value=DEFAULT_BACKEND)
+    diversity = st.slider(
+        "다양성 (MMR)", 0.0, 0.7, 0.0, 0.1,
+        help="0 = 관련성만, 값이 클수록 서로 다른 주제를 섞어 추천(다양성↑)",
+    )
+
+    st.divider()
+    st.markdown("### 메뉴")
+    _page = st.session_state["page"]
+    st.button(
+        "📚 추천", use_container_width=True,
+        type=("primary" if _page == "recommend" else "secondary"),
+        on_click=set_page, args=("recommend",),
+    )
+    st.button(
+        "🔖 보관함", use_container_width=True,
+        type=("primary" if _page == "saved" else "secondary"),
+        on_click=set_page, args=("saved",),
+    )
+
+
+# ============================================================
+# 페이지: 추천
+# ============================================================
+
+def render_recommend_page():
+    st.title("📚 AI Paper Recommender")
+    st.caption("키워드(BM25) + 임베딩 하이브리드 검색 → 재랭킹 → Gemini 최종 선정(제외조건 반영)")
+
+    profile = st.text_area(
+        "연구 관심사 프로필",
+        placeholder=(
+            "예) Retrieval-Augmented Generation과 citation grounding에 관심. "
+            "특히 생성 답변의 사실성(hallucination) 검증. 순수 IR 랭킹 연구는 제외."
+        ),
+        height=130,
+    )
+    go = st.button("추천 받기", type="primary")
+
+    if go:
+        if not profile.strip():
+            st.warning("프로필을 입력해주세요.")
+            st.stop()
+        with st.spinner("검색 → 재랭킹 → Gemini 최종 선정 중… (최대 2분)"):
+            try:
+                resp = requests.post(
+                    _api("/recommend"),
+                    json={"profile": profile, "category": None, "diversity": diversity},
+                    timeout=180,
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                st.session_state["result"] = data
+                st.session_state["profile"] = profile
+                st.session_state["category"] = None
+                st.session_state["keywords"] = (data.get("extracted_profile") or {}).get("keywords", [])
+            except requests.RequestException as e:
+                st.error(f"요청 실패: {e}")
+                st.session_state.pop("result", None)
+
+    data = st.session_state.get("result")
+    if not data:
+        return
+
     ext = data.get("extracted_profile", {}) or {}
     kws, exs = ext.get("keywords") or [], ext.get("exclude") or []
     if kws or exs:
@@ -231,22 +282,38 @@ if data:
         st.info("추천 결과가 없습니다. 프로필을 더 구체적으로 적어보세요.")
 
 
-# ── 사이드바: 🔖 보관함 (재열람용) ──────────────────────────
-with st.sidebar:
-    st.divider()
+# ============================================================
+# 페이지: 보관함
+# ============================================================
+
+def render_saved_page():
     saved = load_saved()
-    st.header(f"🔖 보관함 ({len(saved)})")
+    st.title(f"🔖 보관함 ({len(saved)})")
+    st.caption("추천 페이지의 🔖 버튼으로 저장한 논문. ↑/↓로 순위를 바꾸고 🗑로 삭제할 수 있습니다.")
+
     if not saved:
-        st.caption("추천 카드의 🔖 버튼으로 논문을 보관하세요.")
+        st.info("보관한 논문이 없습니다. 📚 추천 페이지에서 🔖 버튼으로 저장하세요.")
+        return
+
+    last = len(saved) - 1
     for idx, item in enumerate(saved, 1):
         aid = item.get("arxiv_id", "")
         title = item.get("title") or "(제목 없음)"
-        label = f"{idx}. {title}"
-        with st.expander(label[:60] + ("…" if len(label) > 60 else "")):
-            link = item.get("link")
-            pdf = item.get("pdf_url")
+
+        c_num, c_title, c_up, c_dn, c_del = st.columns([0.6, 7.5, 0.8, 0.8, 0.9])
+        c_num.markdown(f"### {idx}")
+        c_title.markdown(f"**{title}**")
+        c_up.button("⬆", key=f"up_{aid}", help="순위 올리기", disabled=(idx == 1),
+                    on_click=move_saved, args=(aid, "up"))
+        c_dn.button("⬇", key=f"dn_{aid}", help="순위 내리기", disabled=(idx - 1 == last),
+                    on_click=move_saved, args=(aid, "down"))
+        c_del.button("🗑", key=f"del_{aid}", help="보관 삭제",
+                     on_click=remove_saved, args=(aid,))
+
+        with st.expander("상세 보기"):
             if aid:
                 st.caption(f"`{aid}`  ·  {item.get('category', '')}")
+            link, pdf = item.get("link"), item.get("pdf_url")
             link_md = []
             if link:
                 link_md.append(f"[abstract ↗]({link})")
@@ -270,11 +337,17 @@ with st.sidebar:
                 st.info(reason)
 
             abstract = item.get("abstract")
-            if abstract:
-                if st.toggle("초록 보기", key=f"abs_{aid}"):
-                    st.caption(abstract)
+            if abstract and st.toggle("초록 보기", key=f"abs_{aid}"):
+                st.caption(abstract)
 
-            st.button(
-                "🗑 보관 삭제", key=f"del_{aid}",
-                on_click=remove_saved, args=(aid,),
-            )
+        st.divider()
+
+
+# ============================================================
+# 라우팅
+# ============================================================
+
+if st.session_state["page"] == "saved":
+    render_saved_page()
+else:
+    render_recommend_page()
