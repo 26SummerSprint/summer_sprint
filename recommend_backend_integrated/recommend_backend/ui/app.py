@@ -78,6 +78,7 @@ def post_feedback(arxiv_id: str, title: str, vote: str):
             f"{backend_url.rstrip('/')}/api/v1/feedback",
             json={
                 "profile": st.session_state.get("profile", ""),
+                "keywords": st.session_state.get("keywords", []),
                 "category": st.session_state.get("category"),
                 "arxiv_id": arxiv_id,
                 "title": title,
@@ -114,9 +115,11 @@ if go:
                 timeout=180,
             )
             resp.raise_for_status()
-            st.session_state["result"] = resp.json()
+            data = resp.json()
+            st.session_state["result"] = data
             st.session_state["profile"] = profile
             st.session_state["category"] = None
+            st.session_state["keywords"] = (data.get("extracted_profile") or {}).get("keywords", [])
         except requests.RequestException as e:
             st.error(f"요청 실패: {e}")
             st.session_state.pop("result", None)

@@ -20,6 +20,7 @@ def feedback(req: FeedbackRequest):
     record = {
         "ts": datetime.now(timezone.utc).isoformat(),
         "profile": req.profile,
+        "keywords": req.keywords,   # 키워드 단위 반영의 핵심
         "category": req.category,
         "arxiv_id": req.arxiv_id,
         "title": req.title,

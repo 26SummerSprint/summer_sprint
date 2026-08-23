@@ -34,8 +34,10 @@ class RecommendResponse(BaseModel):
 
 
 class FeedbackRequest(BaseModel):
-    """사용자 추천 피드백 1건. 골드셋 확장·재랭커 재학습 재료로 로깅."""
+    """사용자 추천 피드백 1건. 키워드 단위로 저장해 프로필이 달라도
+    같은 키워드 세션에 반영한다(닫힌 학습 루프)."""
     profile: str
+    keywords: List[str] = []   # 세션의 추출 키워드 → 키워드 단위 반영의 핵심
     arxiv_id: str
     title: Optional[str] = None
     category: Optional[str] = None

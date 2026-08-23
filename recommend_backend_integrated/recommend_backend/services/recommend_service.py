@@ -69,6 +69,7 @@ from ..schemas import (
 
 from .final_selection_service import FinalSelectionService
 from .keyword_extraction_service import KeywordExtractionService
+from .feedback_store import feedback_sets
 
 
 # ============================================================
@@ -355,6 +356,25 @@ class RecommendService:
             f"{len(candidates)}편"
         )
 
+        # ====================================================
+        # 피드백 반영 (키워드 단위 — 프로필 무관)
+        #   다운보트 누적 논문 제외 / 업보트 누적 논문은 이후 상위로
+        # ====================================================
+        excluded_ids, upvoted_ids = feedback_sets(
+            extracted_profile.keywords
+        )
+        if excluded_ids:
+            kept = [
+                c for c in candidates
+                if c.arxiv_id not in excluded_ids
+            ]
+            if len(kept) != len(candidates):
+                print(
+                    "[RecommendService] "
+                    f"피드백: 다운보트 {len(candidates) - len(kept)}편 제외"
+                )
+            candidates = kept
+
         # 후보가 하나도 없으면 바로 종료
         if not candidates:
 
@@ -464,6 +484,14 @@ class RecommendService:
                 compressed_by_id,
             )
         )
+
+        # 피드백: 업보트 누적 논문을 상위로 재정렬(있을 때만)
+        if upvoted_ids:
+            recommendations.sort(
+                key=lambda r: 0 if r.paper.get("arxiv_id") in upvoted_ids else 1
+            )
+            for i, r in enumerate(recommendations, 1):
+                r.rank = i
 
         print(
             "[RecommendService] "
