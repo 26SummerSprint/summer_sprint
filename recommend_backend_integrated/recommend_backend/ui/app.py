@@ -95,13 +95,7 @@ profile = st.text_area(
     ),
     height=130,
 )
-col_cat, col_btn = st.columns([3, 1])
-with col_cat:
-    category = st.text_input("arXiv 카테고리 (선택)", placeholder="cs.CL")
-with col_btn:
-    st.write("")
-    st.write("")
-    go = st.button("추천 받기", type="primary", use_container_width=True)
+go = st.button("추천 받기", type="primary")
 
 # ── 요청 ──────────────────────────────────────────────────
 if go:
@@ -112,13 +106,13 @@ if go:
         try:
             resp = requests.post(
                 f"{backend_url.rstrip('/')}/api/v1/recommend",
-                json={"profile": profile, "category": category or None},
+                json={"profile": profile, "category": None},
                 timeout=180,
             )
             resp.raise_for_status()
             st.session_state["result"] = resp.json()
             st.session_state["profile"] = profile
-            st.session_state["category"] = category or None
+            st.session_state["category"] = None
         except requests.RequestException as e:
             st.error(f"요청 실패: {e}")
             st.session_state.pop("result", None)
