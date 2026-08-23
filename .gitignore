@@ -26,3 +26,7 @@ __pycache__/
 arxiv_pipeline/models/
 arxiv_pipeline/labeling/
 arxiv_pipeline/labeling_csv/
+
+# recommend_backend
+recommend_backend_integrated/venv_backend/
+recommend_backend_integrated/**/feedback_log.jsonl

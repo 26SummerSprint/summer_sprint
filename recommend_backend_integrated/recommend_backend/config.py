@@ -188,3 +188,11 @@ if FINAL_RECOMMEND_COUNT <= 0:
     raise ValueError(
         "FINAL_RECOMMEND_COUNT는 1 이상이어야 합니다."
     )
+
+# ============================================================
+# 피드백 로그 (사용자 👍/👎/저장 → 골드셋 확장·재랭커 재학습 재료)
+# ============================================================
+FEEDBACK_LOG_PATH = os.getenv(
+    "FEEDBACK_LOG_PATH",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "feedback_log.jsonl"),
+)

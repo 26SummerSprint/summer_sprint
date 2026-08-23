@@ -30,3 +30,12 @@ class RecommendResponse(BaseModel):
     extracted_profile: ExtractedProfile
     count: int
     recommendations: List[RecommendedPaperOut]
+
+
+class FeedbackRequest(BaseModel):
+    """사용자 추천 피드백 1건. 골드셋 확장·재랭커 재학습 재료로 로깅."""
+    profile: str
+    arxiv_id: str
+    title: Optional[str] = None
+    category: Optional[str] = None
+    vote: str  # "up" | "down" | "save"

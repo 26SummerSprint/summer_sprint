@@ -14,10 +14,12 @@ services/recommend_service.py 참고.)
 from fastapi import FastAPI
 
 from .routers.recommend import router as recommend_router
+from .routers.feedback import router as feedback_router
 
 app = FastAPI(title="AI Paper Recommender - Orchestration Backend", version="0.1.0")
 
 app.include_router(recommend_router, prefix="/api/v1", tags=["recommend"])
+app.include_router(feedback_router, prefix="/api/v1", tags=["feedback"])
 
 
 @app.get("/health")
