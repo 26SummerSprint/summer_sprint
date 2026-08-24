@@ -22,7 +22,7 @@ ARXIV_PIPELINE_URL = os.getenv(
 ).rstrip("/")
 
 ARXIV_PIPELINE_API_KEY = os.getenv(
-    "ARXIV_API_KEY",
+    "ARXIV_PIPELINE_API_KEY",
     "",
 )
 

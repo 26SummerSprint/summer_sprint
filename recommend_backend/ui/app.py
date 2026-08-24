@@ -152,6 +152,41 @@ def move_saved(arxiv_id: str, direction: str):
         st.toast(f"이동 실패: {e}")
 
 
+def rerecommend_from_paper(arxiv_id: str, title: str, abstract: str, category):
+    """
+    '이 논문으로 다시 추천받기'. 이 논문의 abstract만으로 백엔드가 새 키워드를
+    뽑아 추천을 처음부터 다시 실행한다 (기존 프로필/키워드는 쓰지 않음).
+    기존 프로필 텍스트 상자 값은 건드리지 않는다 - 결과 화면만 새로 채운다.
+    """
+    if not abstract:
+        st.session_state["reref_error"] = "이 논문은 초록 정보가 없어 재추천할 수 없습니다."
+        return
+    try:
+        resp = requests.post(
+            _api("/recommend/from_paper"),
+            json={
+                "arxiv_id": arxiv_id,
+                "title": title,
+                "abstract": abstract,
+                "category": category,
+            },
+            timeout=180,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        st.session_state["result"] = data
+        # post_feedback/save_paper가 참조하는 session_state["profile"]/["keywords"]만
+        # 이번 재추천에 실제로 쓰인 값으로 갱신한다. 화면의 "연구 관심사 프로필"
+        # 입력창(render_recommend_page의 지역 변수 profile)은 별개라 영향받지 않는다.
+        st.session_state["profile"] = data.get("profile", "")
+        st.session_state["keywords"] = (data.get("extracted_profile") or {}).get("keywords", [])
+        st.session_state["category"] = category
+        st.session_state["reref_source"] = {"arxiv_id": arxiv_id, "title": title}
+        st.session_state.pop("reref_error", None)
+    except requests.RequestException as e:
+        st.session_state["reref_error"] = f"재추천 요청 실패: {e}"
+
+
 # ============================================================
 # 사이드바 (공용) — 설정 + 페이지 메뉴
 # ============================================================
@@ -219,8 +254,16 @@ def render_recommend_page():
                 st.session_state.pop("result", None)
 
     data = st.session_state.get("result")
+
+    if st.session_state.get("reref_error"):
+        st.error(st.session_state["reref_error"])
+
     if not data:
         return
+
+    reref_source = st.session_state.get("reref_source")
+    if reref_source:
+        st.info(f"🔁 **[{reref_source.get('title', '')}]** 논문 기반 재추천 결과입니다.")
 
     ext = data.get("extracted_profile", {}) or {}
     kws, exs = ext.get("keywords") or [], ext.get("exclude") or []
@@ -265,15 +308,25 @@ def render_recommend_page():
             unsafe_allow_html=True,
         )
 
-        b1, b2, b3, sp = st.columns([1, 1, 1, 7])
+        abstract = paper.get("abstract_clean") or ""
+
+        b1, b2, b3, b4, sp = st.columns([1, 1, 1, 3, 4])
         b1.button("👍", key=f"up_{rank}_{aid}", help="좋아요",
                   on_click=post_feedback, args=(aid, title, "up"))
         b2.button("👎", key=f"down_{rank}_{aid}", help="관심 없음",
                   on_click=post_feedback, args=(aid, title, "down"))
         b3.button("🔖", key=f"save_{rank}_{aid}", help="보관함에 저장",
                   on_click=save_paper, args=(paper, rec.get("reason", "")))
+        b4.button(
+            "🔁 이 논문으로 다시 추천받기",
+            key=f"reref_{rank}_{aid}",
+            help="이 논문의 초록만으로 새 키워드를 뽑아 추천을 처음부터 다시 실행합니다"
+            " (기존 프로필/키워드는 사용하지 않음).",
+            disabled=not abstract,
+            on_click=rerecommend_from_paper,
+            args=(aid, title, abstract, st.session_state.get("category")),
+        )
 
-        abstract = paper.get("abstract_clean") or ""
         if abstract:
             with st.expander("초록 보기"):
                 st.write(abstract)

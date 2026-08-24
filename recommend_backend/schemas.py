@@ -60,3 +60,15 @@ class SavedPaperRequest(BaseModel):
 
 class SavedPaperOut(SavedPaperRequest):
     ts: str  # 저장 시각(ISO)
+
+
+class RecommendFromPaperRequest(BaseModel):
+    """
+    '이 논문으로 다시 추천받기' 요청. 기존 프로필/키워드는 전혀 쓰지 않고,
+    이 논문의 abstract에서 새로 추출한 키워드만으로 추천 파이프라인을
+    다시 실행한다. 선택한 논문 자신은 결과에서 제외된다.
+    """
+    arxiv_id: str
+    title: Optional[str] = None
+    abstract: str
+    category: Optional[str] = None

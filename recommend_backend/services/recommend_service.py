@@ -36,10 +36,36 @@ recommend_backend
          arxiv_pipeline /papers
          - pdf_url 등 상세정보 보강
 
+평가 Trace
+------------------------------------------------------------
+Evaluation 시 다음 단계별 결과를 기록한다.
+
+Stage 1
+    retrieved_ids
+
+Stage 2
+    reranked_ids
+    compressed_ids
+
+Stage 3
+    final_ids
+
+이를 이용하여:
+
+    Retrieval Recall@50
+    Retrieval Recall@100
+    Rerank Recall@25
+    Final Precision@10
+    Final NDCG@10
+    Final Recall@10
+
+을 단계별로 분석할 수 있다.
+
 중요:
 - recommend_backend에는 reranker.py가 필요하지 않다.
 - recommend_backend에는 sentence-transformers / torch가 필요하지 않다.
 - reranker는 arxiv_pipeline EC2에서 실행된다.
+- Evaluation Trace는 추천 동작 자체에는 영향을 주지 않는다.
 """
 
 from dataclasses import dataclass
@@ -63,6 +89,7 @@ from ..config import (
 )
 
 from ..schemas import (
+    ExtractedProfile,
     RecommendedPaperOut,
     RecommendResponse,
 )
@@ -165,6 +192,32 @@ class RecommendService:
 
     Stage 4
         arxiv_pipeline /papers 상세정보 보강
+
+
+    Evaluation Trace
+    --------------------------------------------------------
+    self.last_trace에 다음 정보를 기록한다.
+
+        retrieved_ids
+            Stage 1 Retrieval 결과
+
+        reranked_ids
+            Stage 2 Reranker 결과
+
+        compressed_ids
+            Gemini에 실제 전달된 후보
+
+        final_ids
+            Gemini 최종 선정 결과
+
+    평가 코드에서는 다음과 같이 사용할 수 있다.
+
+        trace = service.last_trace
+
+        retrieved_ids = trace["retrieved_ids"]
+        reranked_ids = trace["reranked_ids"]
+        compressed_ids = trace["compressed_ids"]
+        final_ids = trace["final_ids"]
     """
 
     def __init__(
@@ -251,6 +304,23 @@ class RecommendService:
             final_recommend_count
         )
 
+        # ----------------------------------------------------
+        # Evaluation / Debug Trace
+        # ----------------------------------------------------
+        #
+        # 평가 시 Retrieval → Reranker → Gemini
+        # 각 단계의 후보 ID를 추적한다.
+        #
+        # 일반 추천 동작에는 영향을 주지 않는다.
+        #
+
+        self.last_trace: Dict[str, Any] = {
+            "retrieved_ids": [],
+            "reranked_ids": [],
+            "compressed_ids": [],
+            "final_ids": [],
+        }
+
     # ========================================================
     # 전체 추천
     # ========================================================
@@ -260,17 +330,43 @@ class RecommendService:
         profile: str,
         category: Optional[str] = None,
         diversity: float = 0.0,
+        override_keywords: Optional[List[str]] = None,
+        exclude_arxiv_ids: Optional[List[str]] = None,
     ) -> RecommendResponse:
         """
         전체 추천 파이프라인.
 
         profile
-            사용자가 입력한 연구 관심사
+            사용자가 입력한 연구 관심사.
 
         category
-            선택적 arXiv 카테고리
+            선택적 arXiv 카테고리.
             예: cs.RO
+
+        override_keywords
+            주어지면 Stage 1a(Gemini 프로필 분석)를 건너뛰고
+            이 키워드를 그대로 검색 조건으로 사용한다.
+
+        exclude_arxiv_ids
+            Stage 1b 직후 해당 arxiv_id를 후보에서 제거한다.
         """
+
+        # ====================================================
+        # Evaluation Trace 초기화
+        # ====================================================
+        #
+        # recommend() 호출마다 반드시 초기화한다.
+        #
+        # 이렇게 하지 않으면 이전 프로필의 trace가
+        # 다음 프로필 평가에 섞일 수 있다.
+        #
+
+        self.last_trace = {
+            "retrieved_ids": [],
+            "reranked_ids": [],
+            "compressed_ids": [],
+            "final_ids": [],
+        }
 
         # ====================================================
         # Stage 1a
@@ -286,17 +382,34 @@ class RecommendService:
         # /keyword_df 검증
         # ====================================================
 
-        extracted_profile = (
-            await self._keyword_extraction_service.extract(
-                profile,
-                category,
+        if override_keywords:
+            extracted_profile = ExtractedProfile(
+                profile_text_en="; ".join(
+                    override_keywords
+                ),
+                keywords=override_keywords,
+                exclude=[],
             )
-        )
 
-        print(
-            "[RecommendService] "
-            "Stage 1a 프로필 추출 완료"
-        )
+            print(
+                "[RecommendService] "
+                "Stage 1a 건너뜀 "
+                "(override_keywords 사용): "
+                f"{override_keywords}"
+            )
+
+        else:
+            extracted_profile = (
+                await self._keyword_extraction_service.extract(
+                    profile,
+                    category,
+                )
+            )
+
+            print(
+                "[RecommendService] "
+                "Stage 1a 프로필 추출 완료"
+            )
 
         print(
             "[RecommendService] "
@@ -350,39 +463,93 @@ class RecommendService:
             for raw in raw_candidates
         ]
 
+        # ----------------------------------------------------
+        # Evaluation Trace
+        # Stage 1 Retrieval 결과
+        # ----------------------------------------------------
+
+        self.last_trace["retrieved_ids"] = [
+            candidate.arxiv_id
+            for candidate in candidates
+            if candidate.arxiv_id
+        ]
+
+        print(
+            "[RecommendService] "
+            f"Stage 1 Retrieval 후보: "
+            f"{len(candidates)}편"
+        )
+
+        # ----------------------------------------------------
+        # '이 논문으로 다시 추천받기'
+        # 기준 논문 제거
+        # ----------------------------------------------------
+
+        if exclude_arxiv_ids:
+            exclude_set = set(
+                exclude_arxiv_ids
+            )
+
+            candidates = [
+                candidate
+                for candidate in candidates
+                if candidate.arxiv_id
+                not in exclude_set
+            ]
+
+        # ----------------------------------------------------
+        # 피드백 반영
+        # ----------------------------------------------------
+
+        excluded_ids, upvoted_ids = feedback_sets(
+            extracted_profile.keywords
+        )
+
+        hide_ids = (
+            set(excluded_ids)
+            | set(upvoted_ids)
+        )
+
+        if hide_ids:
+            n_down = sum(
+                1
+                for candidate in candidates
+                if candidate.arxiv_id
+                in excluded_ids
+            )
+
+            n_up = sum(
+                1
+                for candidate in candidates
+                if candidate.arxiv_id
+                in upvoted_ids
+            )
+
+            candidates = [
+                candidate
+                for candidate in candidates
+                if candidate.arxiv_id
+                not in hide_ids
+            ]
+
+            if n_down or n_up:
+                print(
+                    "[RecommendService] "
+                    f"피드백: 다운보트 {n_down}편 제외, "
+                    f"업보트 {n_up}편 숨김"
+                    "(유사 논문은 부스트)"
+                )
+
         print(
             "[RecommendService] "
             f"Stage 1 후보: "
             f"{len(candidates)}편"
         )
 
-        # ====================================================
-        # 피드백 반영 (키워드 단위 — 프로필 무관)
-        #   다운보트 누적 논문 제외(후보 단계) /
-        #   업보트 누적 논문은 Stage 2에서 '유사 논문 부스트'로 반영
-        # ====================================================
-        excluded_ids, upvoted_ids = feedback_sets(
-            extracted_profile.keywords
-        )
-        # B안: 다운보트 논문은 제외, 업보트 논문은 '이미 본 것'이라 결과에서 숨긴다.
-        #      업보트 id는 숨기되 boost_ids(유사도 부스트 앵커)로는 계속 사용해
-        #      "그 논문 자체"가 아니라 "유사한 새 논문"을 상위로 올린다.
-        hide_ids = set(excluded_ids) | set(upvoted_ids)
-        if hide_ids:
-            n_down = sum(1 for c in candidates if c.arxiv_id in excluded_ids)
-            n_up = sum(1 for c in candidates if c.arxiv_id in upvoted_ids)
-            candidates = [
-                c for c in candidates
-                if c.arxiv_id not in hide_ids
-            ]
-            if n_down or n_up:
-                print(
-                    "[RecommendService] "
-                    f"피드백: 다운보트 {n_down}편 제외, "
-                    f"업보트 {n_up}편 숨김(유사 논문은 부스트)"
-                )
+        # ----------------------------------------------------
+        # 후보가 하나도 없으면 종료
+        # ----------------------------------------------------
 
-        # 후보가 하나도 없으면 바로 종료
         if not candidates:
 
             return RecommendResponse(
@@ -403,9 +570,6 @@ class RecommendService:
         # arxiv_pipeline /rerank
         #
         # CrossEncoder
-        #
-        # recommend_backend에서는
-        # reranker.py를 직접 import하지 않는다.
         # ====================================================
 
         compressed = (
@@ -413,9 +577,14 @@ class RecommendService:
                 profile_text_en=(
                     extracted_profile.profile_text_en
                 ),
+
                 candidates=candidates,
+
                 diversity=diversity,
-                boost_ids=list(upvoted_ids),
+
+                boost_ids=list(
+                    upvoted_ids
+                ),
             )
         )
 
@@ -426,13 +595,46 @@ class RecommendService:
             f"{len(compressed)}편"
         )
 
-        # 혹시 rerank 결과가 비어 있으면
-        # Stage 1 후보를 사용
+        # ----------------------------------------------------
+        # Reranker 결과가 비어 있으면
+        # Stage 1 순서를 유지
+        # ----------------------------------------------------
+
         if not compressed:
 
             compressed = candidates[
                 :self._rerank_compress_count
             ]
+
+            print(
+                "[RecommendService] "
+                "Stage 2 fallback → "
+                "Stage 1 순서 사용"
+            )
+
+        # ----------------------------------------------------
+        # Evaluation Trace
+        #
+        # 최종적으로 Gemini에 전달되는 후보
+        # ----------------------------------------------------
+
+        self.last_trace["reranked_ids"] = [
+            candidate.arxiv_id
+            for candidate in compressed
+            if candidate.arxiv_id
+        ]
+
+        self.last_trace["compressed_ids"] = [
+            candidate.arxiv_id
+            for candidate in compressed
+            if candidate.arxiv_id
+        ]
+
+        print(
+            "[RecommendService] "
+            f"Stage 2 최종 후보: "
+            f"{len(self.last_trace['reranked_ids'])}편"
+        )
 
         # ====================================================
         # Stage 3
@@ -447,8 +649,8 @@ class RecommendService:
         # ====================================================
 
         compressed_by_id = {
-            c.arxiv_id: c
-            for c in compressed
+            candidate.arxiv_id: candidate
+            for candidate in compressed
         }
 
         try:
@@ -456,8 +658,8 @@ class RecommendService:
                 await self._final_selection_service.select(
                     profile,
                     [
-                        c.as_dict()
-                        for c in compressed
+                        candidate.as_dict()
+                        for candidate in compressed
                     ],
                 )
             )
@@ -470,9 +672,9 @@ class RecommendService:
 
             raise
 
-        # ====================================================
+        # ----------------------------------------------------
         # 최종 추천 개수 제한
-        # ====================================================
+        # ----------------------------------------------------
 
         final_recs = (
             final_recs[
@@ -480,11 +682,11 @@ class RecommendService:
             ]
         )
 
-        # ====================================================
+        # ----------------------------------------------------
         # Gemini 결과
         # →
         # API Response
-        # ====================================================
+        # ----------------------------------------------------
 
         recommendations = (
             self._build_recommendations(
@@ -493,8 +695,25 @@ class RecommendService:
             )
         )
 
-        # 업보트 반영은 Stage 2 rerank 단계의 유사도 부스트(boost_ids)로 처리한다.
-        # (업보트한 논문 '자체'가 아니라 그와 유사한 후보를 상위로 → Gemini에 더 노출)
+        # ----------------------------------------------------
+        # Evaluation Trace
+        #
+        # 실제 API로 반환되는 최종 논문
+        # ----------------------------------------------------
+
+        self.last_trace["final_ids"] = [
+            recommendation.paper.get(
+                "arxiv_id"
+            )
+            for recommendation in recommendations
+            if recommendation.paper.get(
+                "arxiv_id"
+            )
+        ]
+
+        # ----------------------------------------------------
+        # 업보트 반영
+        # ----------------------------------------------------
 
         print(
             "[RecommendService] "
@@ -507,8 +726,6 @@ class RecommendService:
         #
         # 최종 선정된 논문에 대해서만
         # arxiv_pipeline /papers 호출
-        #
-        # pdf_url 등 상세정보 보강
         # ====================================================
 
         await self._enrich_with_paper_details(
@@ -554,11 +771,8 @@ class RecommendService:
         RERANK_PIPELINE_URL이 비어 있으면
         reranker를 건너뛰고 Stage 1 순서를 유지한다.
 
-        중요:
-        CrossEncoder는 이 프로세스에서 실행되지 않는다.
-
-        실제 CrossEncoder는 EC2의 arxiv_pipeline에서
-        reranker.py를 통해 실행된다.
+        Reranker 실패 시에도
+        Stage 1 후보를 그대로 fallback으로 사용한다.
         """
 
         if not candidates:
@@ -631,9 +845,11 @@ class RecommendService:
                 f"Stage 2 rerank 호출 실패: {e}"
             )
 
-            # reranker 실패가
-            # 전체 추천 실패로 이어지지 않도록
-            # Stage 1 순서 유지
+            # ------------------------------------------------
+            # Reranker 실패
+            #
+            # Stage 1 순서를 유지한다.
+            # ------------------------------------------------
 
             return candidates[
                 :self._rerank_compress_count
@@ -669,7 +885,7 @@ class RecommendService:
         ] = []
 
         # ----------------------------------------------------
-        # reranker 순서대로 복원
+        # Reranker 순서대로 복원
         # ----------------------------------------------------
 
         for item in ranked:
@@ -693,14 +909,15 @@ class RecommendService:
             )
 
         # ----------------------------------------------------
-        # reranker가 일부 후보만 반환한 경우
+        # Reranker가 일부 후보만 반환한 경우
         #
-        # 나머지는 Stage 1 순서 그대로 뒤에 붙임
+        # 나머지는 Stage 1 순서 그대로 뒤에 붙인다.
         # ----------------------------------------------------
 
         ranked_ids = {
             candidate.arxiv_id
-            for candidate in reranked_candidates
+            for candidate
+            in reranked_candidates
         }
 
         for candidate in candidates:
@@ -765,8 +982,8 @@ class RecommendService:
 
                 print(
                     "[RecommendService] "
-                    f"Gemini가 존재하지 않는 "
-                    f"arxiv_id 반환: "
+                    "Gemini가 존재하지 않는 "
+                    "arxiv_id 반환: "
                     f"{rec.arxiv_id}"
                 )
 
@@ -795,16 +1012,14 @@ class RecommendService:
         )
 
         # ----------------------------------------------------
-        # rank를 실제 반환 순서 기준으로 정규화
-        #
-        # Gemini가 1, 3, 5처럼 이상하게 반환하는 경우
-        # API 결과는 항상 1,2,3...이 되도록 처리
+        # rank 정규화
         # ----------------------------------------------------
 
         for index, recommendation in enumerate(
             recommendations,
             start=1,
         ):
+
             recommendation.rank = index
 
         return recommendations
@@ -836,13 +1051,14 @@ class RecommendService:
 
         ids = []
 
-        for rec in recommendations:
+        for recommendation in recommendations:
 
-            arxiv_id = rec.paper.get(
+            arxiv_id = recommendation.paper.get(
                 "arxiv_id"
             )
 
             if arxiv_id:
+
                 ids.append(
                     arxiv_id
                 )
@@ -878,10 +1094,10 @@ class RecommendService:
         # 상세정보 반영
         # ----------------------------------------------------
 
-        for rec in recommendations:
+        for recommendation in recommendations:
 
             arxiv_id = (
-                rec.paper.get(
+                recommendation.paper.get(
                     "arxiv_id"
                 )
             )
@@ -908,7 +1124,7 @@ class RecommendService:
 
             if pdf_url:
 
-                rec.paper[
+                recommendation.paper[
                     "pdf_url"
                 ] = pdf_url
 
@@ -922,7 +1138,7 @@ class RecommendService:
 
             if abs_url:
 
-                rec.paper[
+                recommendation.paper[
                     "abs_url"
                 ] = abs_url
 
@@ -930,11 +1146,11 @@ class RecommendService:
             # abstract
             # ------------------------------------------------
 
-            if not rec.paper.get(
+            if not recommendation.paper.get(
                 "abstract_clean"
             ):
 
-                rec.paper[
+                recommendation.paper[
                     "abstract_clean"
                 ] = detail.get(
                     "abstract_clean"
@@ -944,11 +1160,11 @@ class RecommendService:
             # title
             # ------------------------------------------------
 
-            if not rec.paper.get(
+            if not recommendation.paper.get(
                 "title"
             ):
 
-                rec.paper[
+                recommendation.paper[
                     "title"
                 ] = detail.get(
                     "title",
@@ -959,11 +1175,11 @@ class RecommendService:
             # category
             # ------------------------------------------------
 
-            if not rec.paper.get(
+            if not recommendation.paper.get(
                 "primary_category"
             ):
 
-                rec.paper[
+                recommendation.paper[
                     "primary_category"
                 ] = detail.get(
                     "primary_category",
@@ -974,11 +1190,11 @@ class RecommendService:
             # submitted date
             # ------------------------------------------------
 
-            if not rec.paper.get(
+            if not recommendation.paper.get(
                 "submitted_date"
             ):
 
-                rec.paper[
+                recommendation.paper[
                     "submitted_date"
                 ] = detail.get(
                     "submitted_date",
