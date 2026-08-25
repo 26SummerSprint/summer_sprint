@@ -1,3 +1,4 @@
+
 """
 RecommendService: 전체 논문 추천 오케스트레이션.
 
@@ -10,10 +11,10 @@ recommend_backend
     ├─ Stage 1a
     │    KeywordExtractionService
     │    - Gemini로 프로필 분석
+    │    - 입력 유효성 검사
     │    - 영어 검색 쿼리 생성
     │    - 키워드 추출
     │    - 제외조건 추출
-    │    - arxiv_pipeline /keyword_df로 DF 검증
     │
     ├─ Stage 1b
     │    arxiv_pipeline /retrieve
@@ -24,8 +25,6 @@ recommend_backend
     ├─ Stage 2
     │    arxiv_pipeline /rerank
     │    - CrossEncoder
-    │    - reranker.py는 EC2의 arxiv_pipeline에만 존재
-    │    - recommend_backend는 HTTP로만 호출
     │
     ├─ Stage 3
     │    FinalSelectionService
@@ -34,38 +33,14 @@ recommend_backend
     │
     └─ Stage 4
          arxiv_pipeline /papers
-         - pdf_url 등 상세정보 보강
+         - 상세정보 보강
 
-평가 Trace
+중요
 ------------------------------------------------------------
-Evaluation 시 다음 단계별 결과를 기록한다.
-
-Stage 1
-    retrieved_ids
-
-Stage 2
-    reranked_ids
-    compressed_ids
-
-Stage 3
-    final_ids
-
-이를 이용하여:
-
-    Retrieval Recall@50
-    Retrieval Recall@100
-    Rerank Recall@25
-    Final Precision@10
-    Final NDCG@10
-    Final Recall@10
-
-을 단계별로 분석할 수 있다.
-
-중요:
-- recommend_backend에는 reranker.py가 필요하지 않다.
-- recommend_backend에는 sentence-transformers / torch가 필요하지 않다.
-- reranker는 arxiv_pipeline EC2에서 실행된다.
-- Evaluation Trace는 추천 동작 자체에는 영향을 주지 않는다.
+- invalid 입력만 RecommendService에서 검색을 중단한다.
+- valid 입력은 기존 추천 파이프라인을 그대로 수행한다.
+- 기존 /retrieve 호출 방식은 변경하지 않는다.
+- reranker / final selection / paper enrichment 로직은 기존과 동일하다.
 """
 
 from dataclasses import dataclass
@@ -179,45 +154,27 @@ class RecommendService:
     """
     전체 추천 파이프라인을 오케스트레이션한다.
 
-    Stage 1
-        Gemini 프로필 분석
-        +
+    Stage 1a
+        Gemini 입력 유효성 검사 + 프로필 분석
+
+    Stage 1b
         arxiv_pipeline Hybrid Retrieval
 
     Stage 2
-        arxiv_pipeline /rerank HTTP 호출
+        arxiv_pipeline /rerank
 
     Stage 3
         Gemini 최종 논문 선정
 
     Stage 4
-        arxiv_pipeline /papers 상세정보 보강
+        arxiv_pipeline /papers
 
+    invalid 입력:
+        Gemini가 valid=false를 반환하면
+        /retrieve를 호출하지 않고 즉시 빈 결과를 반환한다.
 
-    Evaluation Trace
-    --------------------------------------------------------
-    self.last_trace에 다음 정보를 기록한다.
-
-        retrieved_ids
-            Stage 1 Retrieval 결과
-
-        reranked_ids
-            Stage 2 Reranker 결과
-
-        compressed_ids
-            Gemini에 실제 전달된 후보
-
-        final_ids
-            Gemini 최종 선정 결과
-
-    평가 코드에서는 다음과 같이 사용할 수 있다.
-
-        trace = service.last_trace
-
-        retrieved_ids = trace["retrieved_ids"]
-        reranked_ids = trace["reranked_ids"]
-        compressed_ids = trace["compressed_ids"]
-        final_ids = trace["final_ids"]
+    valid 입력:
+        기존 추천 파이프라인을 그대로 수행한다.
     """
 
     def __init__(
@@ -307,12 +264,6 @@ class RecommendService:
         # ----------------------------------------------------
         # Evaluation / Debug Trace
         # ----------------------------------------------------
-        #
-        # 평가 시 Retrieval → Reranker → Gemini
-        # 각 단계의 후보 ID를 추적한다.
-        #
-        # 일반 추천 동작에는 영향을 주지 않는다.
-        #
 
         self.last_trace: Dict[str, Any] = {
             "retrieved_ids": [],
@@ -336,30 +287,15 @@ class RecommendService:
         """
         전체 추천 파이프라인.
 
-        profile
-            사용자가 입력한 연구 관심사.
+        invalid 입력은 Stage 1a에서 차단한다.
 
-        category
-            선택적 arXiv 카테고리.
-            예: cs.RO
-
-        override_keywords
-            주어지면 Stage 1a(Gemini 프로필 분석)를 건너뛰고
-            이 키워드를 그대로 검색 조건으로 사용한다.
-
-        exclude_arxiv_ids
-            Stage 1b 직후 해당 arxiv_id를 후보에서 제거한다.
+        valid 입력은 기존 검색 → rerank →
+        Gemini 최종선정 → 상세정보 보강 흐름을 그대로 따른다.
         """
 
         # ====================================================
         # Evaluation Trace 초기화
         # ====================================================
-        #
-        # recommend() 호출마다 반드시 초기화한다.
-        #
-        # 이렇게 하지 않으면 이전 프로필의 trace가
-        # 다음 프로필 평가에 섞일 수 있다.
-        #
 
         self.last_trace = {
             "retrieved_ids": [],
@@ -375,19 +311,23 @@ class RecommendService:
         #       ↓
         # Gemini
         #       ↓
-        # 영어 검색 쿼리
-        # 키워드
-        # 제외조건
-        #       ↓
-        # /keyword_df 검증
+        # valid
+        # profile_text_en
+        # keywords
+        # exclusion
         # ====================================================
 
         if override_keywords:
+
             extracted_profile = ExtractedProfile(
+                valid=True,
+
                 profile_text_en="; ".join(
                     override_keywords
                 ),
+
                 keywords=override_keywords,
+
                 exclude=[],
             )
 
@@ -399,6 +339,7 @@ class RecommendService:
             )
 
         else:
+
             extracted_profile = (
                 await self._keyword_extraction_service.extract(
                     profile,
@@ -410,6 +351,37 @@ class RecommendService:
                 "[RecommendService] "
                 "Stage 1a 프로필 추출 완료"
             )
+
+        # ----------------------------------------------------
+        # 입력 유효성 검사
+        #
+        # 중요:
+        # invalid인 경우 /retrieve를 호출하지 않는다.
+        # ----------------------------------------------------
+
+        if not extracted_profile.valid:
+
+            print(
+                "[RecommendService] "
+                "INVALID 입력 → "
+                "Stage 1 retrieve 중단"
+            )
+
+            return RecommendResponse(
+                profile=profile,
+
+                extracted_profile=(
+                    extracted_profile
+                ),
+
+                count=0,
+
+                recommendations=[],
+            )
+
+        # ----------------------------------------------------
+        # 추출 결과 출력
+        # ----------------------------------------------------
 
         print(
             "[RecommendService] "
@@ -428,29 +400,31 @@ class RecommendService:
         #
         # arxiv_pipeline /retrieve
         #
-        # BM25 top N
-        # +
-        # Embedding top M
-        # →
-        # union / dedupe
+        # 기존 로직 그대로 유지
         # ====================================================
 
         try:
+
             raw_candidates = (
                 await self._arxiv_client.retrieve(
                     profile_text=(
                         extracted_profile.profile_text_en
                     ),
+
                     keywords=(
                         extracted_profile.keywords
                     ),
+
                     category=category,
+
                     n_keyword=self._n_keyword,
+
                     m_embedding=self._m_embedding,
                 )
             )
 
         except ArxivPipelineClientError as e:
+
             print(
                 "[RecommendService] "
                 f"Stage 1 retrieve 실패: {e}"
@@ -465,7 +439,6 @@ class RecommendService:
 
         # ----------------------------------------------------
         # Evaluation Trace
-        # Stage 1 Retrieval 결과
         # ----------------------------------------------------
 
         self.last_trace["retrieved_ids"] = [
@@ -481,11 +454,11 @@ class RecommendService:
         )
 
         # ----------------------------------------------------
-        # '이 논문으로 다시 추천받기'
         # 기준 논문 제거
         # ----------------------------------------------------
 
         if exclude_arxiv_ids:
+
             exclude_set = set(
                 exclude_arxiv_ids
             )
@@ -511,6 +484,7 @@ class RecommendService:
         )
 
         if hide_ids:
+
             n_down = sum(
                 1
                 for candidate in candidates
@@ -533,10 +507,11 @@ class RecommendService:
             ]
 
             if n_down or n_up:
+
                 print(
                     "[RecommendService] "
                     f"피드백: 다운보트 {n_down}편 제외, "
-                    f"업보트 {n_up}편 숨김"
+                    f"업보트 {n_up}편 숨김 "
                     "(유사 논문은 부스트)"
                 )
 
@@ -568,8 +543,6 @@ class RecommendService:
         # Stage 2
         #
         # arxiv_pipeline /rerank
-        #
-        # CrossEncoder
         # ====================================================
 
         compressed = (
@@ -596,8 +569,7 @@ class RecommendService:
         )
 
         # ----------------------------------------------------
-        # Reranker 결과가 비어 있으면
-        # Stage 1 순서를 유지
+        # Reranker fallback
         # ----------------------------------------------------
 
         if not compressed:
@@ -614,8 +586,6 @@ class RecommendService:
 
         # ----------------------------------------------------
         # Evaluation Trace
-        #
-        # 최종적으로 Gemini에 전달되는 후보
         # ----------------------------------------------------
 
         self.last_trace["reranked_ids"] = [
@@ -640,12 +610,6 @@ class RecommendService:
         # Stage 3
         #
         # Gemini 최종 선정
-        #
-        # 후보 20~30편
-        #       ↓
-        # Gemini
-        #       ↓
-        # 최종 최대 10편
         # ====================================================
 
         compressed_by_id = {
@@ -654,9 +618,11 @@ class RecommendService:
         }
 
         try:
+
             final_recs = (
                 await self._final_selection_service.select(
                     profile,
+
                     [
                         candidate.as_dict()
                         for candidate in compressed
@@ -665,6 +631,7 @@ class RecommendService:
             )
 
         except Exception as e:
+
             print(
                 "[RecommendService] "
                 f"Stage 3 Gemini 최종 선정 실패: {e}"
@@ -683,9 +650,7 @@ class RecommendService:
         )
 
         # ----------------------------------------------------
-        # Gemini 결과
-        # →
-        # API Response
+        # Gemini 결과 → API Response
         # ----------------------------------------------------
 
         recommendations = (
@@ -697,8 +662,6 @@ class RecommendService:
 
         # ----------------------------------------------------
         # Evaluation Trace
-        #
-        # 실제 API로 반환되는 최종 논문
         # ----------------------------------------------------
 
         self.last_trace["final_ids"] = [
@@ -711,10 +674,6 @@ class RecommendService:
             )
         ]
 
-        # ----------------------------------------------------
-        # 업보트 반영
-        # ----------------------------------------------------
-
         print(
             "[RecommendService] "
             f"Stage 3 최종 추천: "
@@ -724,8 +683,7 @@ class RecommendService:
         # ====================================================
         # Stage 4
         #
-        # 최종 선정된 논문에 대해서만
-        # arxiv_pipeline /papers 호출
+        # 최종 논문 상세정보
         # ====================================================
 
         await self._enrich_with_paper_details(
@@ -764,22 +722,12 @@ class RecommendService:
         diversity: float = 0.0,
         boost_ids: Optional[List[str]] = None,
     ) -> List[_Candidate]:
-        """
-        arxiv_pipeline의 /rerank를 호출하여
-        후보를 재랭킹하고 상위 N개만 반환한다.
-
-        RERANK_PIPELINE_URL이 비어 있으면
-        reranker를 건너뛰고 Stage 1 순서를 유지한다.
-
-        Reranker 실패 시에도
-        Stage 1 후보를 그대로 fallback으로 사용한다.
-        """
 
         if not candidates:
             return []
 
         # ----------------------------------------------------
-        # Reranker가 설정되지 않은 경우
+        # Reranker 미설정
         # ----------------------------------------------------
 
         if not self._rerank_client.is_configured:
@@ -795,7 +743,7 @@ class RecommendService:
             ]
 
         # ----------------------------------------------------
-        # arxiv_pipeline /rerank에 전달할 후보 생성
+        # Payload
         # ----------------------------------------------------
 
         payload_candidates = []
@@ -804,13 +752,9 @@ class RecommendService:
 
             payload_candidates.append(
                 {
-                    "arxiv_id": (
-                        candidate.arxiv_id
-                    ),
+                    "arxiv_id": candidate.arxiv_id,
 
-                    "title": (
-                        candidate.title
-                    ),
+                    "title": candidate.title,
 
                     "abstract_clean": (
                         candidate.abstract_clean
@@ -819,7 +763,7 @@ class RecommendService:
             )
 
         # ----------------------------------------------------
-        # /rerank 호출
+        # Rerank
         # ----------------------------------------------------
 
         try:
@@ -845,18 +789,12 @@ class RecommendService:
                 f"Stage 2 rerank 호출 실패: {e}"
             )
 
-            # ------------------------------------------------
-            # Reranker 실패
-            #
-            # Stage 1 순서를 유지한다.
-            # ------------------------------------------------
-
             return candidates[
                 :self._rerank_compress_count
             ]
 
         # ----------------------------------------------------
-        # API 응답 검증
+        # 빈 결과
         # ----------------------------------------------------
 
         if not ranked:
@@ -872,7 +810,7 @@ class RecommendService:
             ]
 
         # ----------------------------------------------------
-        # arxiv_id → 원본 Candidate
+        # 원본 Candidate 매핑
         # ----------------------------------------------------
 
         by_id = {
@@ -909,9 +847,7 @@ class RecommendService:
             )
 
         # ----------------------------------------------------
-        # Reranker가 일부 후보만 반환한 경우
-        #
-        # 나머지는 Stage 1 순서 그대로 뒤에 붙인다.
+        # 누락 후보 뒤에 추가
         # ----------------------------------------------------
 
         ranked_ids = {
@@ -932,7 +868,7 @@ class RecommendService:
                 )
 
         # ----------------------------------------------------
-        # 상위 N개 압축
+        # 상위 N개
         # ----------------------------------------------------
 
         return reranked_candidates[
@@ -954,13 +890,6 @@ class RecommendService:
     ) -> List[
         RecommendedPaperOut
     ]:
-        """
-        Gemini가 반환한 최종 추천 결과를
-        RecommendedPaperOut으로 변환한다.
-
-        Gemini가 후보에 없는 arXiv ID를
-        반환한 경우 해당 항목은 제거한다.
-        """
 
         recommendations: List[
             RecommendedPaperOut
@@ -1004,7 +933,7 @@ class RecommendService:
             )
 
         # ----------------------------------------------------
-        # Gemini rank 순으로 정렬
+        # rank 정렬
         # ----------------------------------------------------
 
         recommendations.sort(
@@ -1035,15 +964,6 @@ class RecommendService:
             RecommendedPaperOut
         ],
     ) -> None:
-        """
-        최종 추천된 논문에 대해서만
-        arxiv_pipeline /papers를 호출한다.
-
-        /retrieve에는 pdf_url이 없으므로
-        최종 선정된 논문에 대해 상세정보를 가져온다.
-
-        상세정보 API 실패는 추천 전체 실패로 처리하지 않는다.
-        """
 
         # ----------------------------------------------------
         # arxiv_id 추출
@@ -1053,8 +973,10 @@ class RecommendService:
 
         for recommendation in recommendations:
 
-            arxiv_id = recommendation.paper.get(
-                "arxiv_id"
+            arxiv_id = (
+                recommendation.paper.get(
+                    "arxiv_id"
+                )
             )
 
             if arxiv_id:
@@ -1084,9 +1006,6 @@ class RecommendService:
                 "[RecommendService] "
                 f"논문 상세정보 보강 실패: {e}"
             )
-
-            # pdf_url이 없어도
-            # 추천 자체는 정상 반환
 
             return
 
@@ -1200,3 +1119,4 @@ class RecommendService:
                     "submitted_date",
                     "",
                 )
+
